@@ -1,0 +1,33 @@
+//
+//  Song.swift
+//  Songbook
+//
+//  Created by John Haselden on 13/12/2025.
+//
+
+import Foundation
+import SwiftData
+
+@Model
+final class Song: Identifiable {
+    var id: UUID
+    var title: String
+    var key: String?
+    var capo: Int?
+    var chords: [Chord]
+    
+    @Relationship(inverse: \Section.song) var sections: [Section]
+    
+    init(id: UUID, title: String, sections: [Section], key: String? = nil, capo: Int? = nil, chords: [Chord] = []) {
+        self.id = id
+        self.title = title
+        self.sections = sections
+        self.key = key
+        self.capo = capo
+        self.chords = chords
+    }
+    
+    static var emptySong: Song {
+        Song(id: UUID(), title: "", sections: [])
+    }
+}

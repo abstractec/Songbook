@@ -10,47 +10,59 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @State private var sortOrder = SortDescriptor(\Playlist.name)
+    @State private var searchText = ""
+    @State private var detailPath = NavigationPath()
+    
+    @State private var navigateToAddSong = false
 
     var body: some View {
         NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
-            }
+            PlaylistsView(sort: sortOrder, searchString: searchText)
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-            .toolbar {
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
         } detail: {
+            NavigationLink(value: DetailDestination.newSong) {
+                            Text("Add New Song")
+                        }
+            NavigationStack(path: $detailPath) {
+                Text("Select an item or navigate deeper")
+                    .navigationDestination(for: DetailDestination.self) { destination in
+                        switch destination {
+                        case .newSong:
+                            let song = Song(id: UUID(), title: "", sections: [])
+                            let viewModel = EditSongViewModel(song: song)
+                            EditSongView(viewModel: viewModel)
+                        case .newSection(let song):
+                            let section = Section(id: UUID(), name: "", song: song, phrases: [])
+                            let viewModel = SectionViewModel(song: song, section: section)
+                            EditSectionView(viewModel: viewModel)
+                        case .newPhrase(let section):
+                            var aMinor = Chord(id: UUID(), name: "A Minor", shortName: "Am", imagePath: nil)
+                            var cMajor = Chord(id: UUID(), name: "C Major", shortName: "C", imagePath: nil)
+                            var chordSequence = ChordSequence(id: UUID(), chords: [aMinor, cMajor], spacing: [0, 17])
+                            var lyric = Lyric(id: UUID(), text: "This should be a line of lyrics")
+                            var phrase = Phrase(lyric: lyric, chordSequence: chordSequence)
+
+                            var viewModel = EditPhraseViewModel(phrase: phrase)
+
+//                            return EditPhraseView(viewModel: viewModel)
+//
+//                            let chordSequence = ChordSequence(id: UUID(), chords: [], spacing: [])
+//                            let phrase = Phrase(id: UUID(), sections: [section], lyric: nil, chordSequence: chordSequence, chordSequenceRepeatCount: nil)
+//                            let viewModel = EditPhraseViewModel(phrase: phrase)
+                            EditPhraseView(viewModel: viewModel)
+                            
+                        }
+                    }
+            }
             Text("Select an item")
         }
     }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
+    
+    private func debug(_ string: String) {
+        print(string)
     }
 
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
-        }
-    }
 }
 
 #Preview {
