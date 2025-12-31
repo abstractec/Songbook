@@ -73,7 +73,8 @@ struct LyricChordEditor: View {
                     }.padding(0)
                 }.onAppear() {
                     viewModel.currentLyricStep = 0
-                }
+                }                
+                
             }
             .sheet(isPresented: $showingSheet) {
                 SelectChordView(viewModel: viewModel)
@@ -94,7 +95,7 @@ struct LyricChordEditor: View {
     var lyric = Lyric(id: UUID(), text: "This should be a line of lyrics, and it will wrap")
     var phrase = Phrase(lyric: lyric, chordSequence: chordSequence)
 
-    var viewModel = EditPhraseViewModel(phrase: phrase)
+    var viewModel = EditPhraseViewModel(section: Section.emptySection, phrase: phrase)
 
     LyricChordEditor(lyric: viewModel.lyrics[1], viewModel: viewModel, startStep:31)
 }

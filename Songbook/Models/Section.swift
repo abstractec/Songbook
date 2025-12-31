@@ -22,4 +22,9 @@ final class Section: Identifiable, Hashable {
         self.song = song
         self.phrases = phrases
     }
+    
+    static var emptySection: Section {
+        Section(id: UUID(), name: "", song: Song.emptySong, phrases: [])
+    }
+
 }

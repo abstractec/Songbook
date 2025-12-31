@@ -12,7 +12,11 @@ import SwiftData
 struct SongbookApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            Song.self,
+            Chord.self,
+            Section.self,
+            Phrase.self
+//            Item.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

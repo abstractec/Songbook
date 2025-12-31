@@ -27,6 +27,8 @@
 		7B7DF13C2EED04EA00203C62 /* Songbook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Songbook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B7DF14C2EED04EB00203C62 /* SongbookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SongbookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B7DF1562EED04EB00203C62 /* SongbookUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SongbookUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7BC87A672F04EE60003965EB /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		7BC87A682F04EE60003965EB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +77,8 @@
 		7B7DF1332EED04EA00203C62 = {
 			isa = PBXGroup;
 			children = (
+				7BC87A672F04EE60003965EB /* LICENSE */,
+				7BC87A682F04EE60003965EB /* README.md */,
 				7B7DF13E2EED04EA00203C62 /* Songbook */,
 				7B7DF14F2EED04EB00203C62 /* SongbookTests */,
 				7B7DF1592EED04EB00203C62 /* SongbookUITests */,

@@ -23,8 +23,8 @@ class EditPhraseViewModel {
     var currentLyricStep: Int = 0
     
     var phraseLength = 31
-
-    init(phrase: Phrase? = nil) {
+    
+    init(section: Section, phrase: Phrase? = nil) {
         self.phrase = phrase
         
         // our max length is 31 (ish) on an ipad
@@ -111,5 +111,11 @@ class EditPhraseViewModel {
             let renderer = PlainTextSongRenderer()
             self.renderedPhrase = renderer.render(phrase: phrase)
         }
+    }
+    
+    func savePhrase() {
+        // save or update
+        print("I am saving")
+        
     }
 }

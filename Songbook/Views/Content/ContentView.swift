@@ -10,9 +10,12 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
+    @Query private var songs: [Song]
+
     @State private var sortOrder = SortDescriptor(\Playlist.name)
     @State private var searchText = ""
     @State private var detailPath = NavigationPath()
+    @State private var viewModel = ContentViewModel()
     
     @State private var navigateToAddSong = false
 
@@ -21,16 +24,24 @@ struct ContentView: View {
             PlaylistsView(sort: sortOrder, searchString: searchText)
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
         } detail: {
+            ForEach(songs) { song in
+                NavigationLink(value: DetailDestination.viewSong(song: song)) {
+                    Text("Song: \(song.title)")
+                }
+            }.padding(.bottom, 16)
+
             NavigationLink(value: DetailDestination.newSong) {
-                            Text("Add New Song")
-                        }
+                Text("Add New Song")
+            }
+            
+            
             NavigationStack(path: $detailPath) {
-                Text("Select an item or navigate deeper")
+                Text("")
                     .navigationDestination(for: DetailDestination.self) { destination in
                         switch destination {
                         case .newSong:
                             let song = Song(id: UUID(), title: "", sections: [])
-                            let viewModel = EditSongViewModel(song: song)
+                            let viewModel = EditSongViewModel(song: song, modelContext: modelContext)
                             EditSongView(viewModel: viewModel)
                         case .newSection(let song):
                             let section = Section(id: UUID(), name: "", song: song, phrases: [])
@@ -43,19 +54,20 @@ struct ContentView: View {
                             var lyric = Lyric(id: UUID(), text: "This should be a line of lyrics")
                             var phrase = Phrase(lyric: lyric, chordSequence: chordSequence)
 
-                            var viewModel = EditPhraseViewModel(phrase: phrase)
+//                            var viewModel = EditPhraseViewModel(phrase: phrase)
 
 //                            return EditPhraseView(viewModel: viewModel)
 //
 //                            let chordSequence = ChordSequence(id: UUID(), chords: [], spacing: [])
 //                            let phrase = Phrase(id: UUID(), sections: [section], lyric: nil, chordSequence: chordSequence, chordSequenceRepeatCount: nil)
 //                            let viewModel = EditPhraseViewModel(phrase: phrase)
-                            EditPhraseView(viewModel: viewModel)
-                            
+//                            EditPhraseView(viewModel: viewModel)
+                        case .viewSong(let song):
+                            let viewModel = SongViewModel(song: song)
+                            SongView(viewModel: viewModel)
                         }
                     }
             }
-            Text("Select an item")
         }
     }
     
@@ -67,5 +79,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: [Song.self, Section.self, Phrase.self, Chord.self], inMemory: true)
 }

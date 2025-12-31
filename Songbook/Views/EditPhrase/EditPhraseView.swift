@@ -67,6 +67,11 @@ struct EditPhraseView: View {
                     .border(Color.gray, width: 1)
                 }
                 .padding()
+                
+                Button("Save Me") {
+                    self.viewModel.savePhrase()
+                }
+
             }
         }
         .sheet(isPresented: $showingAddChordSheet) {
@@ -144,7 +149,7 @@ struct AddChordSheetView: View {
     var lyric = Lyric(id: UUID(), text: "This should be a line of lyrics, and it will wrap")
     var phrase = Phrase(lyric: lyric, chordSequence: chordSequence)
 
-    var viewModel = EditPhraseViewModel(phrase: phrase)
+    var viewModel = EditPhraseViewModel(section: Section.emptySection, phrase: phrase)
 
     return EditPhraseView(viewModel: viewModel)
 }
