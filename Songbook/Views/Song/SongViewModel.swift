@@ -16,9 +16,7 @@ class SongViewModel {
     
     let showCapo: Bool
     let capo: String
-    
-    var sections: [Section]
-    
+        
     var inEditMode: Bool = false
     var modelContext: ModelContext?
     
@@ -41,7 +39,7 @@ class SongViewModel {
             self.capo = ""
         }
         
-        self.sections = song.sections
+//        self.sections = song.sections
         self.modelContext = modelContext
         
     }
@@ -57,28 +55,53 @@ class SongViewModel {
     }
     
     func moveUp(section: Section) {
-        let idx = sections.firstIndex(of: section)
-        
-        if let idx = idx {
-            sections.move(from: idx, to: idx - 1)
+        if (section.position >= 0) {
+            if let replacement = song.sections.filter({ $0.position == section.position - 1 }).first {
+                let originalPosition = section.position
+                section.position = originalPosition - 1
+                replacement.position = originalPosition
+            }
         }
         
+        // re-index our items
+        reIndexSections()
+
     }
 
     func moveDown(section: Section) {
-        let idx = sections.firstIndex(of: section)
-        
-        if let idx = idx {
-            sections.move(from: idx, to: idx + 1)
+        if (section.position < song.sections.count - 1) {
+            if let replacement = song.sections.filter({ $0.position == section.position + 1 }).first {
+                let originalPosition = section.position
+                section.position = originalPosition + 1
+                replacement.position = originalPosition
+            }
         }
 
+        // re-index our items
+        reIndexSections()
+    }
+
+    func duplicate(section: Section) {
+        let newSection = section.copy()
+        newSection.position = song.sections.count
+        song.sections.append(newSection)
+        
+        // re-index our items
+        reIndexSections()
+    }
+    
+    func delete(section: Section) {
+        modelContext?.delete(section)
+        
+        // re-index our items
+        reIndexSections()
     }
 
     func remove(section: Section) {
-        let idx = sections.firstIndex(of: section)
+        let idx = song.sections.firstIndex(of: section)
         
         if let idx = idx {
-            sections.remove(at: idx)
+            song.sections.remove(at: idx)
             
             if let modelContext = self.modelContext {
                 modelContext.delete(section)
@@ -99,6 +122,16 @@ class SongViewModel {
     
     func addSection() {
         
+    }
+    
+    private func reIndexSections() {
+        var lastIdx = 0;
+        for section in song.sections.sorted(by: { $0.position < $1.position }) {
+            if section.position != lastIdx {
+                section.position = lastIdx
+            }
+            lastIdx += 1
+        }
     }
 
 }

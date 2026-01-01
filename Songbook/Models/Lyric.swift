@@ -17,4 +17,8 @@ final class Lyric: Identifiable {
         self.id = id
         self.text = text
     }
+    
+    func copy() -> Lyric {
+        return Lyric(id: UUID(), text: text)
+    }
 }

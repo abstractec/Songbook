@@ -17,4 +17,13 @@ final class ChordSequence: Identifiable {
         self.id = id
         self.sequence = sequence
     }
+    
+    func copy() -> ChordSequence {
+        var sequence: [ChordSequenceStep] = []
+        
+        for step in self.sequence {
+            sequence.append(ChordSequenceStep(id: UUID(), chord: step.chord, step: step.step))
+        }
+        return ChordSequence(id: UUID(), sequence: sequence)
+    }
 }

@@ -52,8 +52,6 @@ class SectionViewModel: Identifiable {
     }
     
     func moveUp(phrase: Phrase) {
-        print("\(phrase.position)")
-        
         if (phrase.position > 0) {
             if let replacement = section.phrases.filter({ $0.position == phrase.position - 1 }).first {
                 let originalPosition = phrase.position
@@ -78,12 +76,6 @@ class SectionViewModel: Identifiable {
     }
     
     private func setPhrasePositions() {
-        var i = 0;
-        
-        for phrase in self.phrases.sorted(by: { $0.position < $1.position }) {
-            phrase.position = i
-            i += 1
-        }
     }
     
     func duplicate(phrase: Phrase) {

@@ -32,11 +32,12 @@ struct SongView: View {
                     }.padding(.horizontal)
                 }
                 
-                ForEach(viewModel.sections) { section in
+                ForEach(viewModel.song.sections.sorted(by: { $0.position < $1.position })) { section in
                     VStack {
                         HStack(spacing:0) {
                             VStack{
                                 HStack {
+                                    Text("\(section.position) - ")
                                     Text(section.name)
                                     Spacer()
                                 }
@@ -75,7 +76,14 @@ struct SongView: View {
                                 Image(systemName: "arrowshape.down")
                                     .frame(width: 10, height: 10, alignment: .center)
                             }.padding(.horizontal)
-                            
+                            Button {
+                                viewModel.duplicate(section: section)
+                            } label: {
+                                Image(systemName: "document.on.document")
+                                    .frame(width: 10, height: 10, alignment: .center)
+
+                            }.padding(.horizontal, 4)
+ 
                             Button(action: {
                                 viewModel.addSection(after: section)
                             }) {
@@ -87,6 +95,14 @@ struct SongView: View {
                                 Image(systemName: "square.and.pencil")
                                     .frame(width: 10, height: 10, alignment: .center)
                             }.padding(.horizontal)
+                            Button {
+                                viewModel.delete(section: section)
+                            } label: {
+                                Image(systemName: "trash")
+                                    .frame(width: 10, height: 10, alignment: .center)
+                                    .foregroundStyle(.red)
+
+                            }.padding(.horizontal, 4)
 
                         }
                     }

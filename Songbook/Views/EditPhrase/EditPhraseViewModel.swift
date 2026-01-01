@@ -21,6 +21,13 @@ class EditPhraseViewModel {
             
 //            phrase?.lyric.text = self.lyric
             self.lyrics = updateDisplayLyrics(self.lyric)
+            
+            if let phrase = self.phrase {
+                phrase.lyric.text = self.lyric
+                let renderer = PlainTextSongRenderer()
+                self.renderedPhrase = renderer.render(phrase: phrase)
+            }
+            
         }
     }
     var lyrics: [String] = []
@@ -141,10 +148,21 @@ class EditPhraseViewModel {
     func savePhrase() {
         // save or update
         if let phrase = self.phrase {
+            if phrase.sections.count == 0 {
+                phrase.sections = [self.section]
+                modelContext?.insert(phrase)
+                
+                if let modelContext = self.modelContext {
+                    do {
+                        try modelContext.save()
+                    } catch {
+                        print("we failed to save the phrase")
+                    }
+                }
+            }
+            
             phrase.lyric.text = lyric
-            phrase.position = self.section.phrases.count
-            self.section.phrases.append(phrase)
+            
         }
-        
     }
 }

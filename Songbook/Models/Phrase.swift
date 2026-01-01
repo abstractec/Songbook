@@ -43,7 +43,8 @@ final class Phrase: Identifiable {
     }
     
     func copy() -> Phrase {
-        return Phrase(id: UUID(), sections: self.sections, lyric: self.lyric, chordSequence: self.chordSequence, chordSequenceRepeatCount: self.chordSequenceRepeatCount)
+        
+        return Phrase(id: UUID(), sections: [], lyric: self.lyric.copy(), chordSequence: self.chordSequence.copy(), chordSequenceRepeatCount: self.chordSequenceRepeatCount)
     }
 
 }

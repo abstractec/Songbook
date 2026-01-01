@@ -79,6 +79,15 @@ struct EditSectionView: View {
 
                 HStack {
                     Spacer()
+                    NavigationLink(value: DetailDestination.newPhrase(section: viewModel.section)) {
+                        Text("Add Phrase")
+                    }
+
+                    Spacer()
+                }.padding(.top, 16)
+
+                HStack {
+                    Spacer()
                     Button("Save") {
                         viewModel.save()
                         dismiss()
