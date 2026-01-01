@@ -89,16 +89,16 @@ struct LyricChordEditor: View {
 }
 
 #Preview {
-    var aMinor = Chord(id: UUID(), name: "A Minor", shortName: "Am", imagePath: nil)
-    var cMajor = Chord(id: UUID(), name: "C Major", shortName: "C", imagePath: nil)
+    let aMinor = Chord(id: UUID(), name: "A Minor", shortName: "Am", imagePath: nil)
+    let cMajor = Chord(id: UUID(), name: "C Major", shortName: "C", imagePath: nil)
     
-    var chordSequenceStep1 = ChordSequenceStep(id: UUID(), chord: aMinor, step: 0)
-    var chordSequenceStep2 = ChordSequenceStep(id: UUID(), chord: cMajor, step: 17)
-    var chordSequence = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
-    var lyric = Lyric(id: UUID(), text: "This should be a line of lyrics, and it will wrap")
-    var phrase = Phrase(lyric: lyric, chordSequence: chordSequence)
+    let chordSequenceStep1 = ChordSequenceStep(id: UUID(), chord: aMinor, step: 0)
+    let chordSequenceStep2 = ChordSequenceStep(id: UUID(), chord: cMajor, step: 17)
+    let chordSequence = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
+    let lyric = Lyric(id: UUID(), text: "This should be a line of lyrics, and it will wrap")
+    let phrase = Phrase(lyric: lyric, chordSequence: chordSequence)
 
-    var viewModel = EditPhraseViewModel(section: Section.emptySection, phrase: phrase)
+    let viewModel = EditPhraseViewModel(section: Section.emptySection, phrase: phrase)
 
     LyricChordEditor(lyric: viewModel.lyrics[1], viewModel: viewModel, startStep:31)
 }

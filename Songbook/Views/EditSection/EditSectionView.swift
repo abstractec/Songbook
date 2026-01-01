@@ -33,6 +33,11 @@ struct EditSectionView: View {
                         }
                         HStack() {
                             Spacer()
+                            NavigationLink(value: DetailDestination.editPhrase(section: viewModel.section, phrase: phrase)) {
+                                Image(systemName: "square.and.pencil")
+                                    .frame(width: 10, height: 10, alignment: .center)
+                            }.padding(.horizontal)
+
                             Button {
                                 viewModel.moveUp(phrase: phrase)
                             } label: {
@@ -41,7 +46,6 @@ struct EditSectionView: View {
 
                             }.padding(.horizontal, 4)
                             Button {
-                                print("move down")
                                 viewModel.moveDown(phrase: phrase)
                             } label: {
                                 Image(systemName: "arrowshape.down")
@@ -49,7 +53,6 @@ struct EditSectionView: View {
 
                             }.padding(.horizontal, 4)
                             Button {
-                                print("duplicate")
                                 viewModel.duplicate(phrase: phrase)
                             } label: {
                                 Image(systemName: "document.on.document")
@@ -57,7 +60,7 @@ struct EditSectionView: View {
 
                             }.padding(.horizontal, 4)
                             Button {
-                                print("delete")
+                                viewModel.delete(phrase: phrase)
                             } label: {
                                 Image(systemName: "trash")
                                     .frame(width: 10, height: 10, alignment: .center)
@@ -74,12 +77,6 @@ struct EditSectionView: View {
 
                 }.padding()
 
-                if let section = viewModel.section {
-                    NavigationLink(value: DetailDestination.newPhrase(section: section)) {
-                        Text("Add Phrase")
-                    }
-                }
-                
                 HStack {
                     Spacer()
                     Button("Save") {
@@ -93,28 +90,28 @@ struct EditSectionView: View {
             .navigationTitle("Edit Section")
             .navigationDestination(for: Bool.self) { item in
             }
-            .onChange(of: viewModel.section?.phrases) {
+            .onChange(of: viewModel.section.phrases) {
                 viewModel.reload()
             }
         }
     }
 
 #Preview {
-    var song = Song.emptySong
+    let song = Song.emptySong
 
-    var section = Section(id: UUID(), name: "Verse 1", song: song, phrases: [])
+    let section = Section(id: UUID(), name: "Verse 1", song: song, phrases: [])
 
-    var aMinor = Chord(id: UUID(), name: "A Minor", shortName: "Am", imagePath: nil)
-    var gMajor = Chord(id: UUID(), name: "G Major", shortName: "G", imagePath: nil)
-    var dMajor = Chord(id: UUID(), name: "D Major", shortName: "D", imagePath: nil)
+    let aMinor = Chord(id: UUID(), name: "A Minor", shortName: "Am", imagePath: nil)
+    let gMajor = Chord(id: UUID(), name: "G Major", shortName: "G", imagePath: nil)
+    let dMajor = Chord(id: UUID(), name: "D Major", shortName: "D", imagePath: nil)
     
-    var chordSequenceStep1 = ChordSequenceStep(id: UUID(), chord: aMinor, step: 0)
-    var chordSequenceStep2 = ChordSequenceStep(id: UUID(), chord: gMajor, step: 7)
-    var chordSequenceStep3 = ChordSequenceStep(id: UUID(), chord: gMajor, step: 9)
-    var chordSequenceStep4 = ChordSequenceStep(id: UUID(), chord: dMajor, step: 16)
+    let chordSequenceStep1 = ChordSequenceStep(id: UUID(), chord: aMinor, step: 0)
+    let chordSequenceStep2 = ChordSequenceStep(id: UUID(), chord: gMajor, step: 7)
+    let chordSequenceStep3 = ChordSequenceStep(id: UUID(), chord: gMajor, step: 9)
+    let chordSequenceStep4 = ChordSequenceStep(id: UUID(), chord: dMajor, step: 16)
 
-    var chordSequence1 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
-    var chordSequence2 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep3, chordSequenceStep4])
+    let chordSequence1 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
+    let chordSequence2 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep3, chordSequenceStep4])
 
     section.phrases.append(Phrase(id: UUID(),
                                   sections: [],
@@ -128,7 +125,7 @@ struct EditSectionView: View {
                                   chordSequence: chordSequence2,
                                   chordSequenceRepeatCount: nil))
     
-    var viewModel = SectionViewModel(song: song, section: section)
+    let viewModel = SectionViewModel(song: song, section: section)
 
     return EditSectionView(viewModel: viewModel)
 }

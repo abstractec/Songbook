@@ -14,6 +14,7 @@ enum DetailDestination: Hashable {
     
     case viewSong(song: Song)
     case editSection(section: Section)
-    
+    case editPhrase(section: Section, phrase: Phrase)
+
     case chordManager
 }

@@ -109,21 +109,21 @@ struct SongView: View {
 }
 
 #Preview {
-    var song = Song(id: UUID(), title: "Test Song", sections: [])
-    var section = Section(id: UUID(), name: "Verse 1", song: song, phrases: [])
-    var section2 = Section(id: UUID(), name: "Verse 2", song: song, phrases: [])
+    let song = Song(id: UUID(), title: "Test Song", sections: [])
+    let section = Section(id: UUID(), name: "Verse 1", song: song, phrases: [])
+    let section2 = Section(id: UUID(), name: "Verse 2", song: song, phrases: [])
 
-    var aMinor = Chord(id: UUID(), name: "A Minor", shortName: "Am", imagePath: nil)
-    var gMajor = Chord(id: UUID(), name: "G Major", shortName: "G", imagePath: nil)
-    var dMajor = Chord(id: UUID(), name: "D Major", shortName: "D", imagePath: nil)
+    let aMinor = Chord(id: UUID(), name: "A Minor", shortName: "Am", imagePath: nil)
+    let gMajor = Chord(id: UUID(), name: "G Major", shortName: "G", imagePath: nil)
+    let dMajor = Chord(id: UUID(), name: "D Major", shortName: "D", imagePath: nil)
     
-    var chordSequenceStep1 = ChordSequenceStep(id: UUID(), chord: aMinor, step: 0)
-    var chordSequenceStep2 = ChordSequenceStep(id: UUID(), chord: gMajor, step: 7)
-    var chordSequenceStep3 = ChordSequenceStep(id: UUID(), chord: gMajor, step: 9)
-    var chordSequenceStep4 = ChordSequenceStep(id: UUID(), chord: dMajor, step: 16)
+    let chordSequenceStep1 = ChordSequenceStep(id: UUID(), chord: aMinor, step: 0)
+    let chordSequenceStep2 = ChordSequenceStep(id: UUID(), chord: gMajor, step: 7)
+    let chordSequenceStep3 = ChordSequenceStep(id: UUID(), chord: gMajor, step: 9)
+    let chordSequenceStep4 = ChordSequenceStep(id: UUID(), chord: dMajor, step: 16)
 
-    var chordSequence1 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
-    var chordSequence2 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep3, chordSequenceStep4])
+    let chordSequence1 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
+    let chordSequence2 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep3, chordSequenceStep4])
 
     section.phrases.append(Phrase(id: UUID(),
                                   sections: [],

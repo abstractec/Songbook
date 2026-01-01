@@ -12,19 +12,18 @@ import SwiftData
 class SectionViewModel: Identifiable {
     var song: Song
     var name: String = ""
-    var section: Section?
+    var section: Section = .emptySection
+    
     var phrases: [Phrase] {
-        if let section = self.section {
-            return section.phrases.sorted(by: {$0.position < $1.position })
-        } else {
-            return []
-        }
+        return self.section.phrases.sorted(by: {$0.position < $1.position })
     }
     var modelContext: ModelContext?
     
     init(song: Song, section: Section?, modelContext: ModelContext? = nil) {
         self.song = song
-        self.section = section
+        if let section = section {
+            self.section = section
+        }
         self.modelContext = modelContext
         
         if let name = section?.name {
@@ -34,15 +33,9 @@ class SectionViewModel: Identifiable {
     
     func save() {
         // add the section to the song
-        if section == nil {
-            section = Section(id: UUID(), name: self.name, song: self.song, phrases: [])
-        }
-        
-        if let section = section {
-            section.name = name
-            section.song = song
-            song.sections.append(section)
-        }
+        section.name = name
+        section.song = song
+        song.sections.append(section)
     }
     
     func reload() {
@@ -59,27 +52,23 @@ class SectionViewModel: Identifiable {
     }
     
     func moveUp(phrase: Phrase) {
-        if let section = section {
-            let idx = section.phrases.firstIndex(of: phrase)
-            
-            if let idx = idx {
-                section.phrases[idx].position -= 1
-                section.phrases[idx - 1].position += 1
-                section.phrases.move(from: idx, to: idx - 1)
-            }
+        let idx = section.phrases.firstIndex(of: phrase)
+        
+        if let idx = idx {
+            section.phrases[idx].position -= 1
+            section.phrases[idx - 1].position += 1
+            section.phrases.move(from: idx, to: idx - 1)
         }
         setPhrasePositions()
     }
 
     func moveDown(phrase: Phrase) {
-        if let section = section {
-            let idx = section.phrases.firstIndex(of: phrase)
+        let idx = section.phrases.firstIndex(of: phrase)
 
-            if let idx = idx {
-                section.phrases[idx].position += 1
-                section.phrases[idx - 1].position -= 1
-                section.phrases.move(from: idx, to: idx + 1)
-            }
+        if let idx = idx {
+            section.phrases[idx].position += 1
+            section.phrases[idx - 1].position = 1
+            section.phrases.move(from: idx, to: idx + 1)
         }
 
         setPhrasePositions()
@@ -95,9 +84,7 @@ class SectionViewModel: Identifiable {
     }
     
     func duplicate(phrase: Phrase) {
-        if let section = section {
-            section.phrases.append(phrase.copy())
-        }
+        section.phrases.append(phrase.copy())
 
         setPhrasePositions()
     }

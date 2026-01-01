@@ -59,46 +59,67 @@ class PlainTextSongRenderer: SongRenderer {
         var chordLine = ""
         var lyricLine = ""
         let workingLyrics = phrase.lyric.text
+        let sequence = phrase.chordSequence.sequence.sorted(by: { $0.step < $1.step})
         
-        for (i) in 0..<workingLyrics.count {
-            let steps = phrase.chordSequence.sequence.filter({ $0.step == i})
-            var appendLyric = true
-            
-            if (steps.isEmpty) {
-                chordLine += " "
-            } else {
-                chordLine += steps.first!.chord.shortName
-                
-                // so here is where we need to know if we have to move the lyric line back a few
-                if let nextStep = phrase.chordSequence.sequence.filter({$0.step > i}).first {
-                    if nextStep.step < chordLine.count {
-                        let startIndex = workingLyrics.index(workingLyrics.startIndex, offsetBy: i)
-                        
-                        if workingLyrics.findNextWhitespace(from: startIndex) != nil {
-                            appendLyric = false
+        var chordOffset = 0
+        var sequenceOffset = 0
 
-                            // I need to add a number of spaces until the next chord
-                            let index = phrase.lyric.text.index(phrase.lyric.text.startIndex, offsetBy: i)
-                            
-                            lyricLine.append(phrase.lyric.text[index])
-                            for _ in 0..<steps.first!.chord.shortName.count {
-                                lyricLine.append(" ")
-                                
-                            }
+        for (i) in 0..<workingLyrics.count {
+            // do I have a sequence at this step?
+            if let nextStep = sequence.filter({$0.step == i}).first {
+                chordLine.append(nextStep.chord.shortName)
+
+                // now, the checks
+                
+                // if we've got a single character shortname, then we should be all gravy
+                
+                // if our chord is greater than one character in length, we need to check if we have to re-align our lyrics to match what we're doing
+                
+                // if our next chord step is not going to be rendered correctly because of this chord, then do the offset stuff
+                
+                if let nextStepAfter = sequence.filter({$0.step > i}).first {
+                    if (nextStepAfter.step < i + nextStep.chord.shortName.count) {
+                        if (nextStep.chord.shortName.count > 1) {
+                            sequenceOffset = nextStep.chord.shortName.count
+                        } else {
+                            sequenceOffset = 1 - nextStep.chord.shortName.count
+                        }
+                    } else {
+                        if (nextStep.chord.shortName.count > 1) {
+                            chordOffset = nextStep.chord.shortName.count - 1
                         }
                     }
                 }
+            } else {
+                if chordOffset == 0 {
+                    chordLine.append(" ")
+                } else if (chordOffset < 0) {
+                    chordOffset += 1
+                } else if (chordOffset > 0) {
+                    chordOffset -= 1
+                }
             }
-            
-            if (appendLyric) {
+
+            if (i < workingLyrics.count) {
                 let index = phrase.lyric.text.index(phrase.lyric.text.startIndex, offsetBy: i)
                 
                 lyricLine.append(phrase.lyric.text[index])
             }
+            
+            if (sequenceOffset > 0) {
+                for (_) in 0..<sequenceOffset {
+                    lyricLine.append(" ")
+                }
+                
+                sequenceOffset = 0
+            }
+
         }
         
         return "\(chordLine)\n\(lyricLine)"
     }
+    
+ 
     
     func renderOld(phrase: Phrase) -> String {
         var renderedPhrase = ""

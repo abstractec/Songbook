@@ -53,6 +53,9 @@ struct ContentView: View {
                         case .newPhrase(let section):
                             let viewModel = EditPhraseViewModel(section: section, phrase: Phrase.emptyPhrase, modelContext: modelContext)
                             EditPhraseView(viewModel: viewModel)
+                        case .editPhrase(let section, let phrase):
+                            let viewModel = EditPhraseViewModel(section: section, phrase: phrase, modelContext: modelContext)
+                            EditPhraseView(viewModel: viewModel)
                         case .viewSong(let song):
                             let viewModel = SongViewModel(song: song, modelContext: modelContext)
                             SongView(viewModel: viewModel)
