@@ -56,6 +56,51 @@ class PlainTextSongRenderer: SongRenderer {
     }
     
     func render(phrase: Phrase) -> String {
+        var chordLine = ""
+        var lyricLine = ""
+        let workingLyrics = phrase.lyric.text
+        
+        for (i) in 0..<workingLyrics.count {
+            let steps = phrase.chordSequence.sequence.filter({ $0.step == i})
+            var appendLyric = true
+            
+            if (steps.isEmpty) {
+                chordLine += " "
+            } else {
+                chordLine += steps.first!.chord.shortName
+                
+                // so here is where we need to know if we have to move the lyric line back a few
+                if let nextStep = phrase.chordSequence.sequence.filter({$0.step > i}).first {
+                    if nextStep.step < chordLine.count {
+                        let startIndex = workingLyrics.index(workingLyrics.startIndex, offsetBy: i)
+                        
+                        if workingLyrics.findNextWhitespace(from: startIndex) != nil {
+                            appendLyric = false
+
+                            // I need to add a number of spaces until the next chord
+                            let index = phrase.lyric.text.index(phrase.lyric.text.startIndex, offsetBy: i)
+                            
+                            lyricLine.append(phrase.lyric.text[index])
+                            for _ in 0..<steps.first!.chord.shortName.count {
+                                lyricLine.append(" ")
+                                
+                            }
+                        }
+                    }
+                }
+            }
+            
+            if (appendLyric) {
+                let index = phrase.lyric.text.index(phrase.lyric.text.startIndex, offsetBy: i)
+                
+                lyricLine.append(phrase.lyric.text[index])
+            }
+        }
+        
+        return "\(chordLine)\n\(lyricLine)"
+    }
+    
+    func renderOld(phrase: Phrase) -> String {
         var renderedPhrase = ""
                 
         renderedPhrase.append(contentsOf: render(chordSequence: phrase.chordSequence))
@@ -85,6 +130,7 @@ class PlainTextSongRenderer: SongRenderer {
         var i = 0
         
         for(_) in 0..<max {
+            let originalI = i
             let steps = chordSequence.sequence.filter({ $0.step == i})
             
             if (steps.isEmpty) {
@@ -93,14 +139,21 @@ class PlainTextSongRenderer: SongRenderer {
             
             for step in steps {
                 // should only be one, but to be safe
-                print("got step \(step.chord.shortName) at \(i)")
-                
                 let chordSize = step.chord.shortName.count
                 renderedChordSequence.append(step.chord.shortName)
                 i += chordSize - 1
             }
             
             i += 1
+
+            // here's where we need to check if we've skipped a chord
+            for (j) in originalI+1..<i {
+                let skippedStep = chordSequence.sequence.filter({ $0.step == j})
+                if !skippedStep.isEmpty {
+                    print("we missed something \(skippedStep)")
+                }
+            }
+            
         }
                 
         return renderedChordSequence

@@ -23,4 +23,9 @@ extension String {
         
         return result
     }
+
+    func findNextWhitespace(from index: String.Index) -> String.Index? {
+        // Iterate through the string's indices starting from the specified index
+        return self[index...].firstIndex(where: { $0.isWhitespace })
+    }
 }
