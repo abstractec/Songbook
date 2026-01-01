@@ -25,7 +25,7 @@ struct EditSectionView: View {
                     .padding(.vertical, 0)
                 }
                 
-                ForEach(viewModel.phrases.sorted{ $0.position < $1.position }) { phrase in
+                ForEach(viewModel.phrases) { phrase in
                     VStack() {
                         Text("\(phrase.position)")
                         HStack() {
