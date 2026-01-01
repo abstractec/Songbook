@@ -81,6 +81,7 @@ class PlainTextSongRenderer: SongRenderer {
                     if (nextStepAfter.step < i + nextStep.chord.shortName.count) {
                         if (nextStep.chord.shortName.count > 1) {
                             sequenceOffset = nextStep.chord.shortName.count
+//                            chordOffset = -1
                         } else {
                             sequenceOffset = 1 - nextStep.chord.shortName.count
                         }
@@ -107,7 +108,7 @@ class PlainTextSongRenderer: SongRenderer {
             }
             
             if (sequenceOffset > 0) {
-                for (_) in 0..<sequenceOffset {
+                for (_) in 0..<sequenceOffset-1 {
                     lyricLine.append(" ")
                 }
                 
