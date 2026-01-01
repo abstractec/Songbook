@@ -27,7 +27,6 @@ struct EditSectionView: View {
                 
                 ForEach(viewModel.phrases) { phrase in
                     VStack() {
-                        Text("\(phrase.position)")
                         HStack() {
                             Text("\(viewModel.render(phrase: phrase))").font(.body.monospaced())
                             Spacer()
