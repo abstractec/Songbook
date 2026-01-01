@@ -37,7 +37,6 @@ struct SongView: View {
                         HStack(spacing:0) {
                             VStack{
                                 HStack {
-                                    Text("\(section.position) - ")
                                     Text(section.name)
                                     Spacer()
                                 }
