@@ -41,18 +41,15 @@ struct SongView: View {
                                     Spacer()
                                 }
                                 
-                                ForEach(section.phrases) { phrase in
+                                ForEach(section.phrases.sorted{ $0.position < $1.position }) { phrase in
                                     HStack() {
                                         Text("\(viewModel.render(phrase: phrase))").font(.body.monospaced())
                                         Spacer()
-                                    }.padding(.horizontal, 8)
+                                    }
+                                    .padding(.horizontal, 8)
+                                    .padding(.bottom, 2)
                                 }
                             }
-//                            .containerRelativeFrame(.horizontal, count: 100, span: 20, alignment: .leading)
-//                            VStack{
-//                                Text("delete")
-//                            }
-//                            .containerRelativeFrame(.horizontal, count: 100, span: 80, alignment: .trailing)
                         }
                         
                     }
@@ -86,9 +83,7 @@ struct SongView: View {
                                     .frame(width: 10, height: 10, alignment: .center)
                             }.padding(.horizontal)
 
-                            Button(action: {
-                                viewModel.edit(section: section)
-                            }) {
+                            NavigationLink(value: DetailDestination.editSection(section: section)) {
                                 Image(systemName: "square.and.pencil")
                                     .frame(width: 10, height: 10, alignment: .center)
                             }.padding(.horizontal)
@@ -97,6 +92,12 @@ struct SongView: View {
                     }
 
                 }.padding()
+            }
+            
+            if (viewModel.inEditMode) {
+                NavigationLink(value: DetailDestination.newSection(song: viewModel.song)) {
+                    Text("Add Section")
+                }
             }
             
             Button("Edit Song") {
@@ -115,29 +116,37 @@ struct SongView: View {
     var aMinor = Chord(id: UUID(), name: "A Minor", shortName: "Am", imagePath: nil)
     var gMajor = Chord(id: UUID(), name: "G Major", shortName: "G", imagePath: nil)
     var dMajor = Chord(id: UUID(), name: "D Major", shortName: "D", imagePath: nil)
+    
+    var chordSequenceStep1 = ChordSequenceStep(id: UUID(), chord: aMinor, step: 0)
+    var chordSequenceStep2 = ChordSequenceStep(id: UUID(), chord: gMajor, step: 7)
+    var chordSequenceStep3 = ChordSequenceStep(id: UUID(), chord: gMajor, step: 9)
+    var chordSequenceStep4 = ChordSequenceStep(id: UUID(), chord: dMajor, step: 16)
+
+    var chordSequence1 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
+    var chordSequence2 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep3, chordSequenceStep4])
 
     section.phrases.append(Phrase(id: UUID(),
                                   sections: [],
                                   lyric: Lyric(id: UUID(), text: "I am a lyric"),
-                                  chordSequence: ChordSequence(id: UUID(), chords: [aMinor, gMajor], spacing: [0, 7]),
+                                  chordSequence: chordSequence1,
                                   chordSequenceRepeatCount: nil))
     
     section.phrases.append(Phrase(id: UUID(),
                                   sections: [],
                                   lyric: Lyric(id: UUID(), text: "I am the second line"),
-                                  chordSequence: ChordSequence(id: UUID(), chords: [aMinor, gMajor, dMajor], spacing: [0, 7, 16]),
+                                  chordSequence: chordSequence2,
                                   chordSequenceRepeatCount: nil))
     
     section2.phrases.append(Phrase(id: UUID(),
                                   sections: [],
                                   lyric: Lyric(id: UUID(), text: "I am a lyric"),
-                                  chordSequence: ChordSequence(id: UUID(), chords: [aMinor, gMajor], spacing: [0, 7]),
+                                  chordSequence: chordSequence1,
                                   chordSequenceRepeatCount: nil))
     
     section2.phrases.append(Phrase(id: UUID(),
                                   sections: [],
                                   lyric: Lyric(id: UUID(), text: "I am the second line"),
-                                  chordSequence: ChordSequence(id: UUID(), chords: [aMinor, gMajor, dMajor], spacing: [0, 7, 16]),
+                                  chordSequence: chordSequence2,
                                   chordSequenceRepeatCount: nil))
 
     song.sections.append(section)
@@ -145,7 +154,7 @@ struct SongView: View {
     song.key = "C Major"
     song.capo = 3
     
-    let viewModel = SongViewModel(song: song)
+    let viewModel = SongViewModel(song: song, modelContext: nil)
     
     return SongView(viewModel: viewModel)
 }

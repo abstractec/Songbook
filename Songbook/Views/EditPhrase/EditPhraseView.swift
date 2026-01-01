@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EditPhraseView: View {
+    @Environment(\.dismiss) var dismiss
     @State var viewModel: EditPhraseViewModel
     @State private var showingAddChordSheet = false
 
@@ -70,6 +71,7 @@ struct EditPhraseView: View {
                 
                 Button("Save Me") {
                     self.viewModel.savePhrase()
+                    dismiss()
                 }
 
             }
@@ -81,7 +83,6 @@ struct EditPhraseView: View {
     
     func showChordPicker(for space: Int) {
         viewModel.selectedSpace = space
-//        showingSheet.toggle()
     }
 }
     
@@ -145,9 +146,14 @@ struct AddChordSheetView: View {
 #Preview {
     var aMinor = Chord(id: UUID(), name: "A Minor", shortName: "Am", imagePath: nil)
     var cMajor = Chord(id: UUID(), name: "C Major", shortName: "C", imagePath: nil)
-    var chordSequence = ChordSequence(id: UUID(), chords: [aMinor, cMajor], spacing: [0, 17])
+    
+    var chordSequenceStep1 = ChordSequenceStep(id: UUID(), chord: aMinor, step: 0)
+    var chordSequenceStep2 = ChordSequenceStep(id: UUID(), chord: cMajor, step: 17)
+
+    var chordSequence1 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
+
     var lyric = Lyric(id: UUID(), text: "This should be a line of lyrics, and it will wrap")
-    var phrase = Phrase(lyric: lyric, chordSequence: chordSequence)
+    var phrase = Phrase(lyric: lyric, chordSequence: chordSequence1)
 
     var viewModel = EditPhraseViewModel(section: Section.emptySection, phrase: phrase)
 

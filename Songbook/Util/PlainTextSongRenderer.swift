@@ -58,18 +58,14 @@ class PlainTextSongRenderer: SongRenderer {
     func render(phrase: Phrase) -> String {
         var renderedPhrase = ""
                 
-        if let chordSequence = phrase.chordSequence {
-            renderedPhrase.append(contentsOf: render(chordSequence: chordSequence))
-            
-            if let repeatCount = phrase.chordSequenceRepeatCount {
-                renderedPhrase.append(" x \(repeatCount)")
-            }
-            renderedPhrase.append("\n")
-        }
+        renderedPhrase.append(contentsOf: render(chordSequence: phrase.chordSequence))
         
-        if let lyric = phrase.lyric {
-            renderedPhrase.append(lyric.text)
+        if let repeatCount = phrase.chordSequenceRepeatCount {
+            renderedPhrase.append(" x \(repeatCount)")
         }
+        renderedPhrase.append("\n")
+        
+        renderedPhrase.append(phrase.lyric.text)
         
         return renderedPhrase
     }
@@ -77,28 +73,36 @@ class PlainTextSongRenderer: SongRenderer {
     private func render(chordSequence: ChordSequence) -> String {
         var renderedChordSequence = ""
         
-        if var max = chordSequence.spacing.max() {
-            max += 1
-            var i = 0
-            
-            while i < max {
-                if let index = chordSequence.spacing.firstIndex(of: i) {
-                    let chord = chordSequence.chords[index]
-                    let chordSize = chord.shortName.count
-                    
-                    renderedChordSequence.append(chord.shortName)
-                    
-                    print("renderedChordSequence: \(renderedChordSequence)")
-                    i += chordSize - 1
-                } else {
-                    renderedChordSequence.append(" ")
-                }
-                
-                i += 1
+        var max = 0
+        
+        for sequence in chordSequence.sequence {
+            if sequence.step > max {
+                max = sequence.step
             }
         }
+                
+        max += 1
+        var i = 0
         
-        
+        for(_) in 0..<max {
+            let steps = chordSequence.sequence.filter({ $0.step == i})
+            
+            if (steps.isEmpty) {
+                renderedChordSequence.append(" ")
+            }
+            
+            for step in steps {
+                // should only be one, but to be safe
+                print("got step \(step.chord.shortName) at \(i)")
+                
+                let chordSize = step.chord.shortName.count
+                renderedChordSequence.append(step.chord.shortName)
+                i += chordSize - 1
+            }
+            
+            i += 1
+        }
+                
         return renderedChordSequence
     }
     

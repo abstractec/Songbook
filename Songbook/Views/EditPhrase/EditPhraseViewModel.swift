@@ -6,12 +6,20 @@
 //
 
 import Foundation
+import SwiftData
 
 @Observable
 class EditPhraseViewModel {
+    private var modelContext: ModelContext?
+    var section: Section
     var phrase: Phrase?
     
-    var lyric: String = ""
+    var lyric: String = "" {
+        didSet(oldLyrics) {
+            phrase?.lyric.text = self.lyric
+            self.lyrics = updateDisplayLyrics(self.lyric)
+        }
+    }
     var lyrics: [String] = []
     var availableChords: [Chord] = []
     var chordSequence: [String] = []
@@ -24,76 +32,92 @@ class EditPhraseViewModel {
     
     var phraseLength = 31
     
-    init(section: Section, phrase: Phrase? = nil) {
+    init(section: Section, phrase: Phrase? = nil, modelContext: ModelContext? = nil) {
+        self.section = section
+        self.modelContext = modelContext
         self.phrase = phrase
         
         // our max length is 31 (ish) on an ipad
-        if let lyric = self.phrase?.lyric?.text {
-            if lyric.count > phraseLength {
-                lyrics = lyric.split(by: phraseLength)
-            } else {
-                lyrics = [lyric]
-            }
+        if let lyric = self.phrase?.lyric.text {
+            self.lyrics = self.updateDisplayLyrics(lyric)
             self.lyric = lyric
         }
         
-        for chord in (phrase?.chordSequence?.chords ?? []) {
-            chordSequence.append(chord.shortName)
-        }
+        let chords = try! modelContext?.fetch(FetchDescriptor<Chord>())
         
-        for timing in (phrase?.chordSequence?.spacing ?? []) {
-            chordSequenceTiming.append(timing)
+        for chord in chords ?? [] {
+            availableChords.append(chord)
+        }
+
+        for step in phrase?.chordSequence.sequence ?? [] {
+            
+            if !availableChords.contains(step.chord) {
+                availableChords.append(step.chord)
+            }
+
+            
+            chordSequence.append(step.chord.shortName)
+            chordSequenceTiming.append(step.step)
+        }
+                
+        updateChordSequence()
+    }
+    
+    private func updateDisplayLyrics(_ lyrics: String) -> [String] {
+        var lyrics: [String]  = []
+        if lyric.count > phraseLength {
+            lyrics = lyric.split(by: phraseLength)
+        } else {
+            lyrics = [lyric]
         }
         
         updateChordSequence()
+        
+        return lyrics
     }
     
     func addChord(name: String, shortName: String) {
         let chord = Chord(id: UUID(), name: name, shortName: shortName, imagePath: nil)
+
+        if let modelContext = self.modelContext {
+                
+            modelContext.insert(chord)
+            
+            do {
+                try modelContext.save()
+            } catch {
+                print("we failed to save the chord")
+            }
+        }
         availableChords.append(chord)
     }
     
     func setChord(_ chord: Chord, atPosition position: Int) {
-        if let chordSequence = phrase?.chordSequence {
-            chordSequence.chords.append(chord)
-        } else {
-            print("where's this gone?")
+        if (phrase?.chordSequence == nil) {
+            phrase?.chordSequence = ChordSequence(id: UUID(), sequence: [])
         }
         
-        phrase?.chordSequence?.spacing.append(position)
+        let step = ChordSequenceStep(id: UUID(), chord: chord, step: position)
         
-        if let index = availableChords.firstIndex(of: chord) {
-            availableChords.remove(at: index)
-        }
+        phrase?.chordSequence.sequence.append(step)
         
         updateChordSequence()
     }
     
     func chordForPosition(_ position: Int) -> Chord? {
         var chord: Chord? = nil
-        for i in 0..<(phrase?.chordSequence?.spacing.count ?? 0) {
-            if (phrase?.chordSequence?.spacing[i] ?? 0) == position {
-                chord = phrase?.chordSequence?.chords[i]
+
+        for step in phrase?.chordSequence.sequence ?? [] {
+            if step.step == position {
+                chord = step.chord
             }
-            
         }
+                        
         return chord
     }
     
     func removeChordAt(_ position: Int) {
-        for i in 0..<(phrase?.chordSequence?.spacing.count ?? 0) {
-            if (i < phrase?.chordSequence?.spacing.count ?? 0) {
-                if (phrase?.chordSequence?.spacing[i] ?? 0) == position {
-                    if let chord = phrase?.chordSequence?.chords[i] {
-                        availableChords.append(chord)
-                    }
-                    
-                    phrase?.chordSequence?.chords.remove(at: i)
-                    phrase?.chordSequence?.spacing.remove(at: i)
-                }
-            }
-        }
-        
+        phrase?.chordSequence.sequence.removeAll { $0.step == position }
         updateChordSequence()
     }
     
@@ -105,17 +129,17 @@ class EditPhraseViewModel {
     private func updateChordSequence() {
        
         if let mainPhrase = self.phrase {
-            let lyric = Lyric(id: UUID(), text: self.lyric)
-            let phrase = Phrase(id: UUID(), lyric: lyric, chordSequence: mainPhrase.chordSequence)
-           
             let renderer = PlainTextSongRenderer()
-            self.renderedPhrase = renderer.render(phrase: phrase)
+            self.renderedPhrase = renderer.render(phrase: mainPhrase)
         }
     }
     
     func savePhrase() {
         // save or update
-        print("I am saving")
+        if let phrase = self.phrase {
+            phrase.position = self.section.phrases.count
+            self.section.phrases.append(phrase)
+        }
         
     }
 }

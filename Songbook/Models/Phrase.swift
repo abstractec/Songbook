@@ -12,9 +12,10 @@ import SwiftData
 final class Phrase: Identifiable {
     public var id: UUID
     var sections: [Section]
-    var lyric: Lyric?
-    var chordSequence: ChordSequence?
+    var lyric: Lyric = Lyric(id: UUID(), text: "")
+    var chordSequence: ChordSequence = ChordSequence(id: UUID(), sequence: [])
     var chordSequenceRepeatCount: Int?
+    var position: Int = 0
     
     public init(
         id: UUID = .init(),
@@ -25,10 +26,24 @@ final class Phrase: Identifiable {
     ) {
         self.id = id
         self.sections = sections
-        self.lyric = lyric
-        self.chordSequence = chordSequence
+        
+        if let lyric = lyric {
+            self.lyric = lyric
+        }
+        
+        if let chordSequence = chordSequence {
+            self.chordSequence = chordSequence
+        }
+        
         self.chordSequenceRepeatCount = chordSequenceRepeatCount
     }
 
+    static var emptyPhrase: Phrase {
+        Phrase(id: UUID())
+    }
     
+    func copy() -> Phrase {
+        return Phrase(id: UUID(), sections: self.sections, lyric: self.lyric, chordSequence: self.chordSequence, chordSequenceRepeatCount: self.chordSequenceRepeatCount)
+    }
+
 }

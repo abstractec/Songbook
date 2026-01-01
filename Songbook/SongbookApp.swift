@@ -15,7 +15,9 @@ struct SongbookApp: App {
             Song.self,
             Chord.self,
             Section.self,
-            Phrase.self
+            Phrase.self,
+            ChordSequence.self,
+            ChordSequenceStep.self,
 //            Item.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)

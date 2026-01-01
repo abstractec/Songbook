@@ -11,12 +11,10 @@ import SwiftData
 @Model
 final class ChordSequence: Identifiable {
     public var id: UUID
-    public var chords: [Chord]
-    public var spacing: [Int]
+    public var sequence: [ChordSequenceStep]
     
-    init(id: UUID, chords: [Chord], spacing: [Int]) {
+    init(id: UUID, sequence: [ChordSequenceStep]) {
         self.id = id
-        self.chords = chords
-        self.spacing = spacing
+        self.sequence = sequence
     }
 }

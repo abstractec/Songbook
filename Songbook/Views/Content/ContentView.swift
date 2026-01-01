@@ -34,6 +34,9 @@ struct ContentView: View {
                 Text("Add New Song")
             }
             
+            NavigationLink(value: DetailDestination.chordManager) {
+                Text("Chord Manager")
+            }
             
             NavigationStack(path: $detailPath) {
                 Text("")
@@ -48,23 +51,18 @@ struct ContentView: View {
                             let viewModel = SectionViewModel(song: song, section: section)
                             EditSectionView(viewModel: viewModel)
                         case .newPhrase(let section):
-                            var aMinor = Chord(id: UUID(), name: "A Minor", shortName: "Am", imagePath: nil)
-                            var cMajor = Chord(id: UUID(), name: "C Major", shortName: "C", imagePath: nil)
-                            var chordSequence = ChordSequence(id: UUID(), chords: [aMinor, cMajor], spacing: [0, 17])
-                            var lyric = Lyric(id: UUID(), text: "This should be a line of lyrics")
-                            var phrase = Phrase(lyric: lyric, chordSequence: chordSequence)
-
-//                            var viewModel = EditPhraseViewModel(phrase: phrase)
-
-//                            return EditPhraseView(viewModel: viewModel)
-//
-//                            let chordSequence = ChordSequence(id: UUID(), chords: [], spacing: [])
-//                            let phrase = Phrase(id: UUID(), sections: [section], lyric: nil, chordSequence: chordSequence, chordSequenceRepeatCount: nil)
-//                            let viewModel = EditPhraseViewModel(phrase: phrase)
-//                            EditPhraseView(viewModel: viewModel)
+                            let viewModel = EditPhraseViewModel(section: section, phrase: Phrase.emptyPhrase, modelContext: modelContext)
+                            EditPhraseView(viewModel: viewModel)
                         case .viewSong(let song):
-                            let viewModel = SongViewModel(song: song)
+                            let viewModel = SongViewModel(song: song, modelContext: modelContext)
                             SongView(viewModel: viewModel)
+                        case .editSection(let section):
+                            let viewModel = SectionViewModel(song: section.song, section: section)
+                            EditSectionView(viewModel: viewModel)
+                        case .chordManager:
+                            let viewModel = ChordManagerViewModel(modelContext: modelContext)
+                            ChordManagerView(viewModel: viewModel)
+
                         }
                     }
             }

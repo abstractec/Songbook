@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftData
 
 @Observable
 class SongViewModel {
@@ -19,8 +20,9 @@ class SongViewModel {
     var sections: [Section]
     
     var inEditMode: Bool = false
+    var modelContext: ModelContext?
     
-    init(song: Song) {
+    init(song: Song, modelContext: ModelContext?) {
         self.song = song
         
         if let key = self.song.key {
@@ -40,7 +42,7 @@ class SongViewModel {
         }
         
         self.sections = song.sections
-        
+        self.modelContext = modelContext
         
     }
     
@@ -48,7 +50,6 @@ class SongViewModel {
         let songRenderer = PlainTextSongRenderer()
         
         return songRenderer.render(phrase: phrase)
-        
     }
     
     func toggleEditMode() {
@@ -78,6 +79,12 @@ class SongViewModel {
         
         if let idx = idx {
             sections.remove(at: idx)
+            
+            if let modelContext = self.modelContext {
+                modelContext.delete(section)
+            } else {
+                print("didn't have a model context??")
+            }
         }
         
     }
@@ -87,6 +94,10 @@ class SongViewModel {
     }
     
     func edit(section: Section) {
+        
+    }
+    
+    func addSection() {
         
     }
 
