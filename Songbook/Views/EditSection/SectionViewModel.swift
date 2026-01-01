@@ -52,23 +52,26 @@ class SectionViewModel: Identifiable {
     }
     
     func moveUp(phrase: Phrase) {
-        let idx = section.phrases.firstIndex(of: phrase)
+        print("\(phrase.position)")
         
-        if let idx = idx {
-            section.phrases[idx].position -= 1
-            section.phrases[idx - 1].position += 1
-            section.phrases.move(from: idx, to: idx - 1)
+        if (phrase.position > 0) {
+            if let replacement = section.phrases.filter({ $0.position == phrase.position - 1 }).first {
+                let originalPosition = phrase.position
+                phrase.position = originalPosition - 1
+                replacement.position = originalPosition
+            }
         }
+        
         setPhrasePositions()
     }
 
     func moveDown(phrase: Phrase) {
-        let idx = section.phrases.firstIndex(of: phrase)
-
-        if let idx = idx {
-            section.phrases[idx].position += 1
-            section.phrases[idx - 1].position = 1
-            section.phrases.move(from: idx, to: idx + 1)
+        if (phrase.position < section.phrases.count - 1) {
+            if let replacement = section.phrases.filter({ $0.position == phrase.position + 1 }).first {
+                let originalPosition = phrase.position
+                phrase.position = originalPosition + 1
+                replacement.position = originalPosition
+            }
         }
 
         setPhrasePositions()

@@ -14,9 +14,12 @@ class EditPhraseViewModel {
     var section: Section
     var phrase: Phrase?
     
-    var lyric: String = "" {
+    var lyric: String = ""
+    {
         didSet(oldLyrics) {
-            phrase?.lyric.text = self.lyric
+            if oldLyrics == self.lyric { return }
+            
+//            phrase?.lyric.text = self.lyric
             self.lyrics = updateDisplayLyrics(self.lyric)
         }
     }
@@ -40,6 +43,7 @@ class EditPhraseViewModel {
         // our max length is 31 (ish) on an ipad
         if let lyric = self.phrase?.lyric.text {
             self.lyrics = self.updateDisplayLyrics(lyric)
+            
             self.lyric = lyric
         }
         
@@ -137,6 +141,7 @@ class EditPhraseViewModel {
     func savePhrase() {
         // save or update
         if let phrase = self.phrase {
+            phrase.lyric.text = lyric
             phrase.position = self.section.phrases.count
             self.section.phrases.append(phrase)
         }
