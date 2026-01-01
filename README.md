@@ -59,12 +59,12 @@ What I want to achieve is that when a song is loaded into the playlist, I can se
 
 An example of this will be the song "Living in the Past" by Jethro Tull. 
 
-Guitar one will be an acoustic guitar in normal tuning with a capo at the 3rd fret. 
-Guitar two will be an electric guitar in normal tuning with no capo
-Bass will be an electric bass with no capo
+* Guitar one will be an acoustic guitar in normal tuning with a capo at the 3rd fret. 
+* Guitar two will be an electric guitar in normal tuning with no capo
+* Bass will be an electric bass with no capo
 
 Each musician will be able to select the instrumentation for their performance, and Songbook will adapt the display for them. 
 
-Guitarist one will have the chords Am / G / D 
-Guitarist two will have the chords Cm / Bb / F
-The bassist will have the chords Cm / Bb / F
+* Guitarist one will have the chords Am / G / D 
+* Guitarist two will have the chords Cm / Bb / F
+* The bassist will have the chords Cm / Bb / F
