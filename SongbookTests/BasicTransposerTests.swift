@@ -33,7 +33,11 @@ struct BasicTransposerTests {
         for chords in newPhrase.chordSequence.sequence {
             print("\t \(chords.chord.shortName)")
         }
-
+        
+        let renderer = PlainTextSongRenderer()
+        let text = renderer.render(phrase: newPhrase)
+        
+        print(text)
     }
 
 }

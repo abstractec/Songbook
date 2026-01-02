@@ -119,23 +119,6 @@ class PlainTextSongRenderer: SongRenderer {
         return "\(chordLine)\n\(lyricLine)"
     }
     
- 
-    
-    func renderOld(phrase: Phrase) -> String {
-        var renderedPhrase = ""
-                
-        renderedPhrase.append(contentsOf: render(chordSequence: phrase.chordSequence))
-        
-        if let repeatCount = phrase.chordSequenceRepeatCount {
-            renderedPhrase.append(" x \(repeatCount)")
-        }
-        renderedPhrase.append("\n")
-        
-        renderedPhrase.append(phrase.lyric.text)
-        
-        return renderedPhrase
-    }
-    
     private func render(chordSequence: ChordSequence) -> String {
         var renderedChordSequence = ""
         
