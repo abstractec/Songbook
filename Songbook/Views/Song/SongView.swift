@@ -54,14 +54,7 @@ struct SongView: View {
                         
                     }
                     if (viewModel.inEditMode) {
-                        HStack {
-                            Button(action: {
-                                viewModel.remove(section: section)
-                            }) {
-                                Image(systemName: "x.square")
-                                    .frame(width: 10, height: 10, alignment: .center)
-                            }.padding(.horizontal)
-                            
+                        HStack {                            
                             Button(action: {
                                 viewModel.moveUp(section: section)
                             }) {

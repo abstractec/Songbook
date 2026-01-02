@@ -96,34 +96,19 @@ class SongViewModel {
         // re-index our items
         reIndexSections()
     }
-
-    func remove(section: Section) {
-        let idx = song.sections.firstIndex(of: section)
-        
-        if let idx = idx {
-            song.sections.remove(at: idx)
-            
-            if let modelContext = self.modelContext {
-                modelContext.delete(section)
-            } else {
-                print("didn't have a model context??")
-            }
-        }
-        
-    }
     
-    func addSection(after afterSection: Section) {
+    func addSection(after section: Section) {
+        let position = section.position
         
-    }
-    
-    func edit(section: Section) {
+        let newSection = Section.emptySection
+        newSection.name = "New Section"
         
-    }
-    
-    func addSection() {
+        newSection.position = position + 1
+        song.sections.insert(newSection, at: song.sections.firstIndex(of: section)! + 1)
         
+        reIndexSections()
     }
-    
+        
     private func reIndexSections() {
         var lastIdx = 0;
         for section in song.sections.sorted(by: { $0.position < $1.position }) {

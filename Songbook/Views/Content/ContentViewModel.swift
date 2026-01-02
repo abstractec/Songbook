@@ -11,33 +11,28 @@ import SwiftData
 @Observable
 class ContentViewModel {
     private var modelContext: ModelContext?
+    
     var songs: [Song] = []
+    var numberOfSongs: Int { songs.count }
+
+    var playlists: [Playlist] = []
+    var numberOfPlaylists: Int { playlists.count }
+
+    var chords: [Chord] = []
+    var numberOfChords: Int { chords.count }
 
     init(modelContext: ModelContext? = nil) {
         self.modelContext = modelContext
         
-        loadSongs()
-    }
-    
-    
-    
-    private func loadSongs() {
-        let fetchDescriptor = FetchDescriptor<Song>()
         if let modelContext = self.modelContext {
+            let dataLoader = DataRepository(modelContext: modelContext)
             
-            do {
-                self.songs = try modelContext.fetch(fetchDescriptor)
-                
-                // 3. Process the results (e.g., update UI, print to console).
-                for song in songs {
-                    print("Found movie: \(song.title)")
-                }
-            } catch {
-                // 4. Handle any potential errors during the fetch.
-                print("Failed to load Song models: \(error.localizedDescription)")
-            }
+            self.songs = dataLoader.loadItems(fetchDescriptor: FetchDescriptor<Song>())
+            self.playlists = dataLoader.loadItems(fetchDescriptor: FetchDescriptor<Playlist>())
+            self.chords = dataLoader.loadItems(fetchDescriptor: FetchDescriptor<Chord>())
         }
     }
+    
     
     
 }
