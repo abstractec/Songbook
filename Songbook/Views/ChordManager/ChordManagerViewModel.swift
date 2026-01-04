@@ -23,7 +23,26 @@ class ChordManagerViewModel {
     
     func delete(chord: Chord) {
         if let modelContext = modelContext {
-            modelContext.delete(chord)
+            
+            do {
+                let predicate = #Predicate<ChordSequenceStep> { step in
+                    step.chord.id == chord.id
+                }
+                let descriptor = FetchDescriptor<ChordSequenceStep>(predicate: predicate)
+                
+                let stepsToDelete = try modelContext.fetch(descriptor)
+                
+                // Delete each step first
+                for step in stepsToDelete {
+                    modelContext.delete(step)
+                }
+                
+                // Finally, delete the chord itself
+                modelContext.delete(chord)
+            } catch {
+                // TODO: error
+                print("something went wrong here")
+            }
         }
     }
     
