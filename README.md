@@ -1,7 +1,7 @@
 # Songbook
 An iPad app for managing songs for the gigging musician
 
-I made this app because I was very frustrated with the current offerings for iPad apps. I wanted something more structured in its approach.     
+I made this app because I was very frustrated with the current offerings for iPad apps. I wanted something more structured in its approach and I was tired of the nag-ware from commercial offerings. 
 
 ## So What Does It Do?
 
@@ -14,8 +14,6 @@ The top level of what we're trying to display. The song has a number of parts to
 * Title
 * Key
 
-(note: Capo is going to be refactored / removed soon) 
-
 ### Section
 
 Think of these as verses, intros, choruses and the like
@@ -27,7 +25,6 @@ A musical motif. These contain chords and / or lyrics.
 ### Lyrics
 
 The words to a song
-
 
 ### Chord Progression
 
@@ -46,6 +43,10 @@ A collection of songs; useful for organising a gig.
 First thing is to complete how a song is entered and make it display correctly for the user in a live, gigging situation. 
 Then there will be a refactor to remove any of the 'work in progress' items that are no longer used. 
 Then there will be the idea of instruments. 
+Scrolling of songs will be a thing
+Sharing of songs and chords is in progress. 
+
+
 
 ### Instruments
 
@@ -68,3 +69,8 @@ Each musician will be able to select the instrumentation for their performance, 
 * Guitarist one will have the chords Am / G / D 
 * Guitarist two will have the chords Cm / Bb / F
 * The bassist will have the chords Cm / Bb / F
+
+# Issues
+
+Current issues are listed here: https://github.com/abstractec/Songbook/issues
+This also has the feature requests. 
