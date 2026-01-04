@@ -40,11 +40,24 @@ struct ChordManagerView: View {
             
             HStack {
                 Button {
-                    viewModel.importChords()
+                    viewModel.isImporting = true
                 } label: {
                     Image(systemName: "square.and.arrow.up")
                     Text("Import Chords")
                 }.padding(.trailing, 2)
+                    .fileImporter(
+                        isPresented: $viewModel.isImporting,
+                        allowedContentTypes: [.json],
+                        allowsMultipleSelection: false
+                    ) { result in
+                    switch result {
+                    case .success(let urls):
+                        guard let url = urls.first else { return }
+                        viewModel.importChords(from: url)
+                    case .failure(let error):
+                        print("Import failed: \(error.localizedDescription)")
+                    }
+                }
                 
                 Button {
                     viewModel.exportChords(self.chords)

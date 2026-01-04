@@ -134,7 +134,7 @@ final class Chord: Identifiable, Codable, Comparable {
     }
     
     static func < (lhs: Chord, rhs: Chord) -> Bool {
-        let sameRoot = lhs.rootRawValue == rhs.rootRawValue
+        let sameRoot = lhs.rootNote == rhs.rootNote
         
         if (!sameRoot) {
             return lhs.rootRawValue < rhs.rootRawValue
@@ -145,13 +145,13 @@ final class Chord: Identifiable, Codable, Comparable {
         if (!sameRootAlteration) {
             return lhs.rootNoteAlteration < rhs.rootNoteAlteration
         }
-        
+
         let sameChordType = lhs.chordType == rhs.chordType
         
         if (!sameChordType) {
             return lhs.chordType < rhs.chordType
         }
-        
+
         let sameSeventhType = lhs.seventhType == rhs.seventhType
         
         if (!sameSeventhType) {
@@ -217,6 +217,88 @@ final class Chord: Identifiable, Codable, Comparable {
         return false
     }
 
+    static func == (lhs: Chord, rhs: Chord) -> Bool {
+        let sameRoot = lhs.rootNote == rhs.rootNote
+
+        if (!sameRoot) {
+            return sameRoot
+        }
+
+        let sameRootAlteration = lhs.rootNoteAlteration == rhs.rootNoteAlteration
+        
+        if (!sameRootAlteration) {
+            return sameRootAlteration
+        }
+        
+        let sameChordType = lhs.chordType == rhs.chordType
+        
+        if (!sameChordType) {
+            return lhs.chordType == rhs.chordType
+        }
+        
+        let sameSeventhType = lhs.seventhType == rhs.seventhType
+        
+        if (!sameSeventhType) {
+            if let lhsSeventhType = lhs.seventhType, let rhsSeventhType = rhs.seventhType {
+                return lhsSeventhType == rhsSeventhType
+            }
+        }
+        
+        let sameExtendedType = lhs.extendedType == rhs.extendedType
+        
+        if (!sameExtendedType) {
+            if let lhsExtendedType = lhs.extendedType, let rhsExtendedType = rhs.extendedType {
+                return lhsExtendedType == rhsExtendedType
+            }
+        }
+        
+        let sameSuspendedType = lhs.suspendedType == rhs.suspendedType
+        
+        if (!sameSuspendedType) {
+            if lhs.suspendedType == nil && rhs.suspendedType != nil {
+                return true
+            }
+            
+            if let lhsSuspendedType = lhs.suspendedType, let rhsSuspendedType = rhs.suspendedType {
+                return lhsSuspendedType == rhsSuspendedType
+            }
+        }
+        
+        let sameAddedType = lhs.addedType == rhs.addedType
+        
+        if (!sameAddedType) {
+            if let lhsAddedType = lhs.addedType, let rhsAddedType = rhs.addedType {
+                return lhsAddedType == rhsAddedType
+            }
+        }
+        
+        
+        let sameAddedAlteration = lhs.addedAlteration == rhs.addedAlteration
+        
+        if (!sameAddedAlteration) {
+            return lhs.addedAlteration == rhs.addedAlteration
+        }
+
+        let sameBassNoteType = lhs.bassNoteAlteration == rhs.bassNoteAlteration
+        
+        if (!sameBassNoteType) {
+            if let lhsBassNote = lhs.bassNote, let rhsBassNote = rhs.bassNote {
+                return lhsBassNote == rhsBassNote
+
+            }
+        }
+        
+        
+        let sameBassNoteAlteration = lhs.bassNoteAlteration == rhs.bassNoteAlteration
+        
+        if (!sameBassNoteAlteration) {
+            if let lhsBassNoteAlteration = lhs.bassNoteAlteration, let rhsBassNoteAlteration = rhs.bassNoteAlteration {
+                return lhsBassNoteAlteration == rhsBassNoteAlteration
+            }
+        }
+        
+        return true
+    }
 }
 
 enum ChordType: String, CaseIterable, Identifiable, Codable, Comparable {

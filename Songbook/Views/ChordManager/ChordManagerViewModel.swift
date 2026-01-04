@@ -14,6 +14,7 @@ class ChordManagerViewModel {
     private var chordRenderer = PlainTextChordRenderer()
     public var document: JSONDocument?
     public var isExporting = false
+    public var isImporting = false
 
     init(modelContext: ModelContext? = nil) {
         self.modelContext = modelContext
@@ -37,7 +38,7 @@ class ChordManagerViewModel {
     func exportChords(_ chords: [Chord]) {
         let encoder = JSONEncoder()
         
-        encoder.outputFormatting = .prettyPrinted 
+        encoder.outputFormatting = .prettyPrinted
         
         if let encodedData = try? encoder.encode(chords) {
             self.document = JSONDocument(data: encodedData)
@@ -45,8 +46,46 @@ class ChordManagerViewModel {
         }
     }
     
-    func importChords() {
+    func importChords(from url: URL) {
+        isImporting = true
         
+        guard url.startAccessingSecurityScopedResource() else {
+                print("Permission denied")
+                return
+            }
+
+            defer { url.stopAccessingSecurityScopedResource() }
+
+            do {
+                let data = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                let decodedChords = try decoder.decode([Chord].self, from: data)
+                
+                // check if we have any of these chords
+                
+                if let chords = try modelContext?.fetch(FetchDescriptor<Chord>()) {
+                    
+                    for chord in decodedChords {
+                        var found = false
+                        // yes this is inefficient, but it's Sunday and I want a beer
+                        for origChord in chords {
+                            if (origChord == chord) {
+                                found = true
+                            }
+                        }
+                        
+                        if !found {
+                            modelContext?.insert(chord)
+                        }
+                    }
+                } else {
+                    for chord in decodedChords {
+                        modelContext?.insert(chord)
+                    }
+                }
+            } catch {
+                print("Decoding error: \(error.localizedDescription)")
+            }
     }
 
 }
