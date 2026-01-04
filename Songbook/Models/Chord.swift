@@ -127,6 +127,10 @@ final class Chord: Identifiable, Codable {
         
         try container.encode(addedAlteration, forKey: .addedAlteration)
     }
+    
+    func copy() -> Chord {
+        return try! JSONDecoder().decode(Chord.self, from: JSONEncoder().encode(self))
+    }
 }
 
 enum ChordType: String, CaseIterable, Identifiable, Codable {

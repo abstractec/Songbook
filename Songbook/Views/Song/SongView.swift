@@ -11,107 +11,123 @@ struct SongView: View {
     var viewModel: SongViewModel
     
     var body: some View {
-        ScrollView {
-            VStack {
-                Text(viewModel.song.title)
-                    .font(.headline)
-                
-                if (viewModel.showKey) {
-                    HStack {
-                        Text("Key")
-                        Text(viewModel.key)
-                        Spacer()
-                    }.padding(.horizontal)
-                }
-
-                if (viewModel.showCapo) {
-                    HStack {
-                        Text("Capo")
-                        Text(viewModel.capo)
-                        Spacer()
-                    }.padding(.horizontal)
-                }
-                
-                ForEach(viewModel.song.sections.sorted(by: { $0.position < $1.position })) { section in
-                    VStack {
-                        HStack(spacing:0) {
-                            VStack{
-                                HStack {
-                                    Text(section.name)
-                                    Spacer()
-                                }
-                                
-                                ForEach(section.phrases.sorted{ $0.position < $1.position }) { phrase in
-                                    HStack() {
-                                        Text("\(viewModel.render(phrase: phrase))").font(.body.monospaced())
+        VStack {
+            
+            ScrollView {
+                VStack {
+                    Text(viewModel.song.title)
+                        .font(.headline)
+                    
+                    if (viewModel.showKey) {
+                        HStack {
+                            Text("Key")
+                            Text(viewModel.key)
+                            Spacer()
+                        }.padding(.horizontal)
+                    }
+                    
+                    if (viewModel.showCapo) {
+                        HStack {
+                            Text("Capo")
+                            Text(viewModel.capo)
+                            Spacer()
+                        }.padding(.horizontal)
+                    }
+                    
+                    ForEach(viewModel.song.sections.sorted(by: { $0.position < $1.position })) { section in
+                        VStack {
+                            HStack(spacing:0) {
+                                VStack{
+                                    HStack {
+                                        Text(section.name)
                                         Spacer()
                                     }
-                                    .padding(.horizontal, 8)
-                                    .padding(.bottom, 2)
+                                    
+                                    ForEach(section.phrases.sorted{ $0.position < $1.position }) { phrase in
+                                        HStack() {
+                                            Text("\(viewModel.render(phrase: phrase))").font(.body.monospaced())
+                                            Spacer()
+                                        }
+                                        .padding(.horizontal, 8)
+                                        .padding(.bottom, 2)
+                                    }
                                 }
+                            }
+                            
+                        }
+                        if (viewModel.inEditMode) {
+                            HStack {
+                                Button(action: {
+                                    viewModel.moveUp(section: section)
+                                }) {
+                                    Image(systemName: "arrowshape.up")
+                                        .frame(width: 10, height: 10, alignment: .center)
+                                }.padding(.horizontal)
+                                
+                                Button(action: {
+                                    viewModel.moveDown(section: section)
+                                }) {
+                                    Image(systemName: "arrowshape.down")
+                                        .frame(width: 10, height: 10, alignment: .center)
+                                }.padding(.horizontal)
+                                Button {
+                                    viewModel.duplicate(section: section)
+                                } label: {
+                                    Image(systemName: "document.on.document")
+                                        .frame(width: 10, height: 10, alignment: .center)
+                                    
+                                }.padding(.horizontal, 4)
+                                
+                                Button(action: {
+                                    viewModel.addSection(after: section)
+                                }) {
+                                    Image(systemName: "plus.app")
+                                        .frame(width: 10, height: 10, alignment: .center)
+                                }.padding(.horizontal)
+                                
+                                NavigationLink(value: DetailDestination.editSection(section: section)) {
+                                    Image(systemName: "square.and.pencil")
+                                        .frame(width: 10, height: 10, alignment: .center)
+                                }.padding(.horizontal)
+                                Button {
+                                    viewModel.delete(section: section)
+                                } label: {
+                                    Image(systemName: "trash")
+                                        .frame(width: 10, height: 10, alignment: .center)
+                                        .foregroundStyle(.red)
+                                    
+                                }.padding(.horizontal, 4)
+                                
                             }
                         }
                         
+                    }.padding()
+                }
+                
+                if (viewModel.inEditMode) {
+                    NavigationLink(value: DetailDestination.newSection(song: viewModel.song)) {
+                        Text("Add Section")
                     }
-                    if (viewModel.inEditMode) {
-                        HStack {                            
-                            Button(action: {
-                                viewModel.moveUp(section: section)
-                            }) {
-                                Image(systemName: "arrowshape.up")
-                                    .frame(width: 10, height: 10, alignment: .center)
-                            }.padding(.horizontal)
-                            
-                            Button(action: {
-                                viewModel.moveDown(section: section)
-                            }) {
-                                Image(systemName: "arrowshape.down")
-                                    .frame(width: 10, height: 10, alignment: .center)
-                            }.padding(.horizontal)
-                            Button {
-                                viewModel.duplicate(section: section)
-                            } label: {
-                                Image(systemName: "document.on.document")
-                                    .frame(width: 10, height: 10, alignment: .center)
-
-                            }.padding(.horizontal, 4)
- 
-                            Button(action: {
-                                viewModel.addSection(after: section)
-                            }) {
-                                Image(systemName: "plus.app")
-                                    .frame(width: 10, height: 10, alignment: .center)
-                            }.padding(.horizontal)
-
-                            NavigationLink(value: DetailDestination.editSection(section: section)) {
-                                Image(systemName: "square.and.pencil")
-                                    .frame(width: 10, height: 10, alignment: .center)
-                            }.padding(.horizontal)
-                            Button {
-                                viewModel.delete(section: section)
-                            } label: {
-                                Image(systemName: "trash")
-                                    .frame(width: 10, height: 10, alignment: .center)
-                                    .foregroundStyle(.red)
-
-                            }.padding(.horizontal, 4)
-
-                        }
-                    }
-
-                }.padding()
-            }
-            
-            if (viewModel.inEditMode) {
-                NavigationLink(value: DetailDestination.newSection(song: viewModel.song)) {
-                    Text("Add Section")
+                }
+                
+                Button("Edit Song") {
+                    viewModel.toggleEditMode()
                 }
             }
-            
-            Button("Edit Song") {
-                viewModel.toggleEditMode()
+            HStack() {
+                Text("Transpose")
+                Button {
+                    viewModel.decreaseTransposition()
+                } label: {
+                    Image(systemName: "arrowtriangle.down")
+                }
+                Button {
+                    viewModel.increaseTransposition()
+                } label: {
+                    Image(systemName: "arrowtriangle.up")
+                }
+
             }
-            
         }
     }
 }

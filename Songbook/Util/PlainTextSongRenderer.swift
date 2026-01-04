@@ -8,7 +8,7 @@
 import Foundation
 
 class PlainTextSongRenderer: SongRenderer {
-    func render(song: Song) -> String {
+    func render(song: Song, transposedBy: Int? = 0) -> String {
         var renderedSong = ""
         renderedSong.append(contentsOf: song.title)
         renderedSong.append("\n")
@@ -55,7 +55,7 @@ class PlainTextSongRenderer: SongRenderer {
         return renderedSection
     }
     
-    func render(phrase: Phrase) -> String {
+    func render(phrase: Phrase, transposedBy: Int = 0) -> String {
         var chordLine = ""
         var lyricLine = ""
         let workingLyrics = phrase.lyric.text
@@ -65,11 +65,29 @@ class PlainTextSongRenderer: SongRenderer {
         var sequenceOffset = 0
         
         let chordRenderer = PlainTextChordRenderer()
+        let basicTransposer = BasicTransposer()
 
         for (i) in 0..<workingLyrics.count {
             // do I have a sequence at this step?
             if let nextStep = sequence.filter({$0.step == i}).first {
-                let shortName = chordRenderer.renderShortName(chord: nextStep.chord)
+                var chord = nextStep.chord.copy()
+                
+                if (transposedBy != 0) {
+                    if let transposed = basicTransposer.noteTransposer(chord.rootNote, alteration: chord.rootNoteAlteration, steps: transposedBy) {
+                        
+                        chord.rootNote = transposed.0
+                        chord.rootNoteAlteration = transposed.1
+                        
+                        if let bassNote = chord.bassNote {
+                            if let bassTransposed = basicTransposer.noteTransposer(bassNote, alteration: chord.bassNoteAlteration ?? .natural, steps: transposedBy) {
+                                chord.bassNote = bassTransposed.0
+                                chord.bassNoteAlteration = bassTransposed.1
+                            }
+                        }
+                    }
+                }
+                
+                let shortName = chordRenderer.renderShortName(chord: chord)
                 chordLine.append(shortName)
 
                 // now, the checks

@@ -20,6 +20,8 @@ class SongViewModel {
     var inEditMode: Bool = false
     var modelContext: ModelContext?
     
+    var transposedBy: Int = 0
+    
     init(song: Song, modelContext: ModelContext?) {
         self.song = song
         
@@ -47,7 +49,7 @@ class SongViewModel {
     func render(phrase: Phrase) -> String {
         let songRenderer = PlainTextSongRenderer()
         
-        return songRenderer.render(phrase: phrase)
+        return songRenderer.render(phrase: phrase, transposedBy: self.transposedBy)
     }
     
     func toggleEditMode() {
@@ -107,6 +109,14 @@ class SongViewModel {
         song.sections.insert(newSection, at: song.sections.firstIndex(of: section)! + 1)
         
         reIndexSections()
+    }
+    
+    func increaseTransposition() {
+        transposedBy += 1
+    }
+    
+    func decreaseTransposition() {
+        transposedBy -= 1
     }
         
     private func reIndexSections() {

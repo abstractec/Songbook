@@ -17,23 +17,8 @@ class EditPhraseViewModel {
     let chordRenderer: ChordRenderer = PlainTextChordRenderer()
     
     var lyric: String = ""
-    {
-        didSet(oldLyrics) {
-            if oldLyrics == self.lyric { return }
-            
-//            phrase?.lyric.text = self.lyric
-            self.lyrics = updateDisplayLyrics(self.lyric)
-            
-            if let phrase = self.phrase {
-                phrase.lyric.text = self.lyric
-                let renderer = PlainTextSongRenderer()
-                self.renderedPhrase = renderer.render(phrase: phrase)
-            }
-            
-        }
-    }
+
     var lyrics: [String] = []
-    var availableChords: [Chord] = []
     var chordSequence: [String] = []
     var chordSequenceRepeatCount: Int = 1
     var chordSequenceTiming: [Int] = []
@@ -53,30 +38,28 @@ class EditPhraseViewModel {
         
         // our max length is 31 (ish) on an ipad
         if let lyric = self.phrase?.lyric.text {
-            self.lyrics = self.updateDisplayLyrics(lyric)
-            
             self.lyric = lyric
-        }
-        
-        let chords = try! modelContext?.fetch(FetchDescriptor<Chord>())
-        
-        for chord in chords ?? [] {
-            availableChords.append(chord)
+            self.lyrics = self.updateDisplayLyrics(lyric)
         }
 
         for step in phrase?.chordSequence.sequence ?? [] {
             let shortName = chordRenderer.renderShortName(chord: step.chord)
             
-            if !availableChords.contains(step.chord) {
-                availableChords.append(step.chord)
-            }
-
-            
             chordSequence.append(shortName)
             chordSequenceTiming.append(step.step)
         }
-                
+        
         updateChordSequence()
+    }
+    
+    func updateLyric(_ lyric: String) {
+        self.lyric = lyric
+        self.lyrics = self.updateDisplayLyrics(lyric)
+        
+        self.phrase?.lyric.text = self.lyric
+
+        updateChordSequence()
+        
     }
     
     private func updateDisplayLyrics(_ lyrics: String) -> [String] {
@@ -90,20 +73,6 @@ class EditPhraseViewModel {
         updateChordSequence()
         
         return lyrics
-    }
-    
-    func addChord(chord: Chord?) {
-        if let chord = chord, let modelContext = self.modelContext {
-                
-            modelContext.insert(chord)
-            
-            do {
-                try modelContext.save()
-            } catch {
-                print("we failed to save the chord")
-            }
-            availableChords.append(chord)
-        }
     }
     
     func setChord(_ chord: Chord, atPosition position: Int) {
@@ -140,7 +109,7 @@ class EditPhraseViewModel {
         
     }
     
-    private func updateChordSequence() {
+    func updateChordSequence() {
        
         if let mainPhrase = self.phrase {
             let renderer = PlainTextSongRenderer()
@@ -153,6 +122,8 @@ class EditPhraseViewModel {
         if let phrase = self.phrase {
             if phrase.sections.count == 0 {
                 phrase.sections = [self.section]
+                phrase.position = self.section.phrases.count - 1
+                
                 modelContext?.insert(phrase)
                 
                 if let modelContext = self.modelContext {

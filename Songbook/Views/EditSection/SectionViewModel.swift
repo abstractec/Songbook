@@ -76,6 +76,14 @@ class SectionViewModel: Identifiable {
     }
     
     private func setPhrasePositions() {
+        let phrases = self.section.phrases.sorted(by: { $0.position < $1.position })
+        var idx = 0
+        
+        for phrase in phrases {
+            phrase.position = idx
+            idx += 1
+        }
+        
     }
     
     func duplicate(phrase: Phrase) {
@@ -86,5 +94,7 @@ class SectionViewModel: Identifiable {
     
     func delete(phrase: Phrase) {
         modelContext?.delete(phrase)
+        
+        setPhrasePositions()
     }
 }

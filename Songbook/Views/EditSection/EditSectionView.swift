@@ -17,6 +17,7 @@ struct EditSectionView: View {
             ScrollView {
                 VStack {
                     HStack {
+                        
                         Text("Name").font(.headline).frame(minWidth: 100, alignment: .leading)
                         TextField("Enter Section Name", text: $viewModel.name)
                         Spacer()

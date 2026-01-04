@@ -8,5 +8,5 @@
 import Foundation
 
 protocol SongRenderer {
-    func render(song: Song) -> String
+    func render(song: Song, transposedBy: Int?) -> String
 }

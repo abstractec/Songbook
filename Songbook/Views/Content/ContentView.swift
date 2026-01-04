@@ -105,7 +105,8 @@ struct ContentView: View {
                                         let viewModel = SectionViewModel(song: song, section: section)
                                         EditSectionView(viewModel: viewModel)
                                     case .newPhrase(let section):
-                                        let viewModel = EditPhraseViewModel(section: section, phrase: Phrase.emptyPhrase, modelContext: modelContext)
+                                        let phrase = Phrase.emptyPhrase
+                                        let viewModel = EditPhraseViewModel(section: section, phrase: phrase, modelContext: modelContext)
                                         EditPhraseView(viewModel: viewModel)
                                     case .editPhrase(let section, let phrase):
                                         let viewModel = EditPhraseViewModel(section: section, phrase: phrase, modelContext: modelContext)
@@ -114,7 +115,7 @@ struct ContentView: View {
                                         let viewModel = SongViewModel(song: song, modelContext: modelContext)
                                         SongView(viewModel: viewModel)
                                     case .editSection(let section):
-                                        let viewModel = SectionViewModel(song: section.song, section: section)
+                                        let viewModel = SectionViewModel(song: section.song, section: section, modelContext: modelContext)
                                         EditSectionView(viewModel: viewModel)
                                     case .chordManager:
                                         let viewModel = ChordManagerViewModel(modelContext: modelContext)

@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct EditPhraseView: View {
     @Environment(\.dismiss) var dismiss
+
     @State var viewModel: EditPhraseViewModel
     @State private var showingAddChordSheet = false
 
@@ -19,34 +21,15 @@ struct EditPhraseView: View {
                     HStack {
                         Text("Phrase").font(.headline).frame(minWidth: 100, alignment: .leading)
                         TextField("Enter Phrase Lyric", text: $viewModel.lyric)
+                            .onChange(of: viewModel.lyric) { oldValue, newValue in
+                                viewModel.updateLyric(newValue)
+                            }
+                                                
                         Spacer()
                     }
                     .padding(.horizontal)
                     .padding(.bottom, 40)
                 }
-                
-                HStack(alignment: .top) {
-                    VStack {
-                        Text("Chords").font(.headline).frame(minWidth: 100, alignment: .leading)
-                    }
-                    Spacer()
-                    VStack {
-//                        ForEach(viewModel.availableChords, id: \.self) { chord in
-//                            HStack {
-//                                Text("\(chord.name)")
-//                                Spacer()
-//                            }
-//                        }
-//                        HStack {
-//                            Button("Add Chord") {
-//                                showingAddChordSheet.toggle()
-//                            }
-//                            Spacer()
-//                        }
-                    }
-                }
-                .padding(.horizontal)
-                .padding(.bottom, 40)
                 
                 ForEach(Array(viewModel.lyrics.enumerated()), id: \.element) { index, lyric in
                     LyricChordEditor(lyric: lyric, viewModel: viewModel, startStep: viewModel.startStepForIndex(index))
@@ -76,29 +59,27 @@ struct EditPhraseView: View {
 
             }
         }
-        .sheet(isPresented: $showingAddChordSheet) {
-            AddChordSheetView(viewModel: viewModel)
+        .onAppear() {
+            viewModel.updateChordSequence()
         }
     }
     
-    func showChordPicker(for space: Int) {
-        viewModel.selectedSpace = space
-    }
 }
     
 struct SelectChordView: View {
     @State var viewModel: EditPhraseViewModel
     @Environment(\.dismiss) var dismiss
+    @Query(sort: \Chord.rootRawValue) var chords: [Chord]
 
     var body: some View {
         NavigationView { // Often wrapped in a NavigationView for better presentation
             VStack {
                 Text("Select Chord ")
                     .padding()
-                
-                ForEach($viewModel.availableChords) { chord in
-                    Button("\($viewModel.wrappedValue.name(for: chord.wrappedValue))") {
-                        viewModel.setChord(chord.wrappedValue, atPosition: viewModel.selectedSpace ?? 0)
+                                
+                ForEach(chords) { chord in
+                    Button("\($viewModel.wrappedValue.name(for: chord))") {
+                        viewModel.setChord(chord, atPosition: viewModel.selectedSpace ?? 0)
                         dismiss()
                     }
                 }
@@ -125,10 +106,10 @@ struct AddChordSheetView: View {
                 TextField("Short Name", text: viewModel.shortName(for: $chord))
                 
                     
-                Button("Add Chord") {
-                    viewModel.addChord(chord: $chord.wrappedValue)
-                    dismiss()
-                }
+//                Button("Add Chord") {
+//                    viewModel.addChord(chord: $chord.wrappedValue)
+//                    dismiss()
+//                }
 
                 Button("Cancel") {
                     // 5. Call dismiss() to close the modal
@@ -156,5 +137,6 @@ struct AddChordSheetView: View {
 
     let viewModel = EditPhraseViewModel(section: Section.emptySection, phrase: phrase)
 
-    return EditPhraseView(viewModel: viewModel)
+//    return EditPhraseView(viewModel: viewModel)
+//    return EditPhraseView()
 }

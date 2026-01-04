@@ -24,7 +24,7 @@ class BasicTransposer: Transposer {
         return phrase
     }
 
-    func noteTransposer(_ note: Note, alteration: Alteration, steps: Int, preferFlats: Bool? = false) -> (Note, Alteration)? {
+    func noteTransposer(_ note: Note, alteration: Alteration, steps: Int = 0, preferFlats: Bool? = false) -> (Note, Alteration)? {
         if var idx = noteNameList.firstIndex(of: note.rawValue) {
             if alteration == .sharp {
                 idx += 1
@@ -43,10 +43,14 @@ class BasicTransposer: Transposer {
               idx = noteNameList.count + idx
             }
             
+            if (idx >= noteNameList.count) {
+                idx = 0
+            }
+            
             let rawNote = noteNameList[idx]
             if (rawNote.contains("#")) {
                 // then we're sharp
-                if let flats = preferFlats, flats {
+                if let preferFlats = preferFlats, preferFlats {
                     var flatIdx = idx + 1
                     if (flatIdx >= noteNameList.count) {
                         flatIdx = 0
@@ -75,6 +79,7 @@ class BasicTransposer: Transposer {
         
     }
     
+    // we're only dealing with default western scale here. Microtonal stuff will need a more complicated Transposer that's above my knowledge
     private var noteNameList = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"]
     
 }
