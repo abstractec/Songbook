@@ -22,7 +22,15 @@ class ChordBuilderViewModel {
     public var bassNote: NoteName = .G
     public var bassNoteAlteration: Alteration = .natural
 
-    public var isSuspended = false
+    public var isSuspended = false {
+        didSet {
+            if (!isSuspended) {
+                suspendedType = nil
+
+            }
+        }
+    }
+    
     public var isAdded = false
     public var hasBassNote = false
 
@@ -55,9 +63,8 @@ class ChordBuilderViewModel {
         
         if let chord = chord {
             self.chord = chord
+            populateValues()
         }
-        
-        
     }
     
     init(modelContext: ModelContext? = nil, chord: Chord) {
@@ -65,13 +72,39 @@ class ChordBuilderViewModel {
         
         self.chord = chord
         
-        self.rootNote = chord.rootNote
+        populateValues()
         
-        self.chordType = chord.chordType
-        
-//        self.altered = chord.altered
-        
-        // TODO: add all the ohter stuff
+    }
+    
+    private func populateValues() {
+        if let chord = self.chord {
+            self.rootNote = chord.rootNote
+            self.rootNoteAlteration = chord.rootNoteAlteration
+            self.chordType = chord.chordType
+            self.seventhType = chord.seventhType
+            
+            self.extendedType = chord.extendedType
+
+            if let suspendedType = chord.suspendedType {
+                self.suspendedType = suspendedType
+                self.isSuspended = true
+            }
+            
+            if let addedType = chord.addedType {
+                self.addedType = addedType
+                self.isAdded = true
+            }
+            
+            if let bassNote = chord.bassNote {
+                self.bassNote = bassNote
+                self.hasBassNote = true
+
+                if let bassNoteAlteration = chord.bassNoteAlteration {
+                    self.bassNoteAlteration = bassNoteAlteration
+                }
+            }
+        }
+
     }
     
     func save() {
@@ -85,8 +118,14 @@ class ChordBuilderViewModel {
             existingChord.extendedType = extendedType
             existingChord.suspendedType = suspendedType
             existingChord.addedType = addedType
-            existingChord.bassNote = bassNote
-            existingChord.bassNoteAlteration = bassNoteAlteration
+            
+            if hasBassNote {
+                existingChord.bassNote = bassNote
+                existingChord.bassNoteAlteration = bassNoteAlteration
+            } else {
+                existingChord.bassNote = nil
+                existingChord.bassNoteAlteration = nil
+            }
         } else {
             // otherwise, make my chord and save it
             if let newChord = self.toChord() {

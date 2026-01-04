@@ -13,31 +13,38 @@ struct ChordManagerView: View {
 
     @State var viewModel: ChordManagerViewModel
     var body: some View {
-        ScrollView {
-            Text("Chord Manager").font(.headline)
-            
-            if (chords.isEmpty) {
-                Text("You don't have any chords, why not create one?")
-            }
-            
-            ForEach(chords) { chord in
-                HStack {
-                    Text("\(viewModel.longName(for: chord))")
-                    Spacer()
-                    Button(action: {
-                        viewModel.delete(chord: chord)
-                    }) {
-                    
-                        Image(systemName: "trash")
-                    }
+        VStack {
+            ScrollView {
+                Text("Chord Manager").font(.headline)
+                
+                if (chords.isEmpty) {
+                    Text("You don't have any chords, why not create one?")
                 }
-            }.padding(.horizontal)
-
-            NavigationLink(value: DetailDestination.chordBuilder(chord: nil)) {
-                Text("Chord Builder")
-            }.buttonStyle(PlainButtonStyle())
-
+                
+                ForEach(chords) { chord in
+                    NavigationLink(value: DetailDestination.chordBuilder(chord: chord)) {
+                        
+                        HStack {
+                            Text("\(viewModel.longName(for: chord))")
+                            Spacer()
+                            Button(action: {
+                                viewModel.delete(chord: chord)
+                            }) {
+                                
+                                Image(systemName: "trash")
+                            }
+                        }
+                    }
+                }.padding(.horizontal)
+                
+                
+            }
         }
+        NavigationLink(value: DetailDestination.chordBuilder(chord: nil)) {
+            Image(systemName: "music.quarternote.3")
+            Text("Chord Builder")
+        }
+
     }
 }
 
