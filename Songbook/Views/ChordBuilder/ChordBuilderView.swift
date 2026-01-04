@@ -17,12 +17,18 @@ struct ChordBuilderView: View {
             Spacer()
             HStack {
                 Text("Root Note")
+                Picker("Note", selection: $viewModel.root) {
+                    ForEach(NoteName.allCases) { note in
+                        Text(note.rawValue.capitalized)
+                            .tag(note) // Important to set the tag to the actual enum case
+                    }
+                }
                 Spacer()
-                TextField("C", text: $viewModel.root)
-                Picker("Flavor", selection: $viewModel.rootAccidental) {
-                    ForEach(NoteAccidentalType.allCases) { accidental in
-                        Text(accidental.rawValue.capitalized)
-                            .tag(accidental) // Important to set the tag to the actual enum case
+
+                Picker("Alteration", selection: $viewModel.rootAlteration) {
+                    ForEach (Alteration.allCases) { alteration in
+                        Text(alteration.rawValue.capitalized)
+                            .tag(alteration) // Important to set the tag to the actual enum case
                     }
                 }
             }
@@ -38,71 +44,62 @@ struct ChordBuilderView: View {
                 }
             }
             
-            HStack {
-                Toggle("Altered Chord?", isOn: $viewModel.altered)
+            if (viewModel.chordType == .seventh) {
+                HStack {
+                    Text("Seventh Type")
+                    Spacer()
+                    Picker("Type", selection: $viewModel.seventhType) {
+                        ForEach(SeventhType.allCases) { seventhType in
+                            Text(seventhType.rawValue.capitalized)
+                                .tag(seventhType) // Important to set the tag to the actual enum case
+                        }
+                    }
+                }
             }
-            
-            if (viewModel.altered) {
-                HStack {
-                    Text("Altered by")
-                    Spacer()
-                    VStack {
-                        Slider(
-                            value: $viewModel.alteration,
-                            in: 2...13,  // Defines the range from 1 to 10
-                            step: 1     // Ensures the value moves in whole number increments
-                        )
-                        .padding(.horizontal)
-                        HStack {
-                            Text("2")
-                            Spacer()
-                            Text("13")
-                        }
-                        .padding(.horizontal)
-                    }
-                }
-                
-                HStack {
-                    Text("Alteration Type")
-                    Spacer()
-                    Picker("Flavor", selection: $viewModel.alterationType) {
-                        ForEach(AlterationType.allCases) { alterationType in
-                            Text(alterationType.rawValue.capitalized)
-                                .tag(alterationType) // Important to set the tag to the actual enum case
-                        }
-                    }
-                }
 
-            }
-            
+            // TODO: extended and added ... eek!
+
             HStack {
-                Toggle("Suspended Chord?", isOn: $viewModel.suspended)
+                Toggle("Is Suspended?", isOn: $viewModel.isSuspended)
             }
-            
-            if (viewModel.suspended) {
+
+            if (viewModel.isSuspended) {
                 HStack {
-                    Text("Suspend by")
+                    Text("Suspended by")
                     Spacer()
-                    VStack {
-                        Slider(
-                            value: $viewModel.suspendedBy,
-                            in: 2...13,  // Defines the range from 1 to 10
-                            step: 1     // Ensures the value moves in whole number increments
-                        )
-                        .padding(.horizontal)
-                        HStack {
-                            Text("2")
-                            Spacer()
-                            Text("13")
+                    Picker("Suspended by", selection: $viewModel.suspendedType) {
+                        ForEach (SuspendedType.allCases) { suspension in
+                            Text(suspension.rawValue.capitalized)
+                                .tag(suspension) // Important to set the tag to the actual enum case
                         }
-                        .padding(.horizontal)
+                    }
+                }
+            }
+            HStack {
+                Toggle("Has Bass Note?", isOn: $viewModel.hasBassNote)
+            }
+
+            if (viewModel.hasBassNote) {
+                HStack {
+                    Text("Bass Note")
+                    Spacer()
+                    Picker("Note", selection: $viewModel.bassNote) {
+                        ForEach(NoteName.allCases) { note in
+                            Text(note.rawValue.capitalized)
+                                .tag(note) // Important to set the tag to the actual enum case
+                        }
+                    }
+                    Picker("Alteration", selection: $viewModel.bassNoteAlteration) {
+                        ForEach (Alteration.allCases) { alteration in
+                            Text(alteration.rawValue.capitalized)
+                                .tag(alteration) // Important to set the tag to the actual enum case
+                        }
                     }
                 }
             }
             
             Text(viewModel.displayChord)
             Text(viewModel.displayShortChord)
-            Spacer()
 
             Button {
                 viewModel.save()
@@ -110,6 +107,7 @@ struct ChordBuilderView: View {
             } label: {
                 Text("Save")
             }
+            Spacer()
 
         }.padding()
         

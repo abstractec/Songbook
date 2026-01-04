@@ -22,7 +22,7 @@ struct LyricChordEditor: View {
                             Button(action: {
                                 viewModel.removeChordAt(startStep + number)
                             }) {
-                                Text("\(chord.name)")
+                            Text(viewModel.shortName(for: chord))
                                     .rotationEffect(Angle(degrees: 270))
                                     .padding(0)
                                     .frame(width:100, height:0)
@@ -89,16 +89,19 @@ struct LyricChordEditor: View {
 }
 
 #Preview {
-    let aMinor = Chord(id: UUID(), name: "A Minor", shortName: "Am", imagePath: nil)
-    let cMajor = Chord(id: UUID(), name: "C Major", shortName: "C", imagePath: nil)
+    let aMinor = Chord(id: UUID(), root: .A, chordType: .minor)
+    let cMajor = Chord(id: UUID(), root: .C)
     
     let chordSequenceStep1 = ChordSequenceStep(id: UUID(), chord: aMinor, step: 0)
     let chordSequenceStep2 = ChordSequenceStep(id: UUID(), chord: cMajor, step: 17)
     let chordSequence = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
-    let lyric = Lyric(id: UUID(), text: "This should be a line of lyrics, and it will wrap")
+    let lyric = Lyric(id: UUID(), text: "This is a line of lyrics and I will wrap")
     let phrase = Phrase(lyric: lyric, chordSequence: chordSequence)
+    
+    let section = Section.emptySection
+    section.phrases = [phrase]
 
-    let viewModel = EditPhraseViewModel(section: Section.emptySection, phrase: phrase)
+    let viewModel = EditPhraseViewModel(section: section, phrase: phrase)
 
-    LyricChordEditor(lyric: viewModel.lyrics[1], viewModel: viewModel, startStep:31)
+    return LyricChordEditor(lyric: viewModel.lyrics[1], viewModel: viewModel, startStep:31)
 }

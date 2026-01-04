@@ -20,4 +20,6 @@ enum DetailDestination: Hashable {
     
     case songList
     case playlistList
+    
+    case chordBuilder(chord: Chord?)
 }

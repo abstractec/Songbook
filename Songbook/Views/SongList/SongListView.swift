@@ -6,16 +6,19 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SongListView: View {
+    @Query(sort: \Song.title) private var songs: [Song]
     var viewModel: SongListViewModel
     
     var body: some View {
         VStack {
             ScrollView {
-                ForEach(viewModel.songs) { song in
-                    SongListRow(song: song)
+                ForEach(songs) { song in
+                    SongListRow(song: song, viewModel: viewModel)
                 }
+                .id(songs.count)
             }
             NavigationLink(value: DetailDestination.newSong) {
                 Text("Add New Song")
@@ -26,12 +29,21 @@ struct SongListView: View {
 
 struct SongListRow: View {
     var song: Song
+    var viewModel: SongListViewModel
     
     var body: some View {
         HStack {
             NavigationLink(value: DetailDestination.viewSong(song: song)) {
                 Text("\(song.title)")
                 Spacer()
+                Button(action: {
+                    viewModel.delete(song: song)
+                }) {
+                    Image(systemName: "x.circle.fill")
+                        .frame(width: 10, height: 10, alignment: .center)
+                        .foregroundStyle(.red)
+                }
+
             }
         }.padding(.horizontal)
             .padding(.vertical, 4)

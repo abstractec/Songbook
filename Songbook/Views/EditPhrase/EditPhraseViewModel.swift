@@ -7,12 +7,14 @@
 
 import Foundation
 import SwiftData
+import SwiftUI
 
 @Observable
 class EditPhraseViewModel {
     private var modelContext: ModelContext?
     var section: Section
     var phrase: Phrase?
+    let chordRenderer: ChordRenderer = PlainTextChordRenderer()
     
     var lyric: String = ""
     {
@@ -47,6 +49,8 @@ class EditPhraseViewModel {
         self.modelContext = modelContext
         self.phrase = phrase
         
+        let chordRenderer = PlainTextChordRenderer()
+        
         // our max length is 31 (ish) on an ipad
         if let lyric = self.phrase?.lyric.text {
             self.lyrics = self.updateDisplayLyrics(lyric)
@@ -61,13 +65,14 @@ class EditPhraseViewModel {
         }
 
         for step in phrase?.chordSequence.sequence ?? [] {
+            let shortName = chordRenderer.renderShortName(chord: step.chord)
             
             if !availableChords.contains(step.chord) {
                 availableChords.append(step.chord)
             }
 
             
-            chordSequence.append(step.chord.shortName)
+            chordSequence.append(shortName)
             chordSequenceTiming.append(step.step)
         }
                 
@@ -87,10 +92,8 @@ class EditPhraseViewModel {
         return lyrics
     }
     
-    func addChord(name: String, shortName: String) {
-        let chord = Chord(id: UUID(), name: name, shortName: shortName, imagePath: nil)
-
-        if let modelContext = self.modelContext {
+    func addChord(chord: Chord?) {
+        if let chord = chord, let modelContext = self.modelContext {
                 
             modelContext.insert(chord)
             
@@ -99,8 +102,8 @@ class EditPhraseViewModel {
             } catch {
                 print("we failed to save the chord")
             }
+            availableChords.append(chord)
         }
-        availableChords.append(chord)
     }
     
     func setChord(_ chord: Chord, atPosition position: Int) {
@@ -165,4 +168,37 @@ class EditPhraseViewModel {
             
         }
     }
+    
+    func shortName(for chord: Chord?) -> String {
+        if let chord = chord {
+            return chordRenderer.renderShortName(chord: chord)
+        } else {
+            return ""
+        }
+    }
+    
+    func name(for chord: Chord?) -> String {
+        if let chord = chord {
+            return chordRenderer.render(chord: chord)
+        } else {
+            return ""
+        }
+    }
+
+    func shortName(for binding: Binding<Chord?>) -> Binding<String> {
+        if let chord = binding.wrappedValue {
+            return Binding<String>.constant(chordRenderer.renderShortName(chord: chord))
+        } else {
+            return Binding<String>.constant("")
+        }
+    }
+
+    func name(for binding: Binding<Chord?>) -> Binding<String> {
+        if let chord = binding.wrappedValue {
+            return Binding<String>.constant(chordRenderer.render(chord: chord))
+        } else {
+            return Binding<String>.constant("")
+        }
+    }
+
 }

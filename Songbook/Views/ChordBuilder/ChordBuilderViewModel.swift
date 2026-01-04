@@ -12,53 +12,52 @@ import SwiftData
 class ChordBuilderViewModel {
     private var modelContext: ModelContext?
 
-    public var root: String = ""
-    public var rootAccidental: NoteAccidentalType = .natural
-    public var chordType: ChordType = .major
-    public var altered: Bool = false
-    public var alteration: Double = 0.0
-    public var alterationType: AlterationType?
-    public var suspended: Bool = false
-    public var suspendedBy: Double = 0.0
+    public var root: NoteName = .C
+    public var rootAlteration: Alteration = .natural
+    public var chordType: ChordType = ChordType.major
+    public var seventhType: SeventhType? = .major
+    public var extendedType: ExtendedType? = nil
+    public var suspendedType: SuspendedType? = nil
+    public var addedType: AddedType? = nil
+    public var bassNote: NoteName = .G
+    public var bassNoteAlteration: Alteration = .natural
+
+    public var isSuspended = false
+    public var isAdded = false
+    public var hasBassNote = false
+
     public var chord: Chord?
-    
+
     public var displayChord: String {
-        let chord = Chord(id: UUID(), name: "", shortName: "", imagePath: nil)
-        chord.root = root
-        chord.chordType = chordType
-        chord.alteration = Int(alteration)
-        chord.altered = altered
-        chord.alterationType = alterationType
-        chord.suspended = suspended
-        chord.suspendedBy = Int(suspendedBy)
+        let chord = self.toChord()
         
-        let renderer = PlainTextChordRenderer()
-        
-        return renderer.render(chord: chord)
+        if let chord = chord {
+            let renderer = PlainTextChordRenderer()
+            return renderer.render(chord: chord)
+        } else {
+            return ""
+        }
     }
     
     public var displayShortChord: String {
-        let chord = Chord(id: UUID(), name: "", shortName: "", imagePath: nil)
-        chord.root = root
-        chord.chordType = chordType
-        chord.alteration = Int(alteration)
-        chord.altered = altered
-        chord.alterationType = alterationType
-        chord.suspended = suspended
-        chord.suspendedBy = Int(suspendedBy)
+        let chord = self.toChord()
 
-        let renderer = PlainTextChordRenderer()
-        
-        return renderer.renderShortName(chord: chord)
-
+        if let chord = chord {
+            let renderer = PlainTextChordRenderer()
+            return renderer.renderShortName(chord: chord)
+        } else {
+            return ""
+        }
     }
     
-    init(modelContext: ModelContext? = nil, root: String? = nil) {
+    init(modelContext: ModelContext? = nil, chord: Chord? = nil) {
         self.modelContext = modelContext
         
-        if let root = root {
-            self.root = root
+        if let chord = chord {
+            self.chord = chord
         }
+        
+        
     }
     
     init(modelContext: ModelContext? = nil, chord: Chord) {
@@ -66,35 +65,84 @@ class ChordBuilderViewModel {
         
         self.chord = chord
         
-        if let root = chord.root {
-            self.root = root
-        }
+        self.root = chord.root
         
-        if let chordType = chord.chordType {
-            self.chordType = chordType
-        }
+        self.chordType = chord.chordType
         
-        self.altered = chord.altered
+//        self.altered = chord.altered
         
-        if let alteration = chord.alteration {
-            self.alteration = Double(alteration)
-        }
-        self.suspended = chord.suspended
-        
-        if let suspendedBy = chord.suspendedBy {
-            self.suspendedBy = Double(suspendedBy)
-        }
+        // TODO: add all the ohter stuff
     }
     
     func save() {
         // write the chord to the DB, and run away!
+        if let modelContext = self.modelContext, let chord = self.chord, let existingChord = self.findItemByCustomID(with: chord.id, in: modelContext) {
+//            // we're overwriting
+            existingChord.root = root
+            existingChord.rootAlteration = rootAlteration
+            existingChord.chordType = chordType
+            existingChord.seventhType = seventhType
+            existingChord.extendedType = extendedType
+            existingChord.suspendedType = suspendedType
+            existingChord.addedType = addedType
+            existingChord.bassNote = bassNote
+            existingChord.bassNoteAlteration = bassNoteAlteration
+        } else {
+            // otherwise, make my chord and save it
+            if let newChord = self.toChord() {
+                modelContext?.insert(newChord)
+                
+                do {
+                    try modelContext?.save()
+                } catch {
+                    print("Unable to save new chord: \(error)")
+                }
+            }
+        }
+        
     }
-}
-
-enum NoteAccidentalType: String, CaseIterable, Identifiable {
-    case natural
-    case sharp
-    case flat
     
-    var id: String { self.rawValue }
+    func findItemByCustomID(with uuid: UUID, in modelContext: ModelContext) -> Chord? {
+        do {
+            let predicate = #Predicate<Chord> { $0.id == uuid }
+            let descriptor = FetchDescriptor<Chord>(predicate: predicate)
+            let results = try modelContext.fetch(descriptor)
+            return results.first
+        } catch {
+            print("Failed to fetch item: \(error)")
+            return nil
+        }
+    }
+    
+    private func toChord() -> Chord? {        
+        if hasBassNote {
+            let chord = Chord(id: UUID(),
+                              root: root,
+                              chordType: self.chordType,
+                              seventhType: self.seventhType,
+                              extendedType: self.extendedType,
+                              suspendedType: self.suspendedType,
+                              addedType: self.addedType,
+                              bassNote: self.bassNote,
+                              bassNoteAlteration: self.bassNoteAlteration)
+            
+            return chord
+        } else {
+            let chord = Chord(id: UUID(),
+                              root: root,
+                              chordType: self.chordType,
+                              seventhType: self.seventhType,
+                              extendedType: self.extendedType,
+                              suspendedType: self.suspendedType,
+                              addedType: self.addedType)
+            
+            return chord
+            
+        
+        }
+
+
+    }
+    
+
 }

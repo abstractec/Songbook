@@ -31,18 +31,18 @@ struct EditPhraseView: View {
                     }
                     Spacer()
                     VStack {
-                        ForEach(viewModel.availableChords, id: \.self) { chord in
-                            HStack {
-                                Text("\(chord.name)")
-                                Spacer()
-                            }
-                        }
-                        HStack {
-                            Button("Add Chord") {
-                                showingAddChordSheet.toggle()
-                            }
-                            Spacer()
-                        }
+//                        ForEach(viewModel.availableChords, id: \.self) { chord in
+//                            HStack {
+//                                Text("\(chord.name)")
+//                                Spacer()
+//                            }
+//                        }
+//                        HStack {
+//                            Button("Add Chord") {
+//                                showingAddChordSheet.toggle()
+//                            }
+//                            Spacer()
+//                        }
                     }
                 }
                 .padding(.horizontal)
@@ -87,7 +87,7 @@ struct EditPhraseView: View {
 }
     
 struct SelectChordView: View {
-    var viewModel: EditPhraseViewModel
+    @State var viewModel: EditPhraseViewModel
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
@@ -96,9 +96,9 @@ struct SelectChordView: View {
                 Text("Select Chord ")
                     .padding()
                 
-                ForEach(viewModel.availableChords) { chord in
-                    Button("\(chord.name)") {
-                        viewModel.setChord(chord, atPosition: viewModel.selectedSpace ?? 0)
+                ForEach($viewModel.availableChords) { chord in
+                    Button("\($viewModel.wrappedValue.name(for: chord.wrappedValue))") {
+                        viewModel.setChord(chord.wrappedValue, atPosition: viewModel.selectedSpace ?? 0)
                         dismiss()
                     }
                 }
@@ -116,18 +116,17 @@ struct AddChordSheetView: View {
     var viewModel: EditPhraseViewModel
     
     @Environment(\.dismiss) var dismiss
-    @State var chordName: String = ""
-    @State var shortName: String = ""
+    @State var chord: Chord?
 
     var body: some View {
         NavigationView { // Often wrapped in a NavigationView for better presentation
             VStack {
-                TextField("Chord Name", text: $chordName)
-                TextField("Short Name", text: $shortName)
+                TextField("Chord Name", text: viewModel.name(for: $chord))
+                TextField("Short Name", text: viewModel.shortName(for: $chord))
                 
                     
                 Button("Add Chord") {
-                    viewModel.addChord(name: chordName, shortName: shortName)
+                    viewModel.addChord(chord: $chord.wrappedValue)
                     dismiss()
                 }
 
@@ -144,9 +143,9 @@ struct AddChordSheetView: View {
 }
 
 #Preview {
-    let aMinor = Chord(id: UUID(), name: "A Minor", shortName: "Am", imagePath: nil)
-    let cMajor = Chord(id: UUID(), name: "C Major", shortName: "C", imagePath: nil)
-    
+    let aMinor = Chord(id: UUID(), root: .A, chordType: .minor)
+    let cMajor = Chord(id: UUID(), root: .C)
+
     let chordSequenceStep1 = ChordSequenceStep(id: UUID(), chord: aMinor, step: 0)
     let chordSequenceStep2 = ChordSequenceStep(id: UUID(), chord: cMajor, step: 17)
 

@@ -10,7 +10,7 @@ import SwiftData
 
 @Model
 public final class Playlist: Identifiable {
-    public var id: UUID
+    @Attribute(.unique) public var id: UUID
     public var name: String
     var songs: [Song]
 

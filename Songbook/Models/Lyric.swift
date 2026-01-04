@@ -10,7 +10,7 @@ import SwiftData
 
 @Model
 final class Lyric: Identifiable {
-    public var id: UUID
+    @Attribute(.unique) public var id: UUID
     public var text: String
     
     public init(id: UUID = .init(), text: String) {

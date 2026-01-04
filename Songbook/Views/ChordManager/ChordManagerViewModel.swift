@@ -11,32 +11,25 @@ import SwiftData
 @Observable
 class ChordManagerViewModel {
     private var modelContext: ModelContext?
-    var chords: [Chord] = []
+    private var chordRenderer = PlainTextChordRenderer()
 
     init(modelContext: ModelContext? = nil) {
         self.modelContext = modelContext
         
-        loadChords()
-    }
-    
-    
-    private func loadChords() {
-        
-        if let modelContext = modelContext {
-            do {
-                let allChords = try modelContext.fetch(FetchDescriptor<Chord>())
-                self.chords = Array(allChords)
-            } catch {
-                print("Failed to load chords")
-            }
-        }
     }
     
     func delete(chord: Chord) {
         if let modelContext = modelContext {
             modelContext.delete(chord)
-            loadChords()
         }
     }
     
+    func longName(for chord: Chord) -> String {
+        return chordRenderer.render(chord: chord)
+    }
+
+    func shortName(for chord: Chord) -> String {
+        return chordRenderer.renderShortName(chord: chord)
+    }
+
 }

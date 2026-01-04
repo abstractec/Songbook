@@ -63,11 +63,14 @@ class PlainTextSongRenderer: SongRenderer {
         
         var chordOffset = 0
         var sequenceOffset = 0
+        
+        let chordRenderer = PlainTextChordRenderer()
 
         for (i) in 0..<workingLyrics.count {
             // do I have a sequence at this step?
             if let nextStep = sequence.filter({$0.step == i}).first {
-                chordLine.append(nextStep.chord.shortName)
+                let shortName = chordRenderer.renderShortName(chord: nextStep.chord)
+                chordLine.append(shortName)
 
                 // now, the checks
                 
@@ -78,15 +81,15 @@ class PlainTextSongRenderer: SongRenderer {
                 // if our next chord step is not going to be rendered correctly because of this chord, then do the offset stuff
                 
                 if let nextStepAfter = sequence.filter({$0.step > i}).first {
-                    if (nextStepAfter.step < i + nextStep.chord.shortName.count) {
-                        if (nextStep.chord.shortName.count > 1) {
-                            sequenceOffset = nextStep.chord.shortName.count
+                    if (nextStepAfter.step < i + shortName.count) {
+                        if (shortName.count > 1) {
+                            sequenceOffset = shortName.count
                         } else {
-                            sequenceOffset = 1 - nextStep.chord.shortName.count
+                            sequenceOffset = 1 - shortName.count
                         }
                     } else {
-                        if (nextStep.chord.shortName.count > 1) {
-                            chordOffset = nextStep.chord.shortName.count - 1
+                        if (shortName.count > 1) {
+                            chordOffset = shortName.count - 1
                         }
                     }
                 }
@@ -121,7 +124,8 @@ class PlainTextSongRenderer: SongRenderer {
     
     private func render(chordSequence: ChordSequence) -> String {
         var renderedChordSequence = ""
-        
+        let chordRenderer = PlainTextChordRenderer()
+
         var max = 0
         
         for sequence in chordSequence.sequence {
@@ -142,9 +146,10 @@ class PlainTextSongRenderer: SongRenderer {
             }
             
             for step in steps {
+                let shortName = chordRenderer.renderShortName(chord: step.chord)
                 // should only be one, but to be safe
-                let chordSize = step.chord.shortName.count
-                renderedChordSequence.append(step.chord.shortName)
+                let chordSize = shortName.count
+                renderedChordSequence.append(shortName)
                 i += chordSize - 1
             }
             

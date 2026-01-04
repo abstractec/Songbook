@@ -121,10 +121,10 @@ struct SongView: View {
     let section = Section(id: UUID(), name: "Verse 1", song: song, phrases: [])
     let section2 = Section(id: UUID(), name: "Verse 2", song: song, phrases: [])
 
-    let aMinor = Chord(id: UUID(), name: "A Minor", shortName: "Am", imagePath: nil)
-    let gMajor = Chord(id: UUID(), name: "G Major", shortName: "G", imagePath: nil)
-    let dMajor = Chord(id: UUID(), name: "D Major", shortName: "D", imagePath: nil)
-    
+    let aMinor = Chord(id: UUID(), root: .A, chordType: .minor)
+    let gMajor = Chord(id: UUID(), root: .G)
+    let dMajor = Chord(id: UUID(), root: .D)
+
     let chordSequenceStep1 = ChordSequenceStep(id: UUID(), chord: aMinor, step: 0)
     let chordSequenceStep2 = ChordSequenceStep(id: UUID(), chord: gMajor, step: 7)
     let chordSequenceStep3 = ChordSequenceStep(id: UUID(), chord: gMajor, step: 9)

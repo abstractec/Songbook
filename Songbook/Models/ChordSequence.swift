@@ -10,7 +10,7 @@ import SwiftData
 
 @Model
 final class ChordSequence: Identifiable {
-    public var id: UUID
+    @Attribute(.unique) public var id: UUID
     public var sequence: [ChordSequenceStep]
     
     init(id: UUID, sequence: [ChordSequenceStep]) {

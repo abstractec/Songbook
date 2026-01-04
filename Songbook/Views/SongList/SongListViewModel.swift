@@ -35,6 +35,10 @@ class SongListViewModel {
             }
         }
     }
+    
+    func delete(song: Song) {
+        modelContext?.delete(song)
+    }
 }
 
 enum SingListSort: Hashable {

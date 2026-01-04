@@ -10,7 +10,7 @@ import SwiftData
 
 @Model
 final class Phrase: Identifiable {
-    public var id: UUID
+    @Attribute(.unique) public var id: UUID
     var sections: [Section]
     var lyric: Lyric = Lyric(id: UUID(), text: "")
     var chordSequence: ChordSequence = ChordSequence(id: UUID(), sequence: [])

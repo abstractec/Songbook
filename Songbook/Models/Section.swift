@@ -10,12 +10,13 @@ import SwiftData
 
 @Model
 final class Section: Identifiable, Hashable {
-    public var id: UUID
+    @Attribute(.unique) public var id: UUID
     public var name: String
     var song: Song
     var position: Int = 0
 
-    @Relationship(inverse: \Phrase.sections) var phrases: [Phrase]
+    @Relationship(deleteRule: .cascade, inverse: \Phrase.sections)
+    var phrases: [Phrase]
 
     init(id: UUID, name: String, song: Song, phrases: [Phrase]) {
         self.id = id

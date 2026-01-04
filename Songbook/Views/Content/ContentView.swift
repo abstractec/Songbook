@@ -10,7 +10,21 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-//    @Query private var songs: [Song]
+    @Query(sort: \Song.title) private var songs: [Song]
+    @Query(sort: \Playlist.name) private var playlists: [Playlist]
+    @Query(sort: \Chord.rootRawValue) private var chords: [Chord]
+
+    private var songCount: Int {
+        songs.count
+    }
+    
+    private var playlistCount: Int {
+        playlists.count
+    }
+
+    private var chordCount: Int {
+        chords.count
+    }
 
     @State private var sortOrder = SortDescriptor(\Playlist.name)
     @State private var searchText = ""
@@ -48,17 +62,17 @@ struct ContentView: View {
                         
                         HStack {
                             NavigationLink(value: DetailDestination.songList) {
-                                ContentCountView(iconName: "music.microphone", countName: "Songs", count: viewModel.numberOfSongs, color: .green)
+                                ContentCountView(iconName: "music.microphone", countName: "Songs", count: songCount, color: .green)
                             }.buttonStyle(PlainButtonStyle())
                             
                             NavigationLink(value: DetailDestination.playlistList) {
-                                ContentCountView(iconName: "list.clipboard", countName: "Playlists", count: viewModel.numberOfPlaylists, color: .yellow)
+                                ContentCountView(iconName: "list.clipboard", countName: "Playlists", count: playlistCount, color: .yellow)
                             }.buttonStyle(PlainButtonStyle())
                             
                         }.padding(.horizontal)
                         
                         NavigationLink(value: DetailDestination.chordManager) {
-                            ContentCountView(iconName: "music.quarternote.3", countName: "Chords", count: viewModel.numberOfChords, color: .cyan)
+                            ContentCountView(iconName: "music.quarternote.3", countName: "Chords", count: chordCount, color: .cyan)
                         }.buttonStyle(PlainButtonStyle())
                             .padding(.horizontal)
                     }.padding(.horizontal)
@@ -108,6 +122,11 @@ struct ContentView: View {
                                     case .songList:
                                         let viewModel = SongListViewModel(modelContext: modelContext)
                                         SongListView(viewModel: viewModel)
+                                    case .chordBuilder(let chord):
+                                        let viewModel = ChordBuilderViewModel(modelContext: modelContext, chord: chord)
+                                        
+                                        ChordBuilderView(viewModel: viewModel)
+
                                     case .playlistList:
                                         Text("Wango")
                                     }
