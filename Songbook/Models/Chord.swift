@@ -15,8 +15,8 @@ final class Chord: Identifiable, Codable {
 
     @Attribute(.unique) public var id: UUID
     public var imagePath: String?
-    public var rootNote: NoteName {
-        get { NoteName(rawValue: rootRawValue) ?? .C }
+    public var rootNote: Note {
+        get { Note(rawValue: rootRawValue) ?? .C }
         set { rootRawValue = newValue.rawValue }
     }
     
@@ -28,11 +28,11 @@ final class Chord: Identifiable, Codable {
     public var addedType: AddedType? = nil
     public var addedAlteration: Alteration = Alteration.natural
 
-    public var bassNote: NoteName?
+    public var bassNote: Note?
     public var bassNoteAlteration: Alteration? = nil
 
     
-    init(id: UUID, imagePath: String? = nil, rootNote: NoteName, rootNoteAlteration: Alteration = .natural, chordType: ChordType? = nil, seventhType: SeventhType? = nil, extendedType: ExtendedType? = nil, suspendedType: SuspendedType? = nil, addedType: AddedType? = nil, addedAlteration: Alteration = .natural, bassNote: NoteName? = nil, bassNoteAlteration: Alteration? = nil) {
+    init(id: UUID, imagePath: String? = nil, rootNote: Note, rootNoteAlteration: Alteration = .natural, chordType: ChordType? = nil, seventhType: SeventhType? = nil, extendedType: ExtendedType? = nil, suspendedType: SuspendedType? = nil, addedType: AddedType? = nil, addedAlteration: Alteration = .natural, bassNote: Note? = nil, bassNoteAlteration: Alteration? = nil) {
         self.id = id
         self.imagePath = imagePath
         self.rootRawValue = rootNote.rawValue
@@ -83,7 +83,7 @@ final class Chord: Identifiable, Codable {
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let rootNote = try container.decode(NoteName.self, forKey: CodingKeys.rootNote)
+        let rootNote = try container.decode(Note.self, forKey: CodingKeys.rootNote)
         
         self.rootRawValue = rootNote.rawValue
 
@@ -102,7 +102,7 @@ final class Chord: Identifiable, Codable {
         
         self.addedAlteration = try container.decode(Alteration.self, forKey: .addedAlteration)
         
-        self.bassNote = try container.decodeIfPresent(NoteName.self, forKey: .bassNote)        
+        self.bassNote = try container.decodeIfPresent(Note.self, forKey: .bassNote)        
         self.bassNoteAlteration = try container.decodeIfPresent(Alteration.self, forKey: .bassNoteAlteration)
 
     }
@@ -179,8 +179,8 @@ enum AddedType: String, CaseIterable, Identifiable, Codable {
     var id: String { self.rawValue }
 }
 
-enum NoteName: String, CaseIterable, Identifiable, Codable, Comparable {
-    static func < (lhs: NoteName, rhs: NoteName) -> Bool {
+enum Note: String, CaseIterable, Identifiable, Codable, Comparable {
+    static func < (lhs: Note, rhs: Note) -> Bool {
         return lhs.rawValue < rhs.rawValue
     }
     

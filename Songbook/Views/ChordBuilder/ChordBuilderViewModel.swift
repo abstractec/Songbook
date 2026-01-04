@@ -12,14 +12,14 @@ import SwiftData
 class ChordBuilderViewModel {
     private var modelContext: ModelContext?
 
-    public var rootNote: NoteName = .C
+    public var rootNote: Note = .C
     public var rootNoteAlteration: Alteration = .natural
     public var chordType: ChordType = ChordType.major
     public var seventhType: SeventhType? = .major
     public var extendedType: ExtendedType? = nil
     public var suspendedType: SuspendedType? = nil
     public var addedType: AddedType? = nil
-    public var bassNote: NoteName = .G
+    public var bassNote: Note = .G
     public var bassNoteAlteration: Alteration = .natural
 
     public var isSuspended = false {

@@ -18,7 +18,7 @@ struct ChordBuilderView: View {
             HStack {
                 Text("Root Note")
                 Picker("Note", selection: $viewModel.rootNote) {
-                    ForEach(NoteName.allCases) { note in
+                    ForEach(Note.allCases) { note in
                         Text(note.rawValue.capitalized)
                             .tag(note) // Important to set the tag to the actual enum case
                     }
@@ -84,7 +84,7 @@ struct ChordBuilderView: View {
                     Text("Bass Note")
                     Spacer()
                     Picker("Note", selection: $viewModel.bassNote) {
-                        ForEach(NoteName.allCases) { note in
+                        ForEach(Note.allCases) { note in
                             Text(note.rawValue.capitalized)
                                 .tag(note) // Important to set the tag to the actual enum case
                         }
