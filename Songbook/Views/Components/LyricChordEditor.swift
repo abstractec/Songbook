@@ -89,8 +89,8 @@ struct LyricChordEditor: View {
 }
 
 #Preview {
-    let aMinor = Chord(id: UUID(), root: .A, chordType: .minor)
-    let cMajor = Chord(id: UUID(), root: .C)
+    let aMinor = Chord(id: UUID(), rootNote: .A, chordType: .minor)
+    let cMajor = Chord(id: UUID(), rootNote: .C)
     
     let chordSequenceStep1 = ChordSequenceStep(id: UUID(), chord: aMinor, step: 0)
     let chordSequenceStep2 = ChordSequenceStep(id: UUID(), chord: cMajor, step: 17)

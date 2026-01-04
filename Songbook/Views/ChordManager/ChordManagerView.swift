@@ -46,7 +46,7 @@ struct ChordManagerView: View {
     let dataHelper = DataHelper()
     let modelContainer = dataHelper.mockModelContainer()
     
-    let aMinor = Chord(id: UUID(), root: .A, chordType: .major)
+    let aMinor = Chord(id: UUID(), rootNote: .A, chordType: .major)
     
     modelContainer.mainContext.insert(aMinor)
     

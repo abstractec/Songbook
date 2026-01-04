@@ -110,9 +110,9 @@ struct EditSectionView: View {
 
     let section = Section(id: UUID(), name: "Verse 1", song: song, phrases: [])
 
-    let aMinor = Chord(id: UUID(), root: .A, chordType: .minor)
-    let gMajor = Chord(id: UUID(), root: .G)
-    let dMajor = Chord(id: UUID(), root: .D)
+    let aMinor = Chord(id: UUID(), rootNote: .A, chordType: .minor)
+    let gMajor = Chord(id: UUID(), rootNote: .G)
+    let dMajor = Chord(id: UUID(), rootNote: .D)
     
     let chordSequenceStep1 = ChordSequenceStep(id: UUID(), chord: aMinor, step: 0)
     let chordSequenceStep2 = ChordSequenceStep(id: UUID(), chord: gMajor, step: 7)

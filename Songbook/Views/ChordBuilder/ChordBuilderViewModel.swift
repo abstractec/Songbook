@@ -12,8 +12,8 @@ import SwiftData
 class ChordBuilderViewModel {
     private var modelContext: ModelContext?
 
-    public var root: NoteName = .C
-    public var rootAlteration: Alteration = .natural
+    public var rootNote: NoteName = .C
+    public var rootNoteAlteration: Alteration = .natural
     public var chordType: ChordType = ChordType.major
     public var seventhType: SeventhType? = .major
     public var extendedType: ExtendedType? = nil
@@ -65,7 +65,7 @@ class ChordBuilderViewModel {
         
         self.chord = chord
         
-        self.root = chord.root
+        self.rootNote = chord.rootNote
         
         self.chordType = chord.chordType
         
@@ -78,8 +78,8 @@ class ChordBuilderViewModel {
         // write the chord to the DB, and run away!
         if let modelContext = self.modelContext, let chord = self.chord, let existingChord = self.findItemByCustomID(with: chord.id, in: modelContext) {
 //            // we're overwriting
-            existingChord.root = root
-            existingChord.rootAlteration = rootAlteration
+            existingChord.rootNote = rootNote
+            existingChord.rootNoteAlteration = rootNoteAlteration
             existingChord.chordType = chordType
             existingChord.seventhType = seventhType
             existingChord.extendedType = extendedType
@@ -117,7 +117,7 @@ class ChordBuilderViewModel {
     private func toChord() -> Chord? {        
         if hasBassNote {
             let chord = Chord(id: UUID(),
-                              root: root,
+                              rootNote: rootNote,
                               chordType: self.chordType,
                               seventhType: self.seventhType,
                               extendedType: self.extendedType,
@@ -129,7 +129,7 @@ class ChordBuilderViewModel {
             return chord
         } else {
             let chord = Chord(id: UUID(),
-                              root: root,
+                              rootNote: rootNote,
                               chordType: self.chordType,
                               seventhType: self.seventhType,
                               extendedType: self.extendedType,

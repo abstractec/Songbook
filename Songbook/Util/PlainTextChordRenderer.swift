@@ -8,7 +8,16 @@
 class PlainTextChordRenderer: ChordRenderer {
     func renderShortName(chord: Chord) -> String {
         var shortName = "";
-        shortName += chord.root.rawValue
+        shortName += chord.rootNote.rawValue
+        
+        switch chord.rootNoteAlteration {
+        case .natural:
+            shortName += ""
+        case .flat:
+            shortName += "b"
+        case .sharp:
+            shortName += "#"
+        }
         
         switch chord.chordType {
         case .major:
@@ -98,8 +107,17 @@ class PlainTextChordRenderer: ChordRenderer {
     
     func render(chord: Chord) -> String {
         var name = "";
-        name += chord.root.rawValue
-               
+        name += chord.rootNote.rawValue
+
+        switch chord.rootNoteAlteration {
+        case .natural:
+            name += ""
+        case .flat:
+            name += " flat"
+        case .sharp:
+            name += " sharp"
+        }
+
         switch chord.chordType {
         case .major:
             name += " major"
