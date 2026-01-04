@@ -83,7 +83,8 @@ struct SelectChordView: View {
                                 viewModel.setChord(chord, atPosition: viewModel.selectedSpace ?? 0)
                                 dismiss()
                             }
-                        }
+                            Spacer()
+                        }.padding(.horizontal)
                     }
                 }
                 
@@ -113,8 +114,14 @@ struct SelectChordView: View {
 }
 
 #Preview {
+    let dataHelper = DataHelper()
+    let modelContainer = dataHelper.mockModelContainer()
+  
     let aMinor = Chord(id: UUID(), rootNote: .A, chordType: .minor)
     let cMajor = Chord(id: UUID(), rootNote: .C)
+    
+    modelContainer.mainContext.insert(aMinor)
+    modelContainer.mainContext.insert(cMajor)
 
     let chordSequenceStep1 = ChordSequenceStep(id: UUID(), chord: aMinor, step: 0)
     let chordSequenceStep2 = ChordSequenceStep(id: UUID(), chord: cMajor, step: 17)
@@ -126,5 +133,5 @@ struct SelectChordView: View {
 
     let viewModel = EditPhraseViewModel(section: Section.emptySection, phrase: phrase)
 
-    return EditPhraseView(viewModel: viewModel)
+    return EditPhraseView(viewModel: viewModel).modelContainer(modelContainer)
 }

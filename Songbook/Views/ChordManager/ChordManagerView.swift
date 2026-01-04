@@ -56,7 +56,7 @@ struct ChordManagerView: View {
     let aMinor = Chord(id: UUID(), rootNote: .A, chordType: .major)
     
     modelContainer.mainContext.insert(aMinor)
-    
+
     
 //    ,
 //            Chord(id: UUID(), name: "G major", shortName: "G", imagePath: nil),
