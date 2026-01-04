@@ -12,6 +12,8 @@ import SwiftData
 class ChordManagerViewModel {
     private var modelContext: ModelContext?
     private var chordRenderer = PlainTextChordRenderer()
+    public var document: JSONDocument?
+    public var isExporting = false
 
     init(modelContext: ModelContext? = nil) {
         self.modelContext = modelContext
@@ -30,6 +32,21 @@ class ChordManagerViewModel {
 
     func shortName(for chord: Chord) -> String {
         return chordRenderer.renderShortName(chord: chord)
+    }
+
+    func exportChords(_ chords: [Chord]) {
+        let encoder = JSONEncoder()
+        
+        encoder.outputFormatting = .prettyPrinted 
+        
+        if let encodedData = try? encoder.encode(chords) {
+            self.document = JSONDocument(data: encodedData)
+            self.isExporting = true
+        }
+    }
+    
+    func importChords() {
+        
     }
 
 }

@@ -10,7 +10,7 @@ import SwiftData
 
 struct ChordManagerView: View {
     @Query(sort: \Chord.rootRawValue) var chords: [Chord]
-
+    
     @State var viewModel: ChordManagerViewModel
     var body: some View {
         VStack {
@@ -36,8 +36,35 @@ struct ChordManagerView: View {
                         }
                     }
                 }.padding(.horizontal)
+            }
+            
+            HStack {
+                Button {
+                    viewModel.importChords()
+                } label: {
+                    Image(systemName: "square.and.arrow.up")
+                    Text("Import Chords")
+                }.padding(.trailing, 2)
                 
-                
+                Button {
+                    viewModel.exportChords(self.chords)
+                } label: {
+                    Image(systemName: "square.and.arrow.down")
+                    Text("Export Chords")
+                }.padding(.leading, 2)
+                    .fileExporter(
+                        isPresented: $viewModel.isExporting,
+                        document: viewModel.document,
+                        contentType: .json,
+                        defaultFilename: "exported_chords.json"
+                    ) { result in
+                        switch result {
+                        case .success(let url):
+                            print("Saved to: \(url)")
+                        case .failure(let error):
+                            print("Export failed: \(error.localizedDescription)")
+                        }
+                    }
             }
         }
         NavigationLink(value: DetailDestination.chordBuilder(chord: nil)) {
@@ -46,24 +73,23 @@ struct ChordManagerView: View {
         }
 
     }
+    
 }
 
 #Preview {
-    
     let dataHelper = DataHelper()
     let modelContainer = dataHelper.mockModelContainer()
     
     let aMinor = Chord(id: UUID(), rootNote: .A, chordType: .major)
-    
-    modelContainer.mainContext.insert(aMinor)
+    let gMajor = Chord(id: UUID(), rootNote: .G)
+    let dMajor = Chord(id: UUID(), rootNote: .D)
+    let a7Sus2 = Chord(id: UUID(), rootNote: .A, chordType: .seventh, seventhType: .dominant, suspendedType: .second)
 
+    modelContainer.mainContext.insert(aMinor)
+    modelContainer.mainContext.insert(gMajor)
+    modelContainer.mainContext.insert(dMajor)
+    modelContainer.mainContext.insert(a7Sus2)
     
-//    ,
-//            Chord(id: UUID(), name: "G major", shortName: "G", imagePath: nil),
-//            Chord(id: UUID(), name: "D major", shortName: "D", imagePath: nil),
-//            Chord(id: UUID(), name: "E 7", shortName: "E7", imagePath: nil),
-//        ]
-//        )
     let viewModel = ChordManagerViewModel()
     let view = ChordManagerView(viewModel: viewModel).modelContainer(modelContainer)
 

@@ -69,7 +69,7 @@ struct ChordBuilderView: View {
                     Spacer()
                     Picker("Suspended by", selection: $viewModel.suspendedType) {
                         ForEach (SuspendedType.allCases) { suspension in
-                            Text(suspension.rawValue.capitalized)
+                            Text("\(suspension)")
                                 .tag(suspension) // Important to set the tag to the actual enum case
                         }
                     }

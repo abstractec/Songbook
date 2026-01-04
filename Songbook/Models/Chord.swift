@@ -9,7 +9,8 @@ import Foundation
 import SwiftData
 
 @Model
-final class Chord: Identifiable, Codable {
+final class Chord: Identifiable, Codable, Comparable {
+    
     // SwiftData helpers
     var rootRawValue: String
 
@@ -131,9 +132,94 @@ final class Chord: Identifiable, Codable {
     func copy() -> Chord {
         return try! JSONDecoder().decode(Chord.self, from: JSONEncoder().encode(self))
     }
+    
+    static func < (lhs: Chord, rhs: Chord) -> Bool {
+        let sameRoot = lhs.rootRawValue == rhs.rootRawValue
+        
+        if (!sameRoot) {
+            return lhs.rootRawValue < rhs.rootRawValue
+        }
+        
+        let sameRootAlteration = lhs.rootNoteAlteration == rhs.rootNoteAlteration
+        
+        if (!sameRootAlteration) {
+            return lhs.rootNoteAlteration < rhs.rootNoteAlteration
+        }
+        
+        let sameChordType = lhs.chordType == rhs.chordType
+        
+        if (!sameChordType) {
+            return lhs.chordType < rhs.chordType
+        }
+        
+        let sameSeventhType = lhs.seventhType == rhs.seventhType
+        
+        if (!sameSeventhType) {
+            if let lhsSeventhType = lhs.seventhType, let rhsSeventhType = rhs.seventhType {
+                return lhsSeventhType < rhsSeventhType
+            }
+        }
+        
+        let sameExtendedType = lhs.extendedType == rhs.extendedType
+        
+        if (!sameExtendedType) {
+            if let lhsExtendedType = lhs.extendedType, let rhsExtendedType = rhs.extendedType {
+                return lhsExtendedType < rhsExtendedType
+            }
+        }
+        
+        let sameSuspendedType = lhs.suspendedType == rhs.suspendedType
+        
+        if (!sameSuspendedType) {
+            if lhs.suspendedType == nil && rhs.suspendedType != nil {
+                return true
+            }
+            
+            if let lhsSuspendedType = lhs.suspendedType, let rhsSuspendedType = rhs.suspendedType {
+                return lhsSuspendedType < rhsSuspendedType
+            }
+        }
+        
+        let sameAddedType = lhs.addedType == rhs.addedType
+        
+        if (!sameAddedType) {
+            if let lhsAddedType = lhs.addedType, let rhsAddedType = rhs.addedType {
+                return lhsAddedType < rhsAddedType
+            }
+        }
+        
+        
+        let sameAddedAlteration = lhs.addedAlteration == rhs.addedAlteration
+        
+        if (!sameAddedAlteration) {
+            return lhs.addedAlteration < rhs.addedAlteration
+        }
+
+        let sameBassNoteType = lhs.bassNoteAlteration == rhs.bassNoteAlteration
+        
+        if (!sameBassNoteType) {
+            if let lhsBassNote = lhs.bassNote, let rhsBassNote = rhs.bassNote {
+                return lhsBassNote < rhsBassNote
+
+            }
+        }
+        
+        
+        let sameBassNoteAlteration = lhs.bassNoteAlteration == rhs.bassNoteAlteration
+        
+        if (!sameBassNoteAlteration) {
+            if let lhsBassNoteAlteration = lhs.bassNoteAlteration, let rhsBassNoteAlteration = rhs.bassNoteAlteration {
+                return lhsBassNoteAlteration < rhsBassNoteAlteration
+            }
+        }
+        
+        
+        return false
+    }
+
 }
 
-enum ChordType: String, CaseIterable, Identifiable, Codable {
+enum ChordType: String, CaseIterable, Identifiable, Codable, Comparable {
     case major
     case minor
     case seventh
@@ -141,46 +227,76 @@ enum ChordType: String, CaseIterable, Identifiable, Codable {
     case augmented
     case power
     
-    var id: String { self.rawValue }
+    var id: String { String(describing: self) }
+    
+    static func < (lhs: ChordType, rhs: ChordType) -> Bool {
+        let allCases = Self.allCases
+        return allCases.firstIndex(of: lhs)! < allCases.firstIndex(of: rhs)!
+    }
 }
 
-enum SeventhType: String, CaseIterable, Identifiable, Codable {
+enum SeventhType: String, CaseIterable, Identifiable, Codable, Comparable {
     case major
     case minor
     case dominant
     case halfDimished
 
-    var id: String { self.rawValue }
+    var id: String { String(describing: self) }
+
+    static func < (lhs: SeventhType, rhs: SeventhType) -> Bool {
+        let allCases = Self.allCases
+        return allCases.firstIndex(of: lhs)! < allCases.firstIndex(of: rhs)!
+    }
 }
 
-enum ExtendedType: String, CaseIterable, Identifiable, Codable {
+enum ExtendedType: String, CaseIterable, Identifiable, Codable, Comparable {
     case ninth
     case eleventh
     case thirteenth
     
-    var id: String { self.rawValue }
+    var id: String { String(describing: self) }
+    
+    static func < (lhs: ExtendedType, rhs: ExtendedType) -> Bool {
+        let allCases = Self.allCases
+        return allCases.firstIndex(of: lhs)! < allCases.firstIndex(of: rhs)!
+    }
 }
 
-enum Alteration: String, CaseIterable, Identifiable, Codable {
+enum Alteration: String, CaseIterable, Identifiable, Codable, Comparable {
     case natural
     case flat
     case sharp
     
-    var id: String { self.rawValue }
+    var id: String { String(describing: self) }
+
+    static func < (lhs: Alteration, rhs: Alteration) -> Bool {
+        let allCases = Self.allCases
+        return allCases.firstIndex(of: lhs)! < allCases.firstIndex(of: rhs)!
+    }
 }
 
-enum SuspendedType: String, CaseIterable, Identifiable, Codable {
+enum SuspendedType: String, CaseIterable, Identifiable, Codable, Comparable {
     case second
     case fourth
     
-    var id: String { self.rawValue }
+    var id: String { String(describing: self) }
+    
+    static func < (lhs: SuspendedType, rhs: SuspendedType) -> Bool {
+        let allCases = Self.allCases
+        return allCases.firstIndex(of: lhs)! < allCases.firstIndex(of: rhs)!
+    }
 }
 
-enum AddedType: String, CaseIterable, Identifiable, Codable {
+enum AddedType: String, CaseIterable, Identifiable, Codable, Comparable {
     case second
     case ninth
     
-    var id: String { self.rawValue }
+    var id: String { String(describing: self) }
+    
+    static func < (lhs: AddedType, rhs: AddedType) -> Bool {
+        let allCases = Self.allCases
+        return allCases.firstIndex(of: lhs)! < allCases.firstIndex(of: rhs)!
+    }
 }
 
 enum Note: String, CaseIterable, Identifiable, Codable, Comparable {
