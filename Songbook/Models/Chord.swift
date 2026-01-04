@@ -48,6 +48,7 @@ final class Chord: Identifiable, Codable {
         self.suspendedType = suspendedType
         self.addedType = addedType
         self.addedAlteration = addedAlteration
+        
         self.bassNote = bassNote
         self.bassNoteAlteration = bassNoteAlteration    
     }
@@ -67,7 +68,7 @@ final class Chord: Identifiable, Codable {
     enum CodingKeys: String, CodingKey {
         case id
         case imagePath = "image_path"
-        case rootNote
+        case rootNote = "root_note"
         case rootNoteAlteration = "root_note_alteration"
         case chordType = "chord_type"
         case seventhType = "seventh_type"
@@ -87,20 +88,22 @@ final class Chord: Identifiable, Codable {
         self.rootRawValue = rootNote.rawValue
 
         self.id = try container.decode(UUID.self, forKey: .id)
-        self.imagePath = try container.decode(String?.self, forKey: .imagePath)
+        
+        self.imagePath = try container.decodeIfPresent(String.self, forKey: .imagePath)
       
         self.rootNote = rootNote
         self.rootNoteAlteration = try container.decode(Alteration.self, forKey: .rootNoteAlteration)
         self.chordType = try container.decode(ChordType.self, forKey: .chordType)
         
-        self.seventhType = try container.decode(SeventhType.self, forKey: .seventhType)
-        self.extendedType = try container.decode(ExtendedType.self, forKey: .extendedType)
-        self.suspendedType = try container.decode(SuspendedType.self, forKey: .suspendedType)
-        self.addedType = try container.decode(AddedType.self, forKey: .addedType)
+        self.seventhType = try container.decodeIfPresent(SeventhType.self, forKey: .seventhType)
+        self.extendedType = try container.decodeIfPresent(ExtendedType.self, forKey: .extendedType)
+        self.suspendedType = try container.decodeIfPresent(SuspendedType.self, forKey: .suspendedType)
+        self.addedType = try container.decodeIfPresent(AddedType.self, forKey: .addedType)
+        
         self.addedAlteration = try container.decode(Alteration.self, forKey: .addedAlteration)
         
-        self.bassNote = try container.decode(NoteName.self, forKey: .bassNote)
-        self.bassNoteAlteration = try container.decode(Alteration.self, forKey: .bassNoteAlteration)
+        self.bassNote = try container.decodeIfPresent(NoteName.self, forKey: .bassNote)        
+        self.bassNoteAlteration = try container.decodeIfPresent(Alteration.self, forKey: .bassNoteAlteration)
 
     }
 

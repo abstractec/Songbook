@@ -13,9 +13,9 @@ import XCTest
 
 struct SongbookTests {
     @Test func testSong() async throws {
-        let cMinor = Chord(id: UUID(), root: .C, chordType: .minor)
-        let aMajor = Chord(id: UUID(), root: .A)
-        let dMajor = Chord(id: UUID(), root: .D)
+        let cMinor = Chord(id: UUID(), rootNote: .C, chordType: .minor)
+        let aMajor = Chord(id: UUID(), rootNote: .A)
+        let dMajor = Chord(id: UUID(), rootNote: .D)
         
         let introSequence = ChordSequence(id: UUID(), sequence: [
             ChordSequenceStep(id: UUID(), chord: cMinor, step: 0),
@@ -81,8 +81,8 @@ A7sus2 A
 I      want to make this work
 
 """
-        let aMajor = Chord(id: UUID(), root: .A)
-        let a7Sus2 = Chord(id: UUID(), root: .A, chordType: .seventh, seventhType: .dominant, suspendedType: .second)
+        let aMajor = Chord(id: UUID(), rootNote: .A)
+        let a7Sus2 = Chord(id: UUID(), rootNote: .A, chordType: .seventh, seventhType: .dominant, suspendedType: .second)
 
         let introSequence = ChordSequence(id: UUID(), sequence: [
             ChordSequenceStep(id: UUID(), chord: aMajor, step: 2),
@@ -116,8 +116,8 @@ A                   A7sus2
 I want to make this work
 
 """
-        let aMajor = Chord(id: UUID(), root: .A)
-        let a7Sus2 = Chord(id: UUID(), root: .A, chordType: .seventh, seventhType: .dominant, suspendedType: .second)
+        let aMajor = Chord(id: UUID(), rootNote: .A)
+        let a7Sus2 = Chord(id: UUID(), rootNote: .A, chordType: .seventh, seventhType: .dominant, suspendedType: .second)
 
         let introSequence = ChordSequence(id: UUID(), sequence: [
             ChordSequenceStep(id: UUID(), chord: aMajor, step: 0),
@@ -153,8 +153,8 @@ Am        D
 I want to make this work
 
 """
-        let aMinor = Chord(id: UUID(), root: .A, chordType: .minor)
-        let dMajor = Chord(id: UUID(), root: .D)
+        let aMinor = Chord(id: UUID(), rootNote: .A, chordType: .minor)
+        let dMajor = Chord(id: UUID(), rootNote: .D)
 
         let introSequence = ChordSequence(id: UUID(), sequence: [
             ChordSequenceStep(id: UUID(), chord: aMinor, step: 0),
@@ -190,8 +190,8 @@ A7sus2 Am
 I      want to make this work
 
 """
-        let aMinor = Chord(id: UUID(), root: .A, chordType: .minor)
-        let a7Sus2 = Chord(id: UUID(), root: .A, chordType: .seventh, seventhType: .dominant, suspendedType: .second)
+        let aMinor = Chord(id: UUID(), rootNote: .A, chordType: .minor)
+        let a7Sus2 = Chord(id: UUID(), rootNote: .A, chordType: .seventh, seventhType: .dominant, suspendedType: .second)
 
         let introSequence = ChordSequence(id: UUID(), sequence: [
             ChordSequenceStep(id: UUID(), chord: a7Sus2, step: 0),
