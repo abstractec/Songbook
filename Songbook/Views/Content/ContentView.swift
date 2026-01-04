@@ -34,106 +34,104 @@ struct ContentView: View {
     @State private var navigateToAddSong = false
 
     var body: some View {
-            NavigationSplitView {
-                PlaylistsView(sort: sortOrder, searchString: searchText)
-                .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-            } detail: {
+        NavigationSplitView {
+            PlaylistsView(sort: sortOrder, searchString: searchText)
+            .navigationSplitViewColumnWidth(min: 180, ideal: 200)
+        } detail: {
+            VStack {
                 VStack {
-                    VStack {
-                        HStack {
-                            Spacer()
-                            Text("Welcome to Songbook!")
-                                .font(.title)
-                                .foregroundStyle(.white)
-                            Spacer()
-                        }.padding(.horizontal)
-                            .padding(.vertical, 4)
-                        
-                        
-                    }
-                    .background(Color.gray)
-                    .border(Color.gray, width: 4)
-                    .cornerRadius(8)
-                    .padding(.horizontal)
-                    
-                    Spacer()
-
-                    VStack {
-                        
-                        HStack {
-                            NavigationLink(value: DetailDestination.songList) {
-                                ContentCountView(iconName: "music.microphone", countName: "Songs", count: songCount, color: .green)
-                            }.buttonStyle(PlainButtonStyle())
-                            
-                            NavigationLink(value: DetailDestination.playlistList) {
-                                ContentCountView(iconName: "list.clipboard", countName: "Playlists", count: playlistCount, color: .yellow)
-                            }.buttonStyle(PlainButtonStyle())
-                            
-                        }.padding(.horizontal)
-                        
-                        NavigationLink(value: DetailDestination.chordManager) {
-                            ContentCountView(iconName: "music.quarternote.3", countName: "Chords", count: chordCount, color: .cyan)
-                        }.buttonStyle(PlainButtonStyle())
-                            .padding(.horizontal)
+                    HStack {
+                        Spacer()
+                        Text("Welcome to Songbook!")
+                            .font(.title)
+                            .foregroundStyle(.white)
+                        Spacer()
                     }.padding(.horizontal)
-
-                    Spacer()
+                        .padding(.vertical, 4)
                     
-                    VStack {
-                        HStack {
-                            Spacer()
-                            Text("Fully Open Source: visit https://github.com/abstractec/Songbook")
-                            Spacer()
-                        }.padding(.horizontal)
-                            .padding(.vertical, 4)
-                        
-                        
-                    }
-                    .padding(.horizontal)
+                    
+                }
+                .background(Color.gray)
+                .border(Color.gray, width: 4)
+                .cornerRadius(8)
+                .padding(.horizontal)
+                
+                Spacer()
 
-                                
-                        NavigationStack(path: $detailPath) {
-                            Text("")
-                                .navigationDestination(for: DetailDestination.self) { destination in
-                                    switch destination {
-                                    case .newSong:
-                                        let song = Song(id: UUID(), title: "", sections: [])
-                                        let viewModel = EditSongViewModel(song: song, modelContext: modelContext)
-                                        EditSongView(viewModel: viewModel)
-                                    case .newSection(let song):
-                                        let section = Section(id: UUID(), name: "", song: song, phrases: [])
-                                        let viewModel = SectionViewModel(song: song, section: section)
-                                        EditSectionView(viewModel: viewModel)
-                                    case .newPhrase(let section):
-                                        let phrase = Phrase.emptyPhrase
-                                        let viewModel = EditPhraseViewModel(section: section, phrase: phrase, modelContext: modelContext)
-                                        EditPhraseView(viewModel: viewModel)
-                                    case .editPhrase(let section, let phrase):
-                                        let viewModel = EditPhraseViewModel(section: section, phrase: phrase, modelContext: modelContext)
-                                        EditPhraseView(viewModel: viewModel)
-                                    case .viewSong(let song):
-                                        let viewModel = SongViewModel(song: song, modelContext: modelContext)
-                                        SongView(viewModel: viewModel)
-                                    case .editSection(let section):
-                                        let viewModel = SectionViewModel(song: section.song, section: section, modelContext: modelContext)
-                                        EditSectionView(viewModel: viewModel)
-                                    case .chordManager:
-                                        let viewModel = ChordManagerViewModel(modelContext: modelContext)
-                                        ChordManagerView(viewModel: viewModel)
-                                    case .songList:
-                                        let viewModel = SongListViewModel(modelContext: modelContext)
-                                        SongListView(viewModel: viewModel)
-                                    case .chordBuilder(let chord):
-                                        let viewModel = ChordBuilderViewModel(modelContext: modelContext, chord: chord)
-                                        
-                                        ChordBuilderView(viewModel: viewModel)
+                VStack {
+                    
+                    HStack {
+                        NavigationLink(value: DetailDestination.songList) {
+                            ContentCountView(iconName: "music.microphone", countName: "Songs", count: songCount, color: .green)
+                        }.buttonStyle(PlainButtonStyle())
+                        
+                        NavigationLink(value: DetailDestination.playlistList) {
+                            ContentCountView(iconName: "list.clipboard", countName: "Playlists", count: playlistCount, color: .yellow)
+                        }.buttonStyle(PlainButtonStyle())
+                        
+                    }.padding(.horizontal)
+                    
+                    NavigationLink(value: DetailDestination.chordManager) {
+                        ContentCountView(iconName: "music.quarternote.3", countName: "Chords", count: chordCount, color: .cyan)
+                    }.buttonStyle(PlainButtonStyle())
+                        .padding(.horizontal)
+                }.padding(.horizontal)
 
-                                    case .playlistList:
-                                        Text("Wango")
-                                    }
-                                }
+                Spacer()
+                
+                VStack {
+                    HStack {
+                        Spacer()
+                        Text("Fully Open Source: visit https://github.com/abstractec/Songbook")
+                        Spacer()
+                    }.padding(.horizontal)
+                        .padding(.vertical, 4)
+                    
+                    
+                }
+                .padding(.horizontal)
                             
+                NavigationStack(path: $detailPath) {
+                    Text("")
+                        .navigationDestination(for: DetailDestination.self) { destination in
+                        switch destination {
+                        case .newSong:
+                            let song = Song(id: UUID(), title: "", sections: [])
+                            let viewModel = EditSongViewModel(song: song, modelContext: modelContext)
+                            EditSongView(viewModel: viewModel)
+                        case .newSection(let song):
+                            let section = Section(id: UUID(), name: "", song: song, phrases: [])
+                            let viewModel = SectionViewModel(song: song, section: section)
+                            EditSectionView(viewModel: viewModel)
+                        case .newPhrase(let section):
+                            let phrase = Phrase.emptyPhrase
+                            let viewModel = EditPhraseViewModel(section: section, phrase: phrase, modelContext: modelContext)
+                            EditPhraseView(viewModel: viewModel)
+                        case .editPhrase(let section, let phrase):
+                            let viewModel = EditPhraseViewModel(section: section, phrase: phrase, modelContext: modelContext)
+                            EditPhraseView(viewModel: viewModel)
+                        case .viewSong(let song):
+                            let viewModel = SongViewModel(song: song, modelContext: modelContext)
+                            SongView(viewModel: viewModel)
+                        case .editSection(let section):
+                            let viewModel = SectionViewModel(song: section.song, section: section, modelContext: modelContext)
+                            EditSectionView(viewModel: viewModel)
+                        case .chordManager:
+                            let viewModel = ChordManagerViewModel(modelContext: modelContext)
+                            ChordManagerView(viewModel: viewModel)
+                        case .songList:
+                            let viewModel = SongListViewModel(modelContext: modelContext)
+                            SongListView(viewModel: viewModel)
+                        case .chordBuilder(let chord):
+                            let viewModel = ChordBuilderViewModel(modelContext: modelContext, chord: chord)
+                            
+                            ChordBuilderView(viewModel: viewModel)
+
+                        case .playlistList:
+                            Text("Wango")
+                        }
                     }
+                }
             }
         }.task {
             viewModel = ContentViewModel(modelContext: self.modelContext)

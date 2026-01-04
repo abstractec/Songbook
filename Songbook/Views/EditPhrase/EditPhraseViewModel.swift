@@ -11,7 +11,7 @@ import SwiftUI
 
 @Observable
 class EditPhraseViewModel {
-    private var modelContext: ModelContext?
+    var modelContext: ModelContext?
     var section: Section
     var phrase: Phrase?
     let chordRenderer: ChordRenderer = PlainTextChordRenderer()

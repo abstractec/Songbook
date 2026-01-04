@@ -70,55 +70,44 @@ struct SelectChordView: View {
     @State var viewModel: EditPhraseViewModel
     @Environment(\.dismiss) var dismiss
     @Query(sort: \Chord.rootRawValue) var chords: [Chord]
+    @State private var navigationPath = NavigationPath()
 
     var body: some View {
-        NavigationView { // Often wrapped in a NavigationView for better presentation
+        NavigationStack(path: $navigationPath) {
+            
             VStack {
-                Text("Select Chord ")
-                    .padding()
-                                
-                ForEach(chords) { chord in
-                    Button("\($viewModel.wrappedValue.name(for: chord))") {
-                        viewModel.setChord(chord, atPosition: viewModel.selectedSpace ?? 0)
-                        dismiss()
+                ScrollView {
+                    ForEach(chords) { chord in
+                        HStack {
+                            Button("\($viewModel.wrappedValue.name(for: chord))") {
+                                viewModel.setChord(chord, atPosition: viewModel.selectedSpace ?? 0)
+                                dismiss()
+                            }
+                        }
                     }
                 }
-
-                Button("Press to dismiss") {
-                    dismiss()
-                }
-            }
-            .navigationTitle("Modal View")
-        }
-    }
-}
-
-struct AddChordSheetView: View {
-    var viewModel: EditPhraseViewModel
-    
-    @Environment(\.dismiss) var dismiss
-    @State var chord: Chord?
-
-    var body: some View {
-        NavigationView { // Often wrapped in a NavigationView for better presentation
-            VStack {
-                TextField("Chord Name", text: viewModel.name(for: $chord))
-                TextField("Short Name", text: viewModel.shortName(for: $chord))
                 
-                    
-//                Button("Add Chord") {
-//                    viewModel.addChord(chord: $chord.wrappedValue)
-//                    dismiss()
-//                }
-
-                Button("Cancel") {
-                    // 5. Call dismiss() to close the modal
-                    dismiss()
+                Spacer()
+                
+                NavigationLink(value: EditPhraseDestination.chordBuilder(chord: nil)) {
+                    Image(systemName: "music.quarternote.3")
+                    Text("Add Chord")
                 }
-
+                
+                
+                Button("Cancel") {
+                    dismiss()
+                }.padding(.vertical)
             }
-            .navigationTitle("Modal View")
-            .padding()
+            .navigationTitle("Select Chord")
+            .navigationDestination(for: EditPhraseDestination.self) { destination in
+                switch destination {
+                case .chordBuilder(let chord):
+                    let viewModel = ChordBuilderViewModel(modelContext: viewModel.modelContext, chord: chord)
+                    
+                    ChordBuilderView(viewModel: viewModel)
+                }
+            }
         }
     }
 }
@@ -137,6 +126,5 @@ struct AddChordSheetView: View {
 
     let viewModel = EditPhraseViewModel(section: Section.emptySection, phrase: phrase)
 
-//    return EditPhraseView(viewModel: viewModel)
-//    return EditPhraseView()
+    return EditPhraseView(viewModel: viewModel)
 }

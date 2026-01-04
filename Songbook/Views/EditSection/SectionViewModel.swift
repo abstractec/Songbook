@@ -39,10 +39,6 @@ class SectionViewModel: Identifiable {
     }
     
     func reload() {
-//        if let section = section {
-//            self.phrases = section.phrases.sorted{ $0.position < $1.position }
-//        }
-//
     }
     
     func render(phrase: Phrase) -> String {
