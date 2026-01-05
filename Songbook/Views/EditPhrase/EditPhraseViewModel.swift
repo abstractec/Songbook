@@ -54,12 +54,12 @@ class EditPhraseViewModel {
     
     func updateLyric(_ lyric: String) {
         self.lyric = lyric
+               
         self.lyrics = self.updateDisplayLyrics(lyric)
-        
+
         self.phrase?.lyric.text = self.lyric
 
         updateChordSequence()
-        
     }
     
     private func updateDisplayLyrics(_ lyrics: String) -> [String] {
@@ -115,6 +115,10 @@ class EditPhraseViewModel {
             let renderer = PlainTextSongRenderer()
             self.renderedPhrase = renderer.render(phrase: mainPhrase)
         }
+    }
+    
+    func hasLyrics() -> Bool {
+        return lyric.count > 0
     }
     
     func savePhrase() {

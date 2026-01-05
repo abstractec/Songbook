@@ -66,75 +66,95 @@ class PlainTextSongRenderer: SongRenderer {
         
         let chordRenderer = PlainTextChordRenderer()
         let basicTransposer = BasicTransposer()
-
-        for (i) in 0..<workingLyrics.count {
-            // do I have a sequence at this step?
-            if let nextStep = sequence.filter({$0.step == i}).first {
-                var chord = nextStep.chord.copy()
-                
-                if (transposedBy != 0) {
-                    if let transposed = basicTransposer.noteTransposer(chord.rootNote, alteration: chord.rootNoteAlteration, steps: transposedBy) {
-                        
-                        chord.rootNote = transposed.0
-                        chord.rootNoteAlteration = transposed.1
-                        
-                        if let bassNote = chord.bassNote {
-                            if let bassTransposed = basicTransposer.noteTransposer(bassNote, alteration: chord.bassNoteAlteration ?? .natural, steps: transposedBy) {
-                                chord.bassNote = bassTransposed.0
-                                chord.bassNoteAlteration = bassTransposed.1
+        
+        if workingLyrics.count == 0 {
+            // just print out the chords
+            for step in sequence {
+                chordLine.append(contentsOf: chordRenderer.renderShortName(chord: step.chord))
+                chordLine.append(" ")
+            }
+        } else {
+            var remainingChords = sequence.map { $0.chord }.count
+            
+            for (i) in 0..<workingLyrics.count {
+                // do I have a sequence at this step?
+                if let nextStep = sequence.filter({$0.step == i}).first {
+                    let chord = nextStep.chord.copy()
+                    remainingChords -= 1
+                    
+                    if (transposedBy != 0) {
+                        if let transposed = basicTransposer.noteTransposer(chord.rootNote, alteration: chord.rootNoteAlteration, steps: transposedBy) {
+                            
+                            chord.rootNote = transposed.0
+                            chord.rootNoteAlteration = transposed.1
+                            
+                            if let bassNote = chord.bassNote {
+                                if let bassTransposed = basicTransposer.noteTransposer(bassNote, alteration: chord.bassNoteAlteration ?? .natural, steps: transposedBy) {
+                                    chord.bassNote = bassTransposed.0
+                                    chord.bassNoteAlteration = bassTransposed.1
+                                }
                             }
                         }
                     }
-                }
-                
-                let shortName = chordRenderer.renderShortName(chord: chord)
-                chordLine.append(shortName)
-
-                // now, the checks
-                
-                // if we've got a single character shortname, then we should be all gravy
-                
-                // if our chord is greater than one character in length, we need to check if we have to re-align our lyrics to match what we're doing
-                
-                // if our next chord step is not going to be rendered correctly because of this chord, then do the offset stuff
-                
-                if let nextStepAfter = sequence.filter({$0.step > i}).first {
-                    if (nextStepAfter.step < i + shortName.count) {
-                        if (shortName.count > 1) {
-                            sequenceOffset = shortName.count
+                    
+                    let shortName = chordRenderer.renderShortName(chord: chord)
+                    chordLine.append(shortName)
+                    
+                    // now, the checks
+                    
+                    // if we've got a single character shortname, then we should be all gravy
+                    
+                    // if our chord is greater than one character in length, we need to check if we have to re-align our lyrics to match what we're doing
+                    
+                    // if our next chord step is not going to be rendered correctly because of this chord, then do the offset stuff
+                    
+                    if let nextStepAfter = sequence.filter({$0.step > i}).first {
+                        if (nextStepAfter.step < i + shortName.count) {
+                            if (shortName.count > 1) {
+                                sequenceOffset = shortName.count
+                            } else {
+                                sequenceOffset = 1 - shortName.count
+                            }
                         } else {
-                            sequenceOffset = 1 - shortName.count
-                        }
-                    } else {
-                        if (shortName.count > 1) {
-                            chordOffset = shortName.count - 1
+                            if (shortName.count > 1) {
+                                chordOffset = shortName.count - 1
+                            }
                         }
                     }
+                } else {
+                    if chordOffset == 0 {
+                        chordLine.append(" ")
+                    } else if (chordOffset < 0) {
+                        chordOffset += 1
+                    } else if (chordOffset > 0) {
+                        chordOffset -= 1
+                    }
                 }
-            } else {
-                if chordOffset == 0 {
-                    chordLine.append(" ")
-                } else if (chordOffset < 0) {
-                    chordOffset += 1
-                } else if (chordOffset > 0) {
-                    chordOffset -= 1
-                }
-            }
-
-            if (i < workingLyrics.count) {
-                let index = phrase.lyric.text.index(phrase.lyric.text.startIndex, offsetBy: i)
                 
-                lyricLine.append(phrase.lyric.text[index])
+                if (i < workingLyrics.count) {
+                    let index = phrase.lyric.text.index(phrase.lyric.text.startIndex, offsetBy: i)
+                    
+                    lyricLine.append(phrase.lyric.text[index])
+                }
+                
+                if (sequenceOffset > 0) {
+                    for (_) in 0..<sequenceOffset-1 {
+                        lyricLine.append(" ")
+                    }
+                    
+                    sequenceOffset = 0
+                }
+                
             }
             
-            if (sequenceOffset > 0) {
-                for (_) in 0..<sequenceOffset-1 {
-                    lyricLine.append(" ")
+            if remainingChords > 0 {
+                for (i) in remainingChords..<sequence.count {
+                    let step = sequence[i]
+                    
+                    chordLine.append("\(chordRenderer.renderShortName(chord: step.chord)) ")
                 }
-                
-                sequenceOffset = 0
             }
-
+            
         }
         
         return "\(chordLine)\n\(lyricLine)"

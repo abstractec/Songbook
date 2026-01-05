@@ -31,8 +31,12 @@ struct EditPhraseView: View {
                     .padding(.bottom, 40)
                 }
                 
-                ForEach(Array(viewModel.lyrics.enumerated()), id: \.element) { index, lyric in
-                    LyricChordEditor(lyric: lyric, viewModel: viewModel, startStep: viewModel.startStepForIndex(index))
+                if (viewModel.hasLyrics()) {
+                    ForEach(Array(viewModel.lyrics.enumerated()), id: \.element) { index, lyric in
+                        LyricChordEditor(lyric: lyric, viewModel: viewModel, startStep: viewModel.startStepForIndex(index))
+                    }
+                } else {
+                    PhraseChordEditor(viewModel: viewModel)
                 }
                 
                 HStack() {
@@ -113,7 +117,30 @@ struct SelectChordView: View {
     }
 }
 
-#Preview {
+#Preview("No Lyrics") {
+    let dataHelper = DataHelper()
+    let modelContainer = dataHelper.mockModelContainer()
+  
+    let aMinor = Chord(id: UUID(), rootNote: .A, chordType: .minor)
+    let cMajor = Chord(id: UUID(), rootNote: .C)
+    
+    modelContainer.mainContext.insert(aMinor)
+    modelContainer.mainContext.insert(cMajor)
+
+    let chordSequenceStep1 = ChordSequenceStep(id: UUID(), chord: aMinor, step: 0)
+    let chordSequenceStep2 = ChordSequenceStep(id: UUID(), chord: cMajor, step: 17)
+
+    let chordSequence1 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
+
+//    let lyric = Lyric(id: UUID(), text: "This should be a line of lyrics, and it will wrap")
+    let phrase = Phrase(chordSequence: chordSequence1)
+
+    let viewModel = EditPhraseViewModel(section: Section.emptySection, phrase: phrase)
+
+    return EditPhraseView(viewModel: viewModel).modelContainer(modelContainer)
+}
+
+#Preview("Two Lines of Lyrics") {
     let dataHelper = DataHelper()
     let modelContainer = dataHelper.mockModelContainer()
   
@@ -129,6 +156,29 @@ struct SelectChordView: View {
     let chordSequence1 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
 
     let lyric = Lyric(id: UUID(), text: "This should be a line of lyrics, and it will wrap")
+    let phrase = Phrase(lyric: lyric, chordSequence: chordSequence1)
+
+    let viewModel = EditPhraseViewModel(section: Section.emptySection, phrase: phrase)
+
+    return EditPhraseView(viewModel: viewModel).modelContainer(modelContainer)
+}
+
+#Preview("One Line of Lyrics") {
+    let dataHelper = DataHelper()
+    let modelContainer = dataHelper.mockModelContainer()
+  
+    let aMinor = Chord(id: UUID(), rootNote: .A, chordType: .minor)
+    let cMajor = Chord(id: UUID(), rootNote: .C)
+    
+    modelContainer.mainContext.insert(aMinor)
+    modelContainer.mainContext.insert(cMajor)
+
+    let chordSequenceStep1 = ChordSequenceStep(id: UUID(), chord: aMinor, step: 0)
+    let chordSequenceStep2 = ChordSequenceStep(id: UUID(), chord: cMajor, step: 17)
+
+    let chordSequence1 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
+
+    let lyric = Lyric(id: UUID(), text: "This should be a line of lyrics")
     let phrase = Phrase(lyric: lyric, chordSequence: chordSequence1)
 
     let viewModel = EditPhraseViewModel(section: Section.emptySection, phrase: phrase)
