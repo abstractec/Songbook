@@ -36,14 +36,14 @@ class PlainTextSongRenderer: SongRenderer {
         return renderedSong
     }
     
-    private func render(section: Section) -> String {
+    public func render(section: Section, transposedBy semitones: Int = 0) -> String {
         var renderedSection = ""
         
         renderedSection.append(section.name)
         renderedSection.append("\n\n")
         
         for phrase in section.phrases {
-            renderedSection.append(contentsOf: render(phrase: phrase))
+            renderedSection.append(contentsOf: render(phrase: phrase, transposedBy: semitones))
             renderedSection.append("\n")
         }
 
@@ -53,14 +53,17 @@ class PlainTextSongRenderer: SongRenderer {
     func render(phrase: Phrase, transposedBy semitones: Int = 0) -> String {
         var chordLine = ""
         var lyricLine = ""
-        let workingLyrics = phrase.lyric.text
-        let sequence = phrase.chordSequence.sequence.sorted(by: { $0.step < $1.step})
-        
-        var chordOffset = 0
-        var sequenceOffset = 0
         
         let chordRenderer = PlainTextChordRenderer()
         let basicTransposer = BasicTransposer()
+        
+        let workingPhrase = basicTransposer.transpose(phrase: phrase, by: semitones)
+        let workingLyrics = phrase.lyric.text
+        
+        let sequence = workingPhrase.chordSequence.sequence.sorted(by: { $0.step < $1.step})
+        
+        var chordOffset = 0
+        var sequenceOffset = 0
         
         if workingLyrics.count == 0 {
             // just print out the chords
@@ -77,20 +80,20 @@ class PlainTextSongRenderer: SongRenderer {
                     let chord = nextStep.chord.copy()
                     remainingChords -= 1
                     
-                    if (semitones != 0) {
-                        if let transposed = basicTransposer.noteTransposer(chord.rootNote, alteration: chord.rootNoteAlteration, by: semitones) {
-                            
-                            chord.rootNote = transposed.0
-                            chord.rootNoteAlteration = transposed.1
-                            
-                            if let bassNote = chord.bassNote {
-                                if let bassTransposed = basicTransposer.noteTransposer(bassNote, alteration: chord.bassNoteAlteration ?? .natural, by: semitones) {
-                                    chord.bassNote = bassTransposed.0
-                                    chord.bassNoteAlteration = bassTransposed.1
-                                }
-                            }
-                        }
-                    }
+//                    if (semitones != 0) {
+//                        if let transposed = basicTransposer.noteTransposer(chord.rootNote, alteration: chord.rootNoteAlteration, by: semitones) {
+//                            
+//                            chord.rootNote = transposed.0
+//                            chord.rootNoteAlteration = transposed.1
+//                            
+//                            if let bassNote = chord.bassNote {
+//                                if let bassTransposed = basicTransposer.noteTransposer(bassNote, alteration: chord.bassNoteAlteration ?? .natural, by: semitones) {
+//                                    chord.bassNote = bassTransposed.0
+//                                    chord.bassNoteAlteration = bassTransposed.1
+//                                }
+//                            }
+//                        }
+//                    }
                     
                     let shortName = chordRenderer.renderShortName(chord: chord)
                     chordLine.append(shortName)

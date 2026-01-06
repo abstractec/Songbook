@@ -14,8 +14,14 @@ class BasicTransposer: Transposer {
     }
     
     func transpose(section: Section, by semitones: Int) -> Section {
-        // TODO: make this work
-        return section
+        let newSection = section.copy()
+        newSection.phrases.removeAll()
+        
+        for phrase in section.phrases {
+            newSection.phrases.append(transpose(phrase: phrase, by: semitones))
+        }
+                
+        return newSection
     }
     
     func transpose(phrase: Phrase, by semitones: Int) -> Phrase {
