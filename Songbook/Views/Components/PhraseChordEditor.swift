@@ -17,8 +17,20 @@ struct PhraseChordEditor: View {
         VStack {
             Text("Chord Picker").font(.headline)
             
-            ForEach (viewModel.phrase?.chordSequence.sequence ?? []) { chordSequence in
-                Text("\(chordRenderer.renderShortName(chord: chordSequence.chord))")
+            ForEach (viewModel.phrase?.chordSequence.sequence.sorted(by: { $0.step < $1.step }) ?? []) { chordSequenceStep in
+                HStack {
+                    Text("\(chordSequenceStep.step)")
+                    Text("\(chordRenderer.renderShortName(chord: chordSequenceStep.chord))")
+                    Spacer()
+                    Button {
+                        viewModel.delete(chordSequenceStep: chordSequenceStep)
+                    } label: {
+                        Image(systemName: "trash")
+                            .frame(width: 10, height: 10, alignment: .center)
+                            .foregroundStyle(.red)
+                    }
+
+                }.padding(.horizontal)
             }
             
             Button(action: {

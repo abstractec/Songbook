@@ -100,7 +100,7 @@ struct ContentView: View {
                             let viewModel = EditSongViewModel(song: song, modelContext: modelContext)
                             EditSongView(viewModel: viewModel)
                         case .newSection(let song):
-                            let section = Section(id: UUID(), name: "", song: song, phrases: [])
+                            let section = Section(id: UUID(), name: "", song: song, phrases: [], position: song.sections.count)
                             let viewModel = SectionViewModel(song: song, section: section)
                             EditSectionView(viewModel: viewModel)
                         case .newPhrase(let section):

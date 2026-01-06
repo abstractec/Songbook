@@ -14,15 +14,15 @@ final class Phrase: Identifiable {
     var sections: [Section]
     var lyric: Lyric = Lyric(id: UUID(), text: "")
     var chordSequence: ChordSequence = ChordSequence(id: UUID(), sequence: [])
-    var chordSequenceRepeatCount: Int?
     var position: Int = 0
+    var repeats: Int = 1
     
     public init(
         id: UUID = .init(),
         sections: [Section] = [],
         lyric: Lyric? = nil,
         chordSequence: ChordSequence? = nil,
-        chordSequenceRepeatCount: Int? = nil,
+        repeats: Int = 1
     ) {
         self.id = id
         self.sections = sections
@@ -35,7 +35,7 @@ final class Phrase: Identifiable {
             self.chordSequence = chordSequence
         }
         
-        self.chordSequenceRepeatCount = chordSequenceRepeatCount
+        self.repeats = repeats
     }
 
     static var emptyPhrase: Phrase {
@@ -43,8 +43,7 @@ final class Phrase: Identifiable {
     }
     
     func copy() -> Phrase {
-        
-        return Phrase(id: UUID(), sections: [], lyric: self.lyric.copy(), chordSequence: self.chordSequence.copy(), chordSequenceRepeatCount: self.chordSequenceRepeatCount)
+        return Phrase(id: UUID(), sections: [], lyric: self.lyric.copy(), chordSequence: self.chordSequence.copy(), repeats: self.repeats)
     }
 
 }

@@ -18,11 +18,12 @@ final class Section: Identifiable, Hashable {
     @Relationship(deleteRule: .cascade, inverse: \Phrase.sections)
     var phrases: [Phrase]
 
-    init(id: UUID, name: String, song: Song, phrases: [Phrase]) {
+    init(id: UUID, name: String, song: Song, phrases: [Phrase], position: Int = 0) {
         self.id = id
         self.name = name
         self.song = song
         self.phrases = phrases
+        self.position = position
     }
     
     static var emptySection: Section {
@@ -36,7 +37,7 @@ final class Section: Identifiable, Hashable {
             phrases.append(phrase.copy())
         }
         
-        return Section(id: UUID(), name: name, song: song, phrases: phrases)
+        return Section(id: UUID(), name: name, song: song, phrases: phrases, position: position)
     }
 
 }

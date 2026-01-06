@@ -23,7 +23,18 @@ struct EditSongView: View {
             .padding(.horizontal)
             .padding(.vertical, 0)
         }
+
+        VStack {
+            HStack {
+                Text("Artist").font(.headline).frame(minWidth: 100, alignment: .leading)
+                TextField("Enter Artist Name", text: $viewModel.artist)
+                Spacer()
+            }
+            .padding(.horizontal)
+            .padding(.vertical, 0)
+        }
         
+
         VStack {
             HStack {
                 Text("Key").font(.headline).frame(minWidth: 100, alignment: .leading)
@@ -32,25 +43,6 @@ struct EditSongView: View {
             }
             .padding(.horizontal)
             .padding(.vertical, 0)
-        }
-        
-        VStack {
-            HStack {
-                Text("Capo").font(.headline).frame(minWidth: 100, alignment: .leading)
-                TextField("Enter Song Capo", text: $viewModel.capo)
-                    .onChange(of: viewModel.capo) { oldValue, newValue in
-                        let filtered = newValue.filter { $0.isNumber }
-                        if filtered != newValue {
-                            viewModel.capo = filtered
-                        }
-                    }
-#if os(iOS)
-                    .keyboardType(.numberPad)
-#endif
-                Spacer()
-            }
-            .padding(.vertical, 0)
-            .padding(.horizontal)
         }
         
         ForEach(viewModel.sections) { section in

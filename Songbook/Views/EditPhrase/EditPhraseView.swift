@@ -29,36 +29,54 @@ struct EditPhraseView: View {
                     }
                     .padding(.horizontal)
                     .padding(.bottom, 40)
-                }
-                
-                if (viewModel.hasLyrics()) {
-                    ForEach(Array(viewModel.lyrics.enumerated()), id: \.element) { index, lyric in
-                        LyricChordEditor(lyric: lyric, viewModel: viewModel, startStep: viewModel.startStepForIndex(index))
-                    }
-                } else {
-                    PhraseChordEditor(viewModel: viewModel)
-                }
-                
-                HStack() {
-                    Text("Will display as")
-                    Spacer()
-                }
-                .padding(.top, 40)
-                .padding()
-                
-                HStack() {
-                    HStack() {
-                        Text("\(viewModel.renderedPhrase)").font(.body.monospaced())
+
+                    HStack {
+                        Text("Repeats").font(.headline).frame(minWidth: 100, alignment: .leading)
+                        TextField("Enter number of repeats", text: $viewModel.repeats)
+                            .onChange(of: viewModel.repeats) { oldValue, newValue in
+                                let filtered = newValue.filter { $0.isNumber }
+                                viewModel.updateRepeats(filtered)
+                                
+                                viewModel.updateChordSequence()
+                            }
+        #if os(iOS)
+                            .keyboardType(.numberPad)
+        #endif
+
                         Spacer()
                     }
+                    .padding(.horizontal)
+                    .padding(.bottom, 40)
+
+                    if (viewModel.hasLyrics()) {
+                        ForEach(Array(viewModel.lyrics.enumerated()), id: \.element) { index, lyric in
+                            LyricChordEditor(lyric: lyric, viewModel: viewModel, startStep: viewModel.startStepForIndex(index))
+                        }
+                    } else {
+                        PhraseChordEditor(viewModel: viewModel)
+                    }
+                    
+                    HStack() {
+                        Text("Will display as")
+                        Spacer()
+                    }
+                    .padding(.top, 40)
                     .padding()
-                    .border(Color.gray, width: 1)
-                }
-                .padding()
+                    
+                    HStack() {
+                        HStack() {
+                            Text("\(viewModel.renderedPhrase)").font(.body.monospaced())
+                            Spacer()
+                        }
+                        .padding()
+                        .border(Color.gray, width: 1)
+                    }
+                    .padding()
                 
-                Button("Save Me") {
-                    self.viewModel.savePhrase()
-                    dismiss()
+                    Button("Save Me") {
+                        self.viewModel.savePhrase()
+                        dismiss()
+                    }
                 }
 
             }

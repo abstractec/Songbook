@@ -23,7 +23,7 @@ struct SongbookTests {
 
         ])
 
-        let introSequencePhrase = Phrase(id: UUID(), sections: [], lyric: nil, chordSequence: introSequence, chordSequenceRepeatCount: 4)
+        let introSequencePhrase = Phrase(id: UUID(), sections: [], lyric: nil, chordSequence: introSequence)
         
 
         let lyric1 = Lyric(id: UUID(), text: "This is a test lyric")
@@ -39,7 +39,7 @@ struct SongbookTests {
         let lyric2 = Lyric(id: UUID(), text: "This is the second line of a test lyric")
         let phrase2 = Phrase(id: UUID(), sections: [], lyric: lyric2, chordSequence: chordSequence2)
 
-        let song = Song(id: UUID(), title: "Test Song", sections: [], key: "C Major", capo: 2)
+        let song = Song(id: UUID(), title: "Test Song", sections: [], key: "C Major")
         let section = Section(id: UUID(), name: "Verse 1", song: song, phrases: [introSequencePhrase, phrase1, phrase2])
         
         song.sections.append(section)
@@ -73,7 +73,6 @@ This is the second line of a test lyric
 Test Song
 ---------
 Key: A Major
-Capo: 2nd fret
 
 Verse 1
 
@@ -92,7 +91,7 @@ I      want to make this work
         let lyric1 = Lyric(id: UUID(), text: "I want to make this work")
         let phrase1 = Phrase(id: UUID(), sections: [], lyric: lyric1, chordSequence: introSequence)
 
-        let song = Song(id: UUID(), title: "Test Song", sections: [], key: "A Major", capo: 2)
+        let song = Song(id: UUID(), title: "Test Song", sections: [], key: "A Major")
         let section = Section(id: UUID(), name: "Verse 1", song: song, phrases: [phrase1])
         
         song.sections.append(section)
@@ -108,7 +107,6 @@ I      want to make this work
 Test Song
 ---------
 Key: A Major
-Capo: 2nd fret
 
 Verse 1
 
@@ -127,7 +125,7 @@ I want to make this work
         let lyric1 = Lyric(id: UUID(), text: "I want to make this work")
         let phrase1 = Phrase(id: UUID(), sections: [], lyric: lyric1, chordSequence: introSequence)
 
-        let song = Song(id: UUID(), title: "Test Song", sections: [], key: "A Major", capo: 2)
+        let song = Song(id: UUID(), title: "Test Song", sections: [], key: "A Major")
         let section = Section(id: UUID(), name: "Verse 1", song: song, phrases: [phrase1])
         
         song.sections.append(section)
@@ -145,7 +143,6 @@ I want to make this work
 Test Song
 ---------
 Key: A Major
-Capo: 2nd fret
 
 Verse 1
 
@@ -164,7 +161,7 @@ I want to make this work
         let lyric1 = Lyric(id: UUID(), text: "I want to make this work")
         let phrase1 = Phrase(id: UUID(), sections: [], lyric: lyric1, chordSequence: introSequence)
 
-        let song = Song(id: UUID(), title: "Test Song", sections: [], key: "A Major", capo: 2)
+        let song = Song(id: UUID(), title: "Test Song", sections: [], key: "A Major")
         let section = Section(id: UUID(), name: "Verse 1", song: song, phrases: [phrase1])
         
         song.sections.append(section)
@@ -182,7 +179,6 @@ I want to make this work
 Test Song
 ---------
 Key: A Major
-Capo: 2nd fret
 
 Verse 1
 
@@ -201,7 +197,7 @@ I      want to make this work
         let lyric1 = Lyric(id: UUID(), text: "I want to make this work")
         let phrase1 = Phrase(id: UUID(), sections: [], lyric: lyric1, chordSequence: introSequence)
 
-        let song = Song(id: UUID(), title: "Test Song", sections: [], key: "A Major", capo: 2)
+        let song = Song(id: UUID(), title: "Test Song", sections: [], key: "A Major")
         let section = Section(id: UUID(), name: "Verse 1", song: song, phrases: [phrase1])
         
         song.sections.append(section)

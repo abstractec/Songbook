@@ -13,8 +13,8 @@ class EditSongViewModel {
     private var modelContext: ModelContext?
     
     var name: String = ""
+    var artist: String = ""
     var key: String = ""
-    var capo: String = ""
     
     var song: Song?
     
@@ -42,10 +42,8 @@ class EditSongViewModel {
 //        init(id: UUID, title: String, sections: [Section], key: String? = nil, capo: Int? = nil, chords: [Chord] = []) {
 
         let song = Song(id: UUID(), title: name, sections: [Section]())
-        
-        if let capoValue = Int(capo) {
-            song.capo = capoValue
-        }
+        song.artist = self.artist
+       
         
         if key.count > 0 {
             song.key = key

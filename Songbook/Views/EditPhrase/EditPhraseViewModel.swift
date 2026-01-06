@@ -17,6 +17,7 @@ class EditPhraseViewModel {
     let chordRenderer: ChordRenderer = PlainTextChordRenderer()
     
     var lyric: String = ""
+    var repeats: String = "" 
 
     var lyrics: [String] = []
     var chordSequence: [String] = []
@@ -49,6 +50,10 @@ class EditPhraseViewModel {
             chordSequenceTiming.append(step.step)
         }
         
+        if let repeats = phrase?.repeats {
+            self.repeats = String(repeats)
+        }
+        
         updateChordSequence()
     }
     
@@ -60,6 +65,16 @@ class EditPhraseViewModel {
         self.phrase?.lyric.text = self.lyric
 
         updateChordSequence()
+    }
+    
+    func updateRepeats(_ repeats: String) {
+        if let int = Int(repeats) {
+            print("repeat")
+            self.phrase?.repeats = int
+            self.repeats = String(repeats)
+        } else {
+            print("repeat doesn't seem to be an integer")
+        }
     }
     
     private func updateDisplayLyrics(_ lyrics: String) -> [String] {
@@ -75,14 +90,26 @@ class EditPhraseViewModel {
         return lyrics
     }
     
-    func setChord(_ chord: Chord, atPosition position: Int) {
+    func setChord(_ chord: Chord, atPosition position: Int?) {
         if (phrase?.chordSequence == nil) {
             phrase?.chordSequence = ChordSequence(id: UUID(), sequence: [])
         }
-        
-        let step = ChordSequenceStep(id: UUID(), chord: chord, step: position)
-        
-        phrase?.chordSequence.sequence.append(step)
+
+        let steps = phrase?.chordSequence.sequence.map { $0.step }
+
+        if let position = position {
+            // what am I aiming for?
+            let stepsMax = steps?.max() ?? 0
+            let stepsCount = steps?.count ?? 0
+            
+            let targetStepPosition = max(stepsMax, stepsCount, position)
+            
+            let step = ChordSequenceStep(id: UUID(), chord: chord, step: targetStepPosition)
+            phrase?.chordSequence.sequence.append(step)
+        } else {
+            let step = ChordSequenceStep(id: UUID(), chord: chord, step: (steps?.max() ?? 0) + 1)
+            phrase?.chordSequence.sequence.append(step)
+        }
         
         updateChordSequence()
     }
@@ -110,7 +137,6 @@ class EditPhraseViewModel {
     }
     
     func updateChordSequence() {
-       
         if let mainPhrase = self.phrase {
             let renderer = PlainTextSongRenderer()
             self.renderedPhrase = renderer.render(phrase: mainPhrase)
@@ -174,6 +200,14 @@ class EditPhraseViewModel {
         } else {
             return Binding<String>.constant("")
         }
+    }
+    
+    func delete(chordSequenceStep: ChordSequenceStep) {
+        if let index = phrase?.chordSequence.sequence.firstIndex(of: chordSequenceStep) {
+            phrase?.chordSequence.sequence.remove(at: index)
+        }
+        
+        updateChordSequence()
     }
 
 }

@@ -25,11 +25,6 @@ class PlainTextSongRenderer: SongRenderer {
             extraNewline = true
         }
         
-        if let capo = song.capo {
-            renderedSong.append("Capo: \(formatOrdinal(number: capo)) fret\n")
-            extraNewline = true
-        }
-
         if (extraNewline) {
             renderedSong.append("\n")
         }
@@ -55,7 +50,7 @@ class PlainTextSongRenderer: SongRenderer {
         return renderedSection
     }
     
-    func render(phrase: Phrase, transposedBy: Int = 0) -> String {
+    func render(phrase: Phrase, transposedBy semitones: Int = 0) -> String {
         var chordLine = ""
         var lyricLine = ""
         let workingLyrics = phrase.lyric.text
@@ -82,14 +77,14 @@ class PlainTextSongRenderer: SongRenderer {
                     let chord = nextStep.chord.copy()
                     remainingChords -= 1
                     
-                    if (transposedBy != 0) {
-                        if let transposed = basicTransposer.noteTransposer(chord.rootNote, alteration: chord.rootNoteAlteration, steps: transposedBy) {
+                    if (semitones != 0) {
+                        if let transposed = basicTransposer.noteTransposer(chord.rootNote, alteration: chord.rootNoteAlteration, by: semitones) {
                             
                             chord.rootNote = transposed.0
                             chord.rootNoteAlteration = transposed.1
                             
                             if let bassNote = chord.bassNote {
-                                if let bassTransposed = basicTransposer.noteTransposer(bassNote, alteration: chord.bassNoteAlteration ?? .natural, steps: transposedBy) {
+                                if let bassTransposed = basicTransposer.noteTransposer(bassNote, alteration: chord.bassNoteAlteration ?? .natural, by: semitones) {
                                     chord.bassNote = bassTransposed.0
                                     chord.bassNoteAlteration = bassTransposed.1
                                 }
@@ -150,14 +145,29 @@ class PlainTextSongRenderer: SongRenderer {
             if remainingChords > 0 {
                 for (i) in remainingChords..<sequence.count {
                     let step = sequence[i]
-                    
                     chordLine.append("\(chordRenderer.renderShortName(chord: step.chord)) ")
                 }
             }
             
         }
-        
-        return "\(chordLine)\n\(lyricLine)"
+
+        if phrase.repeats > 1 {
+            var output = ""
+            
+            var paddedString = chordLine.padding(toLength: lyricLine.count, withPad: " ", startingAt: 0)
+
+            if (paddedString == "") {
+                paddedString = "\(chordLine) x\(phrase.repeats)"
+            } else {
+                paddedString += " x\(phrase.repeats)"
+            }
+
+            output.append("\(paddedString)\n\(lyricLine)")
+            
+            return output
+        } else {
+            return "\(chordLine)\n\(lyricLine)"
+        }
     }
     
     private func render(chordSequence: ChordSequence) -> String {

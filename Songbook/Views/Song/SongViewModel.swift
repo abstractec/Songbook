@@ -14,8 +14,9 @@ class SongViewModel {
     let showKey: Bool
     let key: String
     
-    let showCapo: Bool
-    let capo: String
+    // leave these two here for when we pass an instrument in for this view model
+    let showCapo: Bool = false
+    let capo: String = ""
         
     var inEditMode: Bool = false
     var modelContext: ModelContext?
@@ -33,15 +34,6 @@ class SongViewModel {
             self.key = ""
         }
         
-        if let capo = self.song.capo {
-            self.showCapo = true
-            self.capo = "\(capo)"
-        } else {
-            self.showCapo = false
-            self.capo = ""
-        }
-        
-//        self.sections = song.sections
         self.modelContext = modelContext
         
     }

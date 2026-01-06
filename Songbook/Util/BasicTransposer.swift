@@ -19,13 +19,34 @@ class BasicTransposer: Transposer {
     }
     
     func transpose(phrase: Phrase, by semitones: Int) -> Phrase {
-        // TODO: make this work
+        let newPhrase = phrase.copy()
+        newPhrase.chordSequence.sequence.removeAll()
+                
+        for step in phrase.chordSequence.sequence {
+            let oldChord = step.chord
+            
+            if let (transposed, alteration) = noteTransposer(step.chord.rootNote, alteration: step.chord.rootNoteAlteration, by: semitones) {
+                let newChord = oldChord.copy()
+                newChord.rootNote = transposed
+                newChord.rootNoteAlteration = alteration
+                
+                let newStep = ChordSequenceStep(id: UUID(), chord: newChord, step: step.step)
+                newPhrase.chordSequence.sequence.append(newStep)
+            }
+        }
         
-        return phrase
+        return newPhrase
     }
 
-    func noteTransposer(_ note: Note, alteration: Alteration, steps: Int = 0, preferFlats: Bool? = false) -> (Note, Alteration)? {
+    func noteTransposer(_ note: Note, alteration: Alteration, by semitones: Int = 0, preferFlats: Bool? = false) -> (Note, Alteration)? {
         if var idx = noteNameList.firstIndex(of: note.rawValue) {
+            var steps = semitones
+
+            if (steps < 0) {
+                // normalize our steps if we're transposing up for a capo
+                steps += 12
+            }
+            
             if alteration == .sharp {
                 idx += 1
             } else if alteration == .flat {
@@ -44,7 +65,7 @@ class BasicTransposer: Transposer {
             }
             
             if (idx >= noteNameList.count) {
-                idx = 0
+                idx = idx % 12
             }
             
             let rawNote = noteNameList[idx]

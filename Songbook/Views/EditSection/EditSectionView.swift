@@ -126,14 +126,12 @@ struct EditSectionView: View {
     section.phrases.append(Phrase(id: UUID(),
                                   sections: [],
                                   lyric: Lyric(id: UUID(), text: "I am a lyric"),
-                                  chordSequence: chordSequence1,
-                                  chordSequenceRepeatCount: nil))
+                                  chordSequence: chordSequence1))
     
     section.phrases.append(Phrase(id: UUID(),
                                   sections: [],
                                   lyric: Lyric(id: UUID(), text: "I am the second line"),
-                                  chordSequence: chordSequence2,
-                                  chordSequenceRepeatCount: nil))
+                                  chordSequence: chordSequence2))
     
     let viewModel = SectionViewModel(song: song, section: section)
 

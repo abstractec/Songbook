@@ -45,7 +45,7 @@ struct BasicTransposerTests {
         let transposer = BasicTransposer()
         
         let note: Note = .A
-        let transposedNote: (Note, Alteration)? = transposer.noteTransposer(note, alteration: .natural, steps: -2)
+        let transposedNote: (Note, Alteration)? = transposer.noteTransposer(note, alteration: .natural, by: -2)
         
         #expect(transposedNote?.0 == Note.G)
         #expect(transposedNote?.1 == .natural)
@@ -55,7 +55,7 @@ struct BasicTransposerTests {
         let transposer = BasicTransposer()
         
         let note: Note = .A
-        let transposedNote: (Note, Alteration)? = transposer.noteTransposer(note, alteration: .natural, steps: 2)
+        let transposedNote: (Note, Alteration)? = transposer.noteTransposer(note, alteration: .natural, by: 2)
         
         #expect(transposedNote?.0 == Note.B)
         #expect(transposedNote?.1 == .natural)
@@ -65,7 +65,7 @@ struct BasicTransposerTests {
         let transposer = BasicTransposer()
         
         let note: Note = .A
-        let transposedNote: (Note, Alteration)? = transposer.noteTransposer(note, alteration: .sharp, steps: 2)
+        let transposedNote: (Note, Alteration)? = transposer.noteTransposer(note, alteration: .sharp, by: 2)
         
         #expect(transposedNote?.0 == Note.C)
         #expect(transposedNote?.1 == .natural)
@@ -75,7 +75,7 @@ struct BasicTransposerTests {
         let transposer = BasicTransposer()
         
         let note: Note = .C
-        let transposedNote: (Note, Alteration)? = transposer.noteTransposer(note, alteration: .sharp, steps: 2)
+        let transposedNote: (Note, Alteration)? = transposer.noteTransposer(note, alteration: .sharp, by: 2)
         
         #expect(transposedNote?.0 == Note.D)
         #expect(transposedNote?.1 == .sharp)
@@ -85,7 +85,7 @@ struct BasicTransposerTests {
         let transposer = BasicTransposer()
         
         let note: Note = .A
-        let transposedNote: (Note, Alteration)? = transposer.noteTransposer(note, alteration: .natural, steps: -12)
+        let transposedNote: (Note, Alteration)? = transposer.noteTransposer(note, alteration: .natural, by: -12)
         
         #expect(transposedNote?.0 == Note.A)
         #expect(transposedNote?.1 == .natural)
@@ -95,7 +95,7 @@ struct BasicTransposerTests {
         let transposer = BasicTransposer()
         
         let note: Note = .A
-        let transposedNote: (Note, Alteration)? = transposer.noteTransposer(note, alteration: .natural, steps: 12)
+        let transposedNote: (Note, Alteration)? = transposer.noteTransposer(note, alteration: .natural, by: 12)
         
         #expect(transposedNote?.0 == Note.A)
         #expect(transposedNote?.1 == .natural)
@@ -104,18 +104,43 @@ struct BasicTransposerTests {
     @Test func testASharpBFlat() async throws {
         let transposer = BasicTransposer()
         let note: Note = .A
-        let transposedNote: (Note, Alteration)? = transposer.noteTransposer(note, alteration: .natural, steps: 1, preferFlats: true)
+        let transposedNote: (Note, Alteration)? = transposer.noteTransposer(note, alteration: .natural, by: 1, preferFlats: true)
         
         #expect(transposedNote?.0 == Note.B)
         #expect(transposedNote?.1 == .flat)
         
-        let transposedNote2: (Note, Alteration)? = transposer.noteTransposer(note, alteration: .natural, steps: 1, preferFlats: false)
+        let transposedNote2: (Note, Alteration)? = transposer.noteTransposer(note, alteration: .natural, by: 1, preferFlats: false)
         
         #expect(transposedNote2?.0 == Note.A)
         #expect(transposedNote2?.1 == .sharp)
         
     }
 
+    @Test func livingInThePastIntro() async throws {
+        let phrase = Phrase()
+        let cMinor = Chord(id: UUID(), rootNote: .C, chordType: .minor)
+        let fMajor = Chord(id: UUID(), rootNote: .F)
+        
+        phrase.chordSequence.sequence.append(ChordSequenceStep(id: UUID(), chord: cMinor, step: 0))
+        phrase.chordSequence.sequence.append(ChordSequenceStep(id: UUID(), chord: fMajor, step: 1))
+        
+        phrase.repeats = 2
+        
+        let songRenderer = PlainTextSongRenderer()
+        print(songRenderer.render(phrase: phrase))
+        
+        let transposer = BasicTransposer()
+        let transposedPhrase = transposer.transpose(phrase: phrase, by: -3) // simulate capo at 3rd fret
+        
+        let expected = """
+Am D  x2
+
+"""
+        
+        #expect(expected == songRenderer.render(phrase: transposedPhrase))
+
+        
+    }
     
 
 }

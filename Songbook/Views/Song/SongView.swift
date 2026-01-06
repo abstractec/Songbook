@@ -152,31 +152,26 @@ struct SongView: View {
     section.phrases.append(Phrase(id: UUID(),
                                   sections: [],
                                   lyric: Lyric(id: UUID(), text: "I am a lyric"),
-                                  chordSequence: chordSequence1,
-                                  chordSequenceRepeatCount: nil))
+                                  chordSequence: chordSequence1))
     
     section.phrases.append(Phrase(id: UUID(),
                                   sections: [],
                                   lyric: Lyric(id: UUID(), text: "I am the second line"),
-                                  chordSequence: chordSequence2,
-                                  chordSequenceRepeatCount: nil))
+                                  chordSequence: chordSequence2))
     
     section2.phrases.append(Phrase(id: UUID(),
                                   sections: [],
                                   lyric: Lyric(id: UUID(), text: "I am a lyric"),
-                                  chordSequence: chordSequence1,
-                                  chordSequenceRepeatCount: nil))
+                                  chordSequence: chordSequence1))
     
     section2.phrases.append(Phrase(id: UUID(),
                                   sections: [],
                                   lyric: Lyric(id: UUID(), text: "I am the second line"),
-                                  chordSequence: chordSequence2,
-                                  chordSequenceRepeatCount: nil))
+                                  chordSequence: chordSequence2))
 
     song.sections.append(section)
     song.sections.append(section2)
     song.key = "C Major"
-    song.capo = 3
     
     let viewModel = SongViewModel(song: song, modelContext: nil)
     
