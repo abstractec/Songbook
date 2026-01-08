@@ -18,7 +18,8 @@ struct SongbookApp: App {
             Phrase.self,
             ChordSequence.self,
             ChordSequenceStep.self,
-//            Item.self,
+            Instrument.self,
+            InstrumentString.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

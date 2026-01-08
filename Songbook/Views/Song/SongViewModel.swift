@@ -13,6 +13,7 @@ class SongViewModel {
     let song: Song
     let showKey: Bool
     let key: String
+    var instrument: Instrument? = nil
     
     // leave these two here for when we pass an instrument in for this view model
     let showCapo: Bool = false
@@ -23,7 +24,7 @@ class SongViewModel {
     
     var transposedBy: Int = 0
     
-    init(song: Song, modelContext: ModelContext?) {
+    init(song: Song, modelContext: ModelContext?, instrument: Instrument? = nil) {
         self.song = song
         
         if let key = self.song.key {
@@ -35,7 +36,7 @@ class SongViewModel {
         }
         
         self.modelContext = modelContext
-        
+        self.instrument = instrument
     }
     
     func render(phrase: Phrase) -> String {
@@ -119,6 +120,15 @@ class SongViewModel {
             }
             lastIdx += 1
         }
+    }
+    
+    func transpose(for instrument: Instrument) {
+        self.transposedBy = -(instrument.capo ?? 0)
+    }
+    
+    func name(for instrument: Instrument) -> String {
+        let instrumentRederer = PlainTextInstrumentRenderer()
+        return instrumentRederer.renderShortName(instrument: instrument)
     }
 
 }

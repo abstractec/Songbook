@@ -22,4 +22,8 @@ enum DetailDestination: Hashable {
     case playlistList
     
     case chordBuilder(chord: Chord?)
+    
+    case instrumentsList
+    case newInstrument
+    case editInstrument(instrument: Instrument)
 }
