@@ -209,5 +209,16 @@ class EditPhraseViewModel {
         
         updateChordSequence()
     }
+    
+    func increasePreLyrics() {
+        self.updateLyric(" " + lyric)
+    }
+
+    func decreasePreLyrics() {
+        if (lyric.first == " ") {
+            lyric.removeFirst()
+            self.updateLyric(lyric)
+        }
+    }
 
 }

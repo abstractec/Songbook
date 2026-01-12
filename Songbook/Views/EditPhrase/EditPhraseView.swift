@@ -49,8 +49,24 @@ struct EditPhraseView: View {
                     .padding(.bottom, 40)
 
                     if (viewModel.hasLyrics()) {
-                        ForEach(Array(viewModel.lyrics.enumerated()), id: \.element) { index, lyric in
-                            LyricChordEditor(lyric: lyric, viewModel: viewModel, startStep: viewModel.startStepForIndex(index))
+                        HStack {
+                            Button {
+                                viewModel.increasePreLyrics()
+                            } label: {
+                                Text("+")
+                            }.padding(.trailing, 4)
+                            
+                            VStack {
+                                ForEach(Array(viewModel.lyrics.enumerated()), id: \.element) { index, lyric in
+                                    LyricChordEditor(lyric: lyric, viewModel: viewModel, startStep: viewModel.startStepForIndex(index))
+                                }
+                            }
+                            
+                            Button {
+                                viewModel.decreasePreLyrics()
+                            } label: {
+                                Text("-")
+                            }.padding(.trailing, 4)
                         }
                     } else {
                         PhraseChordEditor(viewModel: viewModel)
