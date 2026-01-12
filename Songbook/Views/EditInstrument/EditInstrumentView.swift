@@ -132,8 +132,6 @@ struct EditInstrumentView: View {
                     TextField("Capo Position", text: $viewModel.capoPosition)
                         .onChange(of: viewModel.capoPosition) { oldValue, newValue in
                             let filtered = newValue.filter { $0.isNumber }
-                            //capoPosition
-                            
                             viewModel.updateCapo(filtered)
                         }
                 }
@@ -143,14 +141,12 @@ struct EditInstrumentView: View {
                         viewModel.cancelAddConfiguration()
                     } label: {
                         Text("Cancel")
-                        
                     }
                     
                     Button {
                         viewModel.saveConfiguration()
                     } label: {
                         Text("Save")
-                        
                     }
                 }
             }.padding()
