@@ -6,7 +6,8 @@
 //
 
 protocol InstrumentRenderer {
-    func render(instrument: Instrument) -> String
-    func renderShortName(instrument: Instrument) -> String
+    func render(instrument: Instrument, andConfiguration configuration: InstrumentConfiguration?) -> String 
+    func renderShortName(instrument: Instrument, andConfiguration configuration: InstrumentConfiguration?) -> String 
 
+    func render(instrumentString: InstrumentString) -> String
 }

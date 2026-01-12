@@ -139,11 +139,11 @@ struct ContentView: View {
                             let viewModel = InstrumentsViewModel(modelContext: modelContext)
                             InstrumentsView(viewModel: viewModel)
                         case .editInstrument(let instrument):
-                            let viewModel = EditInstrumentViewModel()
+                            let viewModel = EditInstrumentViewModel(modelContext: modelContext, instrument: instrument)
 
                             EditInstrumentView(viewModel: viewModel)
                         case .newInstrument:
-                            let viewModel = EditInstrumentViewModel()
+                            let viewModel = EditInstrumentViewModel(modelContext: modelContext, instrument: nil)
                             EditInstrumentView(viewModel: viewModel)
 
 

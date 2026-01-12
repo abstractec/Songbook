@@ -23,15 +23,14 @@ struct SongView: View {
                     HStack {
                         Text("Instrument")
                         Spacer()
-                        Picker("Instrument", selection: $viewModel.instrument) {
-                            ForEach(instruments) { instrument in
-                                Text(viewModel.name(for: instrument))
-                                    .tag(instrument) // Important to set the tag to the actual enum case
+                        Picker("Instrument", selection: $viewModel.instrumentAndConfig) {
+                            ForEach(viewModel.instrumentAndConfigurationList(for: instruments)) { instrumentConfig in
+                                Text(viewModel.name(for: instrumentConfig.instrument, with: instrumentConfig.config))
+                                    .tag(instrumentConfig) // Important to set the tag to the actual enum case
                             }
-                        }.onChange(of: viewModel.instrument) { oldValue, newValue in
-                            if let instrument = viewModel.instrument {
-                                viewModel.transpose(for: instrument)
-
+                        }.onChange(of: viewModel.instrumentAndConfig) { oldValue, newValue in
+                            if let instrumentConfig = newValue {
+                                viewModel.transpose(instrumentConfiguration: instrumentConfig)
                             }
                         }
 
@@ -223,9 +222,14 @@ struct SongView: View {
     ]
     
     let guitar = Instrument(id: UUID(), name: "Acoustic", strings: guitarStrings)
-    let guitar2 = Instrument(id: UUID(), name: "Guitar", strings: guitarStrings2, capo: 3)
-    let guitar3 = Instrument(id: UUID(), name: "Guitar", strings: guitarStrings2, capo: 7)
+    let guitar2 = Instrument(id: UUID(), name: "Guitar", strings: guitarStrings2)
+    let guitar3 = Instrument(id: UUID(), name: "Guitar 3", strings: guitarStrings2)
     let bass = Instrument(id: UUID(), name: "Bass", strings: bassStrings)
+    
+    let instrumentConfiguration1 = InstrumentConfiguration(id: UUID(), name: "Capo at 3rd Fret", capoPosition: 3)
+    let instrumentConfiguration2 = InstrumentConfiguration(id: UUID(), name: "Capo at 7th Fret", capoPosition: 7)
+    
+    guitar2.configurations = [instrumentConfiguration1, instrumentConfiguration2]
 
     modelContainer.mainContext.insert(guitar)
     modelContainer.mainContext.insert(guitar2)

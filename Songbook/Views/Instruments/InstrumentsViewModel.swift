@@ -18,7 +18,7 @@ class InstrumentsViewModel {
     }
     
     func render(instrument: Instrument) -> String {
-        return self.instrumentRenderer.render(instrument: instrument)
+        return self.instrumentRenderer.render(instrument: instrument, andConfiguration: nil)
     }
 
 }

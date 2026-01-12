@@ -19,6 +19,7 @@ class DataHelper {
             ChordSequenceStep.self,
             Instrument.self,
             InstrumentString.self,
+            InstrumentConfiguration.self,
         ])
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try! ModelContainer(for: schema, configurations: [config])

@@ -20,6 +20,7 @@ struct SongbookApp: App {
             ChordSequenceStep.self,
             Instrument.self,
             InstrumentString.self,
+            InstrumentConfiguration.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

@@ -14,7 +14,8 @@ class SongViewModel {
     let showKey: Bool
     let key: String
     var instrument: Instrument? = nil
-    
+    var instrumentAndConfig: InstrumentAndConfig? = nil
+
     // leave these two here for when we pass an instrument in for this view model
     let showCapo: Bool = false
     let capo: String = ""
@@ -122,13 +123,48 @@ class SongViewModel {
         }
     }
     
-    func transpose(for instrument: Instrument) {
-        self.transposedBy = -(instrument.capo ?? 0)
-    }
-    
-    func name(for instrument: Instrument) -> String {
-        let instrumentRederer = PlainTextInstrumentRenderer()
-        return instrumentRederer.renderShortName(instrument: instrument)
+    func transpose(for instrumentConfiguration: InstrumentConfiguration) {
+        self.transposedBy = -(instrumentConfiguration.capoPosition ?? 0)
     }
 
+    func transpose(instrumentConfiguration: InstrumentAndConfig) {
+        self.transposedBy = -(instrumentConfiguration.config.capoPosition ?? 0)
+    }
+    
+
+    func name(for instrument: Instrument, with configuration: InstrumentConfiguration? = nil) -> String {
+        let instrumentRederer = PlainTextInstrumentRenderer()
+        return instrumentRederer.renderShortName(instrument: instrument, andConfiguration: configuration)
+    }
+    
+    func instrumentAndConfigurationList(for instruments: [Instrument]) -> [InstrumentAndConfig] {
+        var returnMap: [InstrumentAndConfig] = []
+        
+        for instrument in instruments {
+            returnMap.append(InstrumentAndConfig(id: instrument.id, instrument: instrument, config: instrument.defaultConfig))
+            
+            for config in instrument.configurations {
+                returnMap.append(InstrumentAndConfig(id: config.id, instrument: instrument, config: config))
+            }
+        }
+       
+        return returnMap
+    }
+
+}
+
+struct InstrumentAndConfig: Identifiable, Equatable, Hashable {
+    static func == (lhs: InstrumentAndConfig, rhs: InstrumentAndConfig) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    public var id: UUID
+    public var instrument: Instrument
+    public var config: InstrumentConfiguration
+    
+    init(id: UUID, instrument: Instrument, config: InstrumentConfiguration) {
+        self.id = id
+        self.instrument = instrument
+        self.config = config
+    }
 }

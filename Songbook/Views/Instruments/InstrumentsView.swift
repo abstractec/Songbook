@@ -18,8 +18,7 @@ struct InstrumentsView: View {
             ScrollView {
                 ForEach(instruments) { instrument in
                     InstrumentRow(instrument: instrument, viewModel: viewModel)
-                }
-                
+                }                
             }
             
             NavigationLink(value: DetailDestination.newInstrument) {
@@ -36,10 +35,12 @@ struct InstrumentRow: View {
 
     
     var body: some View {
-        HStack {
-            Text(viewModel.render(instrument: instrument))
-            Spacer()
-        }.padding(.horizontal)
+        NavigationLink(value: DetailDestination.editInstrument(instrument: instrument)) {
+            HStack {
+                Text(viewModel.render(instrument: instrument))
+                Spacer()
+            }.padding(.horizontal)
+        }
     }
 }
 
@@ -73,8 +74,11 @@ struct InstrumentRow: View {
     ]
     
     let guitar = Instrument(id: UUID(), name: "Acoustic", strings: guitarStrings)
-    let guitar2 = Instrument(id: UUID(), name: "Guitar", strings: guitarStrings2, capo: 3)
+    let guitar2 = Instrument(id: UUID(), name: "Guitar", strings: guitarStrings2)
     let bass = Instrument(id: UUID(), name: "Bass", strings: bassStrings)
+    
+    let instrumentConfig = InstrumentConfiguration(id: UUID(), name: "Capo at 3rd", capoPosition: 3)
+    guitar2.configurations.append(instrumentConfig)
 
     modelContainer.mainContext.insert(guitar)
     modelContainer.mainContext.insert(guitar2)

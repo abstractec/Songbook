@@ -13,17 +13,21 @@ final class Instrument: Identifiable {
     @Attribute(.unique) public var id: UUID
     public var name: String
     public var strings: [InstrumentString] = []
-    public var capo: Int?
+    public var configurations: [InstrumentConfiguration] = []
     
-    public init(id: UUID = .init(), name: String, strings: [InstrumentString] = [], capo: Int? = nil) {
+    public init(id: UUID = .init(), name: String, strings: [InstrumentString] = [], configurations: [InstrumentConfiguration] = []) {
         self.id = id
         self.name = name
         self.strings = strings
-        self.capo = capo
+        self.configurations = configurations
     }
     
     func copy() -> Instrument {
-        return Instrument(id: UUID(), name: name, strings: strings, capo: capo)
+        return Instrument(id: UUID(), name: name, strings: strings, configurations: configurations)
+    }
+    
+    var defaultConfig: InstrumentConfiguration {
+        return InstrumentConfiguration(id: UUID(), name: "Default")
     }
 }
 
