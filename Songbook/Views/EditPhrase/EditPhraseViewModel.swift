@@ -28,7 +28,7 @@ class EditPhraseViewModel {
     var selectedSpace: Int? = nil
     var currentLyricStep: Int = 0
     
-    var phraseLength = 31
+    var phraseLength = 28
     
     init(section: Section, phrase: Phrase? = nil, modelContext: ModelContext? = nil) {
         self.section = section
@@ -77,10 +77,15 @@ class EditPhraseViewModel {
         }
     }
     
-    private func updateDisplayLyrics(_ lyrics: String) -> [String] {
+    private func updateDisplayLyrics(_ lyric: String) -> [String] {
         var lyrics: [String]  = []
-        if lyric.count > phraseLength {
+        
+        
+        if let position = findLastWhitespace(before: phraseLength, in: lyric) {
             lyrics = lyric.split(by: phraseLength)
+//        }
+//        if lyric.count > phraseLength {
+//            lyrics = lyric.split(by: phraseLength)
         } else {
             lyrics = [lyric]
         }
@@ -221,4 +226,32 @@ class EditPhraseViewModel {
         }
     }
 
+    func increasePostLyrics() {
+        self.updateLyric(lyric + " ")
+    }
+
+    func decreasePostLyrics() {
+        if (lyric.last == " ") {
+            lyric.removeLast()
+            self.updateLyric(lyric)
+        }
+    }
+
+    private func findLastWhitespace(before characterLimit: Int, in string: String) -> String.Index? {
+        guard string.count >= characterLimit else {
+            return nil
+        }
+
+        guard let limitIndex = string.index(string.startIndex, offsetBy: characterLimit, limitedBy: string.endIndex) else {
+            return nil
+        }
+
+        let searchRange = string.startIndex..<limitIndex
+
+        if let range = string.range(of: " ", options: .backwards, range: searchRange) {
+            return range.lowerBound
+        }
+
+        return nil
+    }
 }

@@ -50,23 +50,52 @@ struct EditPhraseView: View {
 
                     if (viewModel.hasLyrics()) {
                         HStack {
-                            Button {
-                                viewModel.increasePreLyrics()
-                            } label: {
-                                Text("+")
-                            }.padding(.trailing, 4)
-                            
+                            VStack {
+                                Spacer()
+//                                Text("Spacing").font(.footnote)
+                                
+                                VStack {
+                                    Button {
+                                        viewModel.increasePreLyrics()
+                                    } label: {
+                                        Image(systemName: "plus.circle")
+                                    }.padding(.trailing, 4)
+                                        .frame(maxWidth: 40, maxHeight: 40)
+                                    
+                                    Button {
+                                        viewModel.decreasePreLyrics()
+                                    } label: {
+                                        Image(systemName: "minus.circle")
+                                    }.padding(.trailing, 4)
+                                        .frame(maxWidth: 40, maxHeight: 40)
+                                }
+                                Spacer()
+                            }
+                            .padding(.trailing, 16)
+
                             VStack {
                                 ForEach(Array(viewModel.lyrics.enumerated()), id: \.element) { index, lyric in
                                     LyricChordEditor(lyric: lyric, viewModel: viewModel, startStep: viewModel.startStepForIndex(index))
                                 }
                             }
-                            
-                            Button {
-                                viewModel.decreasePreLyrics()
-                            } label: {
-                                Text("-")
-                            }.padding(.trailing, 4)
+
+                            VStack {
+                                Button {
+                                    viewModel.increasePostLyrics()
+                                } label: {
+                                    Image(systemName: "plus.circle")
+                                }.padding(.trailing, 4)
+                                    .frame(maxWidth: 40, maxHeight: 40)
+
+                                Button {
+                                    viewModel.decreasePostLyrics()
+                                } label: {
+                                    Image(systemName: "minus.circle")
+                                }.padding(.trailing, 4)
+                                    .frame(maxWidth: 40, maxHeight: 40)
+                            }
+                            .padding(.leading, 16)
+
                         }
                     } else {
                         PhraseChordEditor(viewModel: viewModel)
