@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SongView: View {
-    var viewModel: SongViewModel
+    @State var viewModel: SongViewModel
+    @Query(sort: \Instrument.name) private var instruments: [Instrument]
     
     var body: some View {
         VStack {
@@ -17,6 +19,22 @@ struct SongView: View {
                 VStack {
                     Text(viewModel.song.title)
                         .font(.headline)
+                    
+                    HStack {
+                        Text("Instrument")
+                        Spacer()
+                        Picker("Instrument", selection: $viewModel.instrumentAndConfig) {
+                            ForEach(viewModel.instrumentAndConfigurationList(for: instruments)) { instrumentConfig in
+                                Text(viewModel.name(for: instrumentConfig.instrument, with: instrumentConfig.config))
+                                    .tag(instrumentConfig) // Important to set the tag to the actual enum case
+                            }
+                        }.onChange(of: viewModel.instrumentAndConfig) { oldValue, newValue in
+                            if let instrumentConfig = newValue {
+                                viewModel.transpose(instrumentConfiguration: instrumentConfig)
+                            }
+                        }
+
+                    }.padding(.horizontal)
                     
                     if (viewModel.showKey) {
                         HStack {
@@ -133,6 +151,9 @@ struct SongView: View {
 }
 
 #Preview {
+    let dataHelper = DataHelper()
+    let modelContainer = dataHelper.mockModelContainer()
+
     let song = Song(id: UUID(), title: "Test Song", sections: [])
     let section = Section(id: UUID(), name: "Verse 1", song: song, phrases: [])
     let section2 = Section(id: UUID(), name: "Verse 2", song: song, phrases: [])
@@ -175,5 +196,45 @@ struct SongView: View {
     
     let viewModel = SongViewModel(song: song, modelContext: nil)
     
-    return SongView(viewModel: viewModel)
+    let guitarStrings = [
+        InstrumentString(id: UUID(), note: .E, position: 6),
+        InstrumentString(id: UUID(), note: .A, position: 5),
+        InstrumentString(id: UUID(), note: .D, position: 4),
+        InstrumentString(id: UUID(), note: .G, position: 3),
+        InstrumentString(id: UUID(), note: .B, position: 2),
+        InstrumentString(id: UUID(), note: .E, position: 1),
+    ]
+
+    let guitarStrings2 = [
+        InstrumentString(id: UUID(), note: .E, position: 6),
+        InstrumentString(id: UUID(), note: .A, position: 5),
+        InstrumentString(id: UUID(), note: .D, position: 4),
+        InstrumentString(id: UUID(), note: .G, position: 3),
+        InstrumentString(id: UUID(), note: .B, position: 2),
+        InstrumentString(id: UUID(), note: .E, position: 1),
+    ]
+
+    let bassStrings = [
+        InstrumentString(id: UUID(), note: .E, position: 4),
+        InstrumentString(id: UUID(), note: .A, position: 3),
+        InstrumentString(id: UUID(), note: .D, position: 2),
+        InstrumentString(id: UUID(), note: .G, position: 1),
+    ]
+    
+    let guitar = Instrument(id: UUID(), name: "Acoustic", strings: guitarStrings)
+    let guitar2 = Instrument(id: UUID(), name: "Guitar", strings: guitarStrings2)
+    let guitar3 = Instrument(id: UUID(), name: "Guitar 3", strings: guitarStrings2)
+    let bass = Instrument(id: UUID(), name: "Bass", strings: bassStrings)
+    
+    let instrumentConfiguration1 = InstrumentConfiguration(id: UUID(), name: "Capo at 3rd Fret", capoPosition: 3)
+    let instrumentConfiguration2 = InstrumentConfiguration(id: UUID(), name: "Capo at 7th Fret", capoPosition: 7)
+    
+    guitar2.configurations = [instrumentConfiguration1, instrumentConfiguration2]
+
+    modelContainer.mainContext.insert(guitar)
+    modelContainer.mainContext.insert(guitar2)
+    modelContainer.mainContext.insert(guitar3)
+    modelContainer.mainContext.insert(bass)
+    
+    return SongView(viewModel: viewModel).modelContainer(modelContainer)
 }
