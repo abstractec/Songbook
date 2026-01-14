@@ -69,7 +69,6 @@ class EditPhraseViewModel {
     
     func updateRepeats(_ repeats: String) {
         if let int = Int(repeats) {
-            print("repeat")
             self.phrase?.repeats = int
             self.repeats = String(repeats)
         } else {

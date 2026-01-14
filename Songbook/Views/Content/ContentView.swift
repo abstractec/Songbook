@@ -13,6 +13,7 @@ struct ContentView: View {
     @Query(sort: \Song.title) private var songs: [Song]
     @Query(sort: \Playlist.name) private var playlists: [Playlist]
     @Query(sort: \Chord.rootRawValue) private var chords: [Chord]
+    @Query(sort: \Instrument.name) private var instruments: [Instrument]
 
     private var songCount: Int {
         songs.count
@@ -24,6 +25,10 @@ struct ContentView: View {
 
     private var chordCount: Int {
         chords.count
+    }
+
+    private var instrumentCount: Int {
+        instruments.count
     }
 
     @State private var sortOrder = SortDescriptor(\Playlist.name)
@@ -73,6 +78,10 @@ struct ContentView: View {
                     
                     NavigationLink(value: DetailDestination.chordManager) {
                         ContentCountView(iconName: "music.quarternote.3", countName: "Chords", count: chordCount, color: .cyan)
+                    }.buttonStyle(PlainButtonStyle())
+                        .padding(.horizontal)
+                    NavigationLink(value: DetailDestination.instrumentsList) {
+                        ContentCountView(iconName: "guitars", countName: "Instruments", count: instrumentCount, color: .indigo.opacity(0.7))
                     }.buttonStyle(PlainButtonStyle())
                         .padding(.horizontal)
                 }.padding(.horizontal)
@@ -126,6 +135,17 @@ struct ContentView: View {
                             let viewModel = ChordBuilderViewModel(modelContext: modelContext, chord: chord)
                             
                             ChordBuilderView(viewModel: viewModel)
+                        case .instrumentsList:
+                            let viewModel = InstrumentsViewModel(modelContext: modelContext)
+                            InstrumentsView(viewModel: viewModel)
+                        case .editInstrument(let instrument):
+                            let viewModel = EditInstrumentViewModel(modelContext: modelContext, instrument: instrument)
+
+                            EditInstrumentView(viewModel: viewModel)
+                        case .newInstrument:
+                            let viewModel = EditInstrumentViewModel(modelContext: modelContext, instrument: nil)
+                            EditInstrumentView(viewModel: viewModel)
+
 
                         case .playlistList:
                             Text("Wango")

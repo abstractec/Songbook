@@ -1,0 +1,13 @@
+//
+//  InstrumentRenderer.swift
+//  Songbook
+//
+//  Created by John Haselden on 07/01/2026.
+//
+
+protocol InstrumentRenderer {
+    func render(instrument: Instrument, andConfiguration configuration: InstrumentConfiguration?) -> String 
+    func renderShortName(instrument: Instrument, andConfiguration configuration: InstrumentConfiguration?) -> String 
+
+    func render(instrumentString: InstrumentString) -> String
+}
