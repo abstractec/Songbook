@@ -66,7 +66,7 @@ struct PlaylistView: View {
                     .navigationDestination(for: AddSongToPlaylistDestination.self) { destination in
                         switch destination {
                         case .addInstrument(let song):
-                            AttachInstrumentToSongView(song: song, viewModel: viewModel)
+                            AttachInstrumentToSongView(song: song, viewModel: viewModel, showingAddSongSheet: $showingAddSongSheet)
                             
                         default:
                             Text("shouldn't be here")
@@ -78,7 +78,7 @@ struct PlaylistView: View {
                 showingAddSongSheet.toggle()
             }) {
                 Text("Cancel")
-            }
+            }.padding(.vertical)
         }
     }
 }

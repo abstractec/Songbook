@@ -11,11 +11,10 @@ import SwiftData
 struct AttachInstrumentToSongView: View {
     var song: Song
 
-    @State var viewModel: PlaylistViewModel
-    
+    @State var viewModel: PlaylistViewModel    
     @Query(sort: \Instrument.name) var instruments: [Instrument]
-
     
+    @Binding var showingAddSongSheet: Bool
 
     var body: some View {
         VStack {
@@ -25,6 +24,7 @@ struct AttachInstrumentToSongView: View {
                     HStack {
                         Button {
                             viewModel.attach(instrument, to: song)
+                            showingAddSongSheet.toggle()
                         } label: {
                             Text(viewModel.render(instrument: instrument))
                         }
@@ -36,6 +36,7 @@ struct AttachInstrumentToSongView: View {
                         HStack {
                             Button {
                                 viewModel.attach(instrument, with: configuration, to: song)
+                                showingAddSongSheet.toggle()
                             } label: {
                                 Text(viewModel.render(instrument: instrument, configuration: configuration))
                             }
@@ -84,5 +85,5 @@ struct AttachInstrumentToSongView: View {
     modelContainer.mainContext.insert(instrument)
     
     
-    return AttachInstrumentToSongView(song: song, viewModel: viewModel).modelContainer(modelContainer)
+    return AttachInstrumentToSongView(song: song, viewModel: viewModel, showingAddSongSheet: .constant(true)).modelContainer(modelContainer)
 }

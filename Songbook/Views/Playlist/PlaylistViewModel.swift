@@ -47,8 +47,12 @@ class PlaylistViewModel {
     }
 
     func delete(_ performance: SongPerformance) {
-        modelContext?.delete(performance)
+        if let idx = playlist.songPerformances.firstIndex(of: performance) {
+            playlist.songPerformances.remove(at: idx)
+        }
         
+        modelContext?.delete(performance)
+               
         setPerformancePositions()
     }
 
@@ -64,6 +68,18 @@ class PlaylistViewModel {
     }
     
     func attach(_ instrument: Instrument, with configuration: InstrumentConfiguration? = nil, to song: Song) {
+        let songPerformance = SongPerformance(id: UUID(), song: song, instrument: instrument, instrumentConfiguration: configuration, position: playlist.songPerformances.count)
+        
+        modelContext?.insert(songPerformance)
+        
+        playlist.songPerformances.append(songPerformance)
+        
+        do {
+            try modelContext?.save()
+        } catch {
+            // TODO: error message
+        }
+        
         
     }
 
@@ -72,7 +88,9 @@ class PlaylistViewModel {
     }
     
     var songPerformances: [SongPerformance] {
-        playlist.songPerformances.sorted(by: { $0.position < $1.position })
+        playlist.songPerformances
+            .filter { $0.modelContext != nil }
+            .sorted(by: { $0.position < $1.position })
     }
     
     func render(instrument: Instrument, configuration: InstrumentConfiguration? = nil) -> String {
