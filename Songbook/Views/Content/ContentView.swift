@@ -40,7 +40,7 @@ struct ContentView: View {
 
     var body: some View {
         NavigationSplitView {
-            PlaylistsView(sort: sortOrder, searchString: searchText)
+            Text("TBC")
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
         } detail: {
             VStack {
@@ -145,10 +145,17 @@ struct ContentView: View {
                         case .newInstrument:
                             let viewModel = EditInstrumentViewModel(modelContext: modelContext, instrument: nil)
                             EditInstrumentView(viewModel: viewModel)
-
-
                         case .playlistList:
-                            Text("Wango")
+                            let viewModel = PlaylistsViewModel(modelContext: modelContext)
+                            PlaylistsView(viewModel: viewModel)
+                        case .viewPlaylist(let playlist):
+                            let viewModel = PlaylistViewModel(playlist: playlist, modelContext: modelContext)
+                            PlaylistView(viewModel: viewModel)
+                        case .editPlaylist(let playlist):
+                            let viewModel = PlaylistsViewModel(modelContext: modelContext)
+                            PlaylistsView(viewModel: viewModel)
+                        case .newPlaylist:
+                            Text("New playlist please")
                         }
                     }
                 }

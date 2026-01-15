@@ -21,6 +21,8 @@ struct SongbookApp: App {
             Instrument.self,
             InstrumentString.self,
             InstrumentConfiguration.self,
+            Playlist.self,
+            SongPerformance.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

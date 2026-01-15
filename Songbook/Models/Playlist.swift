@@ -12,11 +12,11 @@ import SwiftData
 public final class Playlist: Identifiable {
     @Attribute(.unique) public var id: UUID
     public var name: String
-    var songs: [Song]
+    var songPerformances: [SongPerformance]
 
-    init(id: UUID, name: String, songs: [Song]) {
+    init(id: UUID, name: String, songPerformances: [SongPerformance]) {
         self.id = id
         self.name = name
-        self.songs = songs
+        self.songPerformances = songPerformances
     }
 }
