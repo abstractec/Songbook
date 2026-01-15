@@ -20,6 +20,8 @@ class DataHelper {
             Instrument.self,
             InstrumentString.self,
             InstrumentConfiguration.self,
+            Playlist.self,
+            SongPerformance.self,
         ])
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try! ModelContainer(for: schema, configurations: [config])
