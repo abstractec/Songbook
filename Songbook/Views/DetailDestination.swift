@@ -26,4 +26,8 @@ enum DetailDestination: Hashable {
     case instrumentsList
     case newInstrument
     case editInstrument(instrument: Instrument)
+    
+    case viewPlaylist(playlist: Playlist)
+    case editPlaylist(playlist: Playlist)
+    case newPlaylist
 }

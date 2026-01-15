@@ -11,14 +11,18 @@ import SwiftData
 @Model
 public final class SongPerformance: Identifiable {
     @Attribute(.unique) public var id: UUID
-    public var name: String
-    public var instrument: Instrument? = nil
+    var name: String
+    var instrument: Instrument? = nil
+    var instrumentConfiguration: InstrumentConfiguration? = nil
+    var song: Song
+    var position: Int? = 0
 
-    var songPerformances: [SongPerformance]
-
-    init(id: UUID, name: String, songPerformances: [SongPerformance]) {
+    init(id: UUID, name: String, song: Song, instrument: Instrument? = nil, instrumentConfiguration: InstrumentConfiguration? = nil, position: Int? = nil) {
         self.id = id
         self.name = name
-        self.songPerformances = songPerformances
+        self.song = song
+        self.instrument = instrument
+        self.instrumentConfiguration = instrumentConfiguration
+        self.position = position
     }
 }
