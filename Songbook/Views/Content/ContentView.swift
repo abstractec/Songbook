@@ -157,7 +157,7 @@ struct ContentView: View {
                         case .newPlaylist:
                             Text("New playlist please")
                         case .performPlaylist(let playlist):
-                            let viewModel = SongPerformanceViewModel(playlist: playlist)
+                            let viewModel = SongPerformanceViewModel(playlist: playlist, modelContext: modelContext)
                             SongPerformanceView(viewModel: viewModel)
                         }
                     }

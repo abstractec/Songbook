@@ -24,32 +24,7 @@ struct PlaylistView: View {
                 Text(viewModel.title).font(.title)
 
                 ForEach(viewModel.songPerformances) { performance in
-                    HStack {
-                        Text(performance.song.title)
-                        Spacer()
-                        Button {
-                            viewModel.moveUp(performance)
-                        } label: {
-                            Image(systemName: "arrow.up")
-                                .frame(width: 10, height: 10, alignment: .center)
-                            
-                        }.padding(.trailing, 16)
-                        Button {
-                            viewModel.moveDown(performance)
-                        } label: {
-                            Image(systemName: "arrow.down")
-                                .frame(width: 10, height: 10, alignment: .center)
-                            
-                        }.padding(.trailing, 32)
-                        Button {
-                            viewModel.delete(performance)
-                        } label: {
-                            Image(systemName: "trash")
-                                .frame(width: 10, height: 10, alignment: .center)
-                                .foregroundStyle(.red)
-                            
-                        }.padding(.horizontal, 4)
-                    }
+                    SongPerformanceRow(songPerformance: performance, viewModel: viewModel.buildSongPerformanceRowViewModel(for: performance))
                 }.padding(.horizontal)
             }
             

@@ -11,12 +11,31 @@ struct SongPerformanceView: View {
     @State var viewModel: SongPerformanceViewModel
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text(viewModel.title).font(.title)
+            ScrollView {
+                ForEach(viewModel.songPerformances) { performance in
+                    SongPerformanceRow(songPerformance: performance, viewModel: viewModel.buildSongPerformanceRowViewModel(for: performance), canDelete: false)
+
+                }.padding(.horizontal)
+                
+            }
+            Button {
+                
+            } label: {
+                Image(systemName: "play")
+                Text("Go!")
+            }
+            
+        }
     }
 }
 
 #Preview {
+    let dataHelper = DataHelper()
+    let modelContainer = dataHelper.mockModelContainer()
+
     let playlist = Playlist(id: UUID(), name: "Test", songPerformances: [])
-    let viewModel = SongPerformanceViewModel(playlist: playlist)
-    SongPerformanceView(viewModel: viewModel)
+    let viewModel = SongPerformanceViewModel(playlist: playlist, modelContext: modelContainer.mainContext)
+    SongPerformanceView(viewModel: viewModel).modelContainer(modelContainer)
 }
