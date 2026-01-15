@@ -15,6 +15,7 @@ struct PlaylistView: View {
     @State private var detailPath = NavigationPath()
 
     @Query(sort: \Song.title) var songs: [Song]
+    @Query(sort: \Instrument.name) var instruments: [Instrument]
 
 
     var body: some View {
@@ -25,7 +26,6 @@ struct PlaylistView: View {
                 ForEach(viewModel.songPerformances) { performance in
                     HStack {
                         Text(performance.song.title)
-                        Text(performance.name)
                         Spacer()
                         Button {
                             viewModel.moveUp(performance)
@@ -66,7 +66,8 @@ struct PlaylistView: View {
                     .navigationDestination(for: AddSongToPlaylistDestination.self) { destination in
                         switch destination {
                         case .addInstrument(let song):
-                            Text("add instrument here")
+                            AttachInstrumentToSongView(song: song, viewModel: viewModel)
+                            
                         default:
                             Text("shouldn't be here")
                         }
@@ -87,7 +88,7 @@ struct PlaylistView: View {
     let modelContainer = dataHelper.mockModelContainer()
 
     let song = Song(id: UUID(), title: "Song One", sections: [], artist: "Artist One",)
-    let performance1 = SongPerformance(id: UUID(), name: "Performance One", song: song)
+    let performance1 = SongPerformance(id: UUID(), song: song, position: 0)
     
     let playlist = Playlist(id: UUID(), name: "First Playlist", songPerformances: [performance1])
     let viewModel = PlaylistViewModel(playlist: playlist)

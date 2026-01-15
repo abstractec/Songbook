@@ -22,7 +22,7 @@ struct PlaylistsView: View {
                 
                 ForEach(playlists) { playlist in
                     HStack {
-                        NavigationLink(value: DetailDestination.viewPlaylist(playlist: playlist)) {
+                        NavigationLink(value: DetailDestination.performPlaylist(playlist: playlist)) {
                             VStack {
                                 HStack {
                                     Text(playlist.name).font(.headline)
@@ -39,6 +39,10 @@ struct PlaylistsView: View {
                             }
                             Spacer()
                         }
+                        NavigationLink(value: DetailDestination.viewPlaylist(playlist: playlist)) {
+                            Image(systemName: "square.and.pencil")
+                        }.padding(.horizontal)
+                        
                         Button {
                             viewModel.delete(playlist)
                         } label: {
@@ -95,7 +99,7 @@ struct PlaylistsView: View {
     let modelContainer = dataHelper.mockModelContainer()
     
     let song = Song(id: UUID(), title: "Song One", sections: [], artist: "Artist One",)
-    let performance1 = SongPerformance(id: UUID(), name: "Performance One", song: song)
+    let performance1 = SongPerformance(id: UUID(), song: song, position: 0)
     
     let playlist = Playlist(id: UUID(), name: "First Playlist", songPerformances: [performance1])
     let playlist2 = Playlist(id: UUID(), name: "Second Playlist", songPerformances: [])

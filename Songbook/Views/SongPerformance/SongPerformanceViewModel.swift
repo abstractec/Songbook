@@ -9,5 +9,10 @@ import Foundation
 
 
 class SongPerformanceViewModel {
-    var songPerformance: SongPerformance
+    var playlist: Playlist
+    var currentSongPerformance: SongPerformance?
+    
+    init(playlist: Playlist) {
+        self.playlist = playlist
+    }
 }

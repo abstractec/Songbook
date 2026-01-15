@@ -156,6 +156,9 @@ struct ContentView: View {
                             PlaylistsView(viewModel: viewModel)
                         case .newPlaylist:
                             Text("New playlist please")
+                        case .performPlaylist(let playlist):
+                            let viewModel = SongPerformanceViewModel(playlist: playlist)
+                            SongPerformanceView(viewModel: viewModel)
                         }
                     }
                 }

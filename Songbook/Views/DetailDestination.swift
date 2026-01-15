@@ -30,4 +30,6 @@ enum DetailDestination: Hashable {
     case viewPlaylist(playlist: Playlist)
     case editPlaylist(playlist: Playlist)
     case newPlaylist
+    
+    case performPlaylist(playlist: Playlist)
 }

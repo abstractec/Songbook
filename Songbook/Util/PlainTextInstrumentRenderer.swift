@@ -11,7 +11,7 @@ class PlainTextInstrumentRenderer: InstrumentRenderer {
         var tuning = ""
         
         if let config = configuration, let capo = config.capoPosition {
-            tuning += "Capo: \(capo) "
+            tuning += "Capo: \(capo): "
         }
         
         for string in instrument.strings.sorted(by: { $0.position > $1.position }) {
