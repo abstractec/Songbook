@@ -65,8 +65,6 @@ struct SectionPerformanceView: View {
         VStack {
             Spacer()
             if (viewModel.hasPreviousSection()) {
-                
-                Text("have")
                 HStack {
                     Text(viewModel.render(section: viewModel.previousSection))
                         .font(.body.monospaced())
