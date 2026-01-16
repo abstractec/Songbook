@@ -40,6 +40,25 @@ class SongPerformanceViewModel {
         currentSongPerformance?.song.artist ?? "Not set"
     }
     
+    var previousSection: Section? {
+        if let currentSection = self.currentSection, let section = self.currentSongPerformance?.song.sections.filter({$0.position == currentSection.position - 1}).first {
+            return section
+        }
+        
+        return nil
+    }
+
+    var nextSection: Section? {
+        if let currentSection = self.currentSection, let section = self.currentSongPerformance?.song.sections.filter({$0.position == currentSection.position + 1}).first {
+            print ("next section: \(section.name)")
+            
+            return section
+        }
+        
+        print("no section for you?")
+        return nil
+    }
+
     var showChangeCapo: Bool {
         if (currentSongPerformance?.position == 0 && currentSongPerformance?.instrumentConfiguration?.capoPosition != nil) {
             return true
@@ -91,7 +110,16 @@ class SongPerformanceViewModel {
         return ""
     }
     
-    func nextSection() {
+    func goToPreviousSection() {
+        if let currentSection = self.currentSection {
+            
+            if let nextSection = currentSongPerformance?.song.sections.filter({$0.position == currentSection.position - 1}).first {
+                self.currentSection = nextSection
+            }
+        }
+    }
+    
+    func goToNextSection() {
         if let currentSection = self.currentSection {
             
             if let nextSection = currentSongPerformance?.song.sections.filter({$0.position == currentSection.position + 1}).first {
@@ -116,7 +144,22 @@ class SongPerformanceViewModel {
             performanceStage = .finished
 
         }
-
+    }
+    
+    func hasPreviousSection() -> Bool {
+        if currentSection?.position ?? 0 >= 1 {
+            return true
+        }
+        
+        return false
+    }
+    
+    func hasNextSection() -> Bool {
+        if let currentSection = self.currentSection, self.currentSongPerformance?.song.sections.filter({$0.position == currentSection.position + 1}).first != nil {
+            return true
+        }
+        
+        return false
     }
 }
 

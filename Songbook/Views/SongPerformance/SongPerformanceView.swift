@@ -63,27 +63,69 @@ struct SectionPerformanceView: View {
 
     var body: some View {
         VStack {
-            HStack {
+            Spacer()
+            if (viewModel.hasPreviousSection()) {
                 
+                Text("have")
+                HStack {
+                    Text(viewModel.render(section: viewModel.previousSection))
+                        .font(.body.monospaced())
+                        .foregroundStyle(.gray)
+                        .lineLimit(4)
+                        .truncationMode(.tail)
+                    Spacer()
+                }.padding()
+            }
+            
+            HStack {
                 Text(viewModel.render(section: viewModel.currentSection)).font(.body.monospaced())
-                Spacer()
             }.padding()
+
+            if (viewModel.hasNextSection()) {
+                HStack {
+                    Text(viewModel.render(section: viewModel.nextSection))
+                        .font(.body.monospaced())
+                        .foregroundStyle(.gray)
+                        .lineLimit(4)
+                        .truncationMode(.head)
+
+                    Spacer()
+                }.padding()
+            }
             Spacer()
             
-            Button {
-                viewModel.nextSection()
-            } label: {
-                HStack {
-                    Spacer()
-                    Text("Next Section").font(.headline).foregroundStyle(.white)
-                    Image(systemName: "chevron.right.dotted.chevron.right").foregroundStyle(.white)
-                    Spacer()
+            HStack {
+                Button {
+                    viewModel.goToPreviousSection()
+                } label: {
+                    HStack {
+                        Spacer()
+                        Image(systemName: "chevron.backward.chevron.backward.dotted").foregroundStyle(.white)
+                        Text("Previous").font(.headline).foregroundStyle(.white)
+                        Spacer()
+                    }
+                    .frame(minHeight: 50)
+                    .background(Color.red)
+                    .border(Color.red, width: 4)
+                    .cornerRadius(8)
+                    .padding()
+                }.frame(width: 150)
+                
+                Button {
+                    viewModel.goToNextSection()
+                } label: {
+                    HStack {
+                        Spacer()
+                        Text("Next Section").font(.headline).foregroundStyle(.white)
+                        Image(systemName: "chevron.right.dotted.chevron.right").foregroundStyle(.white)
+                        Spacer()
+                    }
+                    .frame(minHeight: 50)
+                    .background(Color.blue)
+                    .border(Color.blue, width: 4)
+                    .cornerRadius(8)
+                    .padding()
                 }
-                .frame(minHeight: 50)
-                .background(Color.blue)
-                .border(Color.blue, width: 4)
-                .cornerRadius(8)
-                .padding()
             }
         }
     }
@@ -184,8 +226,10 @@ struct FinishedView: View {
     let lyric = Lyric(id: UUID(), text: "This should be a line of lyrics")
     let phrase = Phrase(lyric: lyric, chordSequence: chordSequence1, repeats: 2)
     let song = Song(id: UUID(), title: "Song 1", sections: [])
-    let section = Section(id: UUID(), name: "Verse 1", song: song, phrases: [phrase])
+    let section = Section(id: UUID(), name: "Verse 1", song: song, phrases: [phrase], position: 0)
+    let section2 = Section(id: UUID(), name: "Verse 1", song: song, phrases: [phrase], position: 1)
     song.sections.append(section)
+    song.sections.append(section2)
     
     let guitar = Instrument(id: UUID(), name: "Acoustic", strings: [])
     let guitar2 = Instrument(id: UUID(), name: "Guitar", strings: [])

@@ -11,6 +11,7 @@ import SwiftData
 @Observable
 class SongListViewModel {
     private var modelContext: ModelContext?
+    var isImporting: Bool = false
 
     init(modelContext: ModelContext? = nil) {
         self.modelContext = modelContext
@@ -39,6 +40,30 @@ class SongListViewModel {
     func delete(song: Song) {
         modelContext?.delete(song)
     }
+    
+    func importSongs(from url: URL) {
+        isImporting = true
+        
+        guard url.startAccessingSecurityScopedResource() else {
+                print("Permission denied")
+                return
+            }
+
+            defer { url.stopAccessingSecurityScopedResource() }
+
+            do {
+                let data = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+//                let decodedSong = try decoder.decode(Song.self, from: data)
+//                
+//                // check if we have any of these chords
+//                
+//                modelContext?.insert(decodedSong)
+            } catch {
+                print("Decoding error: \(error.localizedDescription)")
+            }
+    }
+    
 }
 
 enum SingListSort: Hashable {

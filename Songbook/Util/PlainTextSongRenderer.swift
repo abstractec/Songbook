@@ -42,7 +42,7 @@ class PlainTextSongRenderer: SongRenderer {
         renderedSection.append(section.name)
         renderedSection.append("\n\n")
         
-        for phrase in section.phrases {
+        for phrase in section.phrases.sorted(by: { $0.position < $1.position }) {
             renderedSection.append(contentsOf: render(phrase: phrase, transposedBy: semitones))
             renderedSection.append("\n")
         }

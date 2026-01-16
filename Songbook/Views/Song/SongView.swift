@@ -128,6 +128,25 @@ struct SongView: View {
                     }
                 }
                 
+                Button {
+                    viewModel.exportSong()
+                } label: {
+                    Image(systemName: "square.and.arrow.down")
+                    Text("Export Song")
+                }.padding(.leading, 2)
+                    .fileExporter(
+                        isPresented: $viewModel.isExporting,
+                        document: viewModel.document,
+                        contentType: .json,
+                        defaultFilename: viewModel.exportFilename
+                    ) { result in
+                        switch result {
+                        case .success(let url):
+                            print("Saved to: \(url)")
+                        case .failure(let error):
+                            print("Export failed: \(error.localizedDescription)")
+                        }
+                    }
                 Button("Edit Song") {
                     viewModel.toggleEditMode()
                 }

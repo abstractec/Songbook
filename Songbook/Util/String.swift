@@ -28,4 +28,22 @@ extension String {
         // Iterate through the string's indices starting from the specified index
         return self[index...].firstIndex(where: { $0.isWhitespace })
     }
+    
+    func snakeCased() -> String? {
+        let pattern = "([a-z0-9])([A-Z])"
+        
+        guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else {
+            return nil
+        }
+        
+        let range = NSRange(location: 0, length: count)
+        let modifiedString = regex.stringByReplacingMatches(
+            in: self,
+            options: [],
+            range: range,
+            withTemplate: "$1_$2"
+        ).lowercased()
+        
+        return modifiedString
+    }
 }
