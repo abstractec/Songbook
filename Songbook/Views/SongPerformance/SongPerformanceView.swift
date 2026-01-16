@@ -18,7 +18,7 @@ struct SongPerformanceView: View {
             case .inSong:
                 SectionPerformanceView(viewModel: viewModel)
             case .finished:
-                Text("Finished, thank you and good night!")
+                FinishedView()
             }
         }
     }
@@ -32,7 +32,6 @@ struct StartSongView: View {
             Text("Get ready to play \(viewModel.currentSongTitle)").font(.headline)
             Text("Original Artist: \(viewModel.currentSongArtist)")
             Text("Instrument: \(viewModel.currentSongPerformance?.instrument?.name ?? "")")
-            Text("Instrument: \(viewModel.currentSongPerformance?.instrumentConfiguration?.name ?? "")")
 
             if (viewModel.showChangeCapo) {
                 HStack {
@@ -111,6 +110,28 @@ struct ChangeCapoView: View {
         .padding()
     }
 }
+
+struct FinishedView: View {
+    @Environment(\.dismiss) var dismiss
+
+    var body: some View {
+        Button {
+            dismiss()
+        } label: {
+            HStack {
+                Spacer()
+                Text("Finished, thank you and good night!").font(.headline).foregroundStyle(.white)
+                Spacer()
+            }
+            .frame(minHeight: 50)
+            .background(Color.green)
+            .border(Color.green, width: 4)
+            .cornerRadius(8)
+            .padding()
+        }
+    }
+}
+
 
 #Preview ("Start View"){
     let dataHelper = DataHelper()
