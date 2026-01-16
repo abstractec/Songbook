@@ -152,10 +152,11 @@ struct ContentView: View {
                             let viewModel = PlaylistViewModel(playlist: playlist, modelContext: modelContext)
                             PlaylistView(viewModel: viewModel)
                         case .editPlaylist(let playlist):
-                            let viewModel = PlaylistsViewModel(modelContext: modelContext)
-                            PlaylistsView(viewModel: viewModel)
+                            let viewModel = ManagePlaylistViewModel(playlist: playlist, modelContext: modelContext)
+                            ManagePlaylistView(viewModel: viewModel)
                         case .newPlaylist:
                             Text("New playlist please")
+
                         case .performPlaylist(let playlist):
                             let viewModel = SongPerformanceViewModel(playlist: playlist, modelContext: modelContext)
                             SongPerformanceView(viewModel: viewModel)

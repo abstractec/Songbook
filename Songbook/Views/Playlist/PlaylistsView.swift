@@ -22,7 +22,7 @@ struct PlaylistsView: View {
                 
                 ForEach(playlists) { playlist in
                     HStack {
-                        NavigationLink(value: DetailDestination.performPlaylist(playlist: playlist)) {
+                        NavigationLink(value: DetailDestination.viewPlaylist(playlist: playlist)) {
                             VStack {
                                 HStack {
                                     Text(playlist.name).font(.headline)
@@ -39,7 +39,7 @@ struct PlaylistsView: View {
                             }
                             Spacer()
                         }
-                        NavigationLink(value: DetailDestination.viewPlaylist(playlist: playlist)) {
+                        NavigationLink(value: DetailDestination.editPlaylist(playlist: playlist)) {
                             Image(systemName: "square.and.pencil")
                         }.padding(.horizontal)
                         

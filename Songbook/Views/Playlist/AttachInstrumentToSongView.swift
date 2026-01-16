@@ -11,7 +11,7 @@ import SwiftData
 struct AttachInstrumentToSongView: View {
     var song: Song
 
-    @State var viewModel: PlaylistViewModel    
+    @State var viewModel: ManagePlaylistViewModel    
     @Query(sort: \Instrument.name) var instruments: [Instrument]
     
     @Binding var showingAddSongSheet: Bool
@@ -79,7 +79,7 @@ struct AttachInstrumentToSongView: View {
     let performance1 = SongPerformance(id: UUID(), song: song, position: 0)
     
     let playlist = Playlist(id: UUID(), name: "First Playlist", songPerformances: [performance1])
-    let viewModel = PlaylistViewModel(playlist: playlist)
+    let viewModel = ManagePlaylistViewModel(playlist: playlist)
     
     modelContainer.mainContext.insert(song)
     modelContainer.mainContext.insert(instrument)

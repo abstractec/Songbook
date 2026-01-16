@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct AddSongToPlaylistView: View {
-    @State var viewModel: PlaylistViewModel
+    @State var viewModel: ManagePlaylistViewModel
     @Query(sort: \Song.title) var songs: [Song]
 
     var body: some View {
@@ -38,7 +38,7 @@ struct AddSongToPlaylistView: View {
     let performance1 = SongPerformance(id: UUID(), song: song, position: 0)
     
     let playlist = Playlist(id: UUID(), name: "First Playlist", songPerformances: [performance1])
-    let viewModel = PlaylistViewModel(playlist: playlist)
+    let viewModel = ManagePlaylistViewModel(playlist: playlist)
     
     modelContainer.mainContext.insert(song)
    
