@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct AddSongToPlaylistView: View {
-    @State var viewModel: PlaylistViewModel
+    @State var viewModel: ManagePlaylistViewModel
     @Query(sort: \Song.title) var songs: [Song]
 
     var body: some View {
@@ -17,9 +17,12 @@ struct AddSongToPlaylistView: View {
             Text("Select Song").font(.headline)
             ScrollView {
                 ForEach(songs) { song in
-                    HStack {
-                        Text(song.title)
-                        Spacer()
+                    NavigationLink(value: AddSongToPlaylistDestination.addInstrument(song: song)) {
+                        HStack {
+                            Text(song.title)
+                            Spacer()
+                        }
+                        
                     }
                 }
             }
@@ -32,10 +35,10 @@ struct AddSongToPlaylistView: View {
     let modelContainer = dataHelper.mockModelContainer()
 
     let song = Song(id: UUID(), title: "Song One", sections: [], artist: "Artist One",)
-    let performance1 = SongPerformance(id: UUID(), name: "Performance One", song: song)
+    let performance1 = SongPerformance(id: UUID(), song: song, position: 0)
     
     let playlist = Playlist(id: UUID(), name: "First Playlist", songPerformances: [performance1])
-    let viewModel = PlaylistViewModel(playlist: playlist)
+    let viewModel = ManagePlaylistViewModel(playlist: playlist)
     
     modelContainer.mainContext.insert(song)
    
