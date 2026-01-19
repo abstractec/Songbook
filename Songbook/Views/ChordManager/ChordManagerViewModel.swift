@@ -15,13 +15,21 @@ class ChordManagerViewModel {
     public var document: JSONDocument?
     public var isExporting = false
     public var isImporting = false
+    
+    public var showDeleteConfirmation: Bool = false
 
     init(modelContext: ModelContext? = nil) {
         self.modelContext = modelContext
         
     }
     
+    func confirmDeletion(chord: Chord) {
+        showDeleteConfirmation.toggle()
+    }
+    
     func delete(chord: Chord) {
+        showDeleteConfirmation.toggle()
+        
         if let modelContext = modelContext {
             
             do {

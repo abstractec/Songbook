@@ -10,6 +10,9 @@ import SwiftData
 
 struct ChordManagerView: View {
     @Query(sort: \Chord.rootRawValue) var chords: [Chord]
+    @State private var showingDeleteConfirmation = false
+    @State private var indexSetToDelete: IndexSet?
+    @State private var showingConfirmation = false
     
     @State var viewModel: ChordManagerViewModel
     var body: some View {
@@ -21,17 +24,27 @@ struct ChordManagerView: View {
                     Text("You don't have any chords, why not create one?")
                 }
                 
+                
                 ForEach(chords) { chord in
                     NavigationLink(value: DetailDestination.chordBuilder(chord: chord)) {
                         
                         HStack {
                             Text("\(viewModel.longName(for: chord))")
                             Spacer()
-                            Button(action: {
-                                viewModel.delete(chord: chord)
+                            Button(role: .destructive, action: {
+                                showingConfirmation = true
                             }) {
-                                
                                 Image(systemName: "trash")
+                            }.confirmationDialog(
+                                "Are you sure?",
+                                isPresented: $showingConfirmation,
+                                titleVisibility: .visible
+                            ) {
+                                Button("Delete", role: .destructive) {
+                                    viewModel.delete(chord: chord)
+                                }
+                            } message: {
+                                Text("This action cannot be undone.")
                             }
                         }
                     }

@@ -55,18 +55,29 @@ struct SongListView: View {
 struct SongListRow: View {
     var song: Song
     var viewModel: SongListViewModel
-    
+    @State private var showingConfirmation = false
+
     var body: some View {
         HStack {
             NavigationLink(value: DetailDestination.viewSong(song: song)) {
                 Text("\(song.title)")
                 Spacer()
                 Button(action: {
-                    viewModel.delete(song: song)
+                    showingConfirmation = true
                 }) {
-                    Image(systemName: "x.circle.fill")
+                    Image(systemName: "trash")
                         .frame(width: 10, height: 10, alignment: .center)
                         .foregroundStyle(.red)
+                }.confirmationDialog(
+                    "Are you sure?",
+                    isPresented: $showingConfirmation,
+                    titleVisibility: .visible
+                ) {
+                    Button("Delete", role: .destructive) {
+                        viewModel.delete(song: song)
+                    }
+                } message: {
+                    Text("This action cannot be undone.")
                 }
 
             }

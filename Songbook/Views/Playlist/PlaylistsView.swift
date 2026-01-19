@@ -10,7 +10,8 @@ import SwiftData
 
 struct PlaylistsView: View {
     @Query(sort: \Playlist.name) var playlists: [Playlist]
-    
+    @State private var showingConfirmation = false
+
     @State var viewModel: PlaylistsViewModel
     @Environment(\.dismiss) var dismiss
     @State private var showingAddPlaylist = false
@@ -43,12 +44,22 @@ struct PlaylistsView: View {
                             Image(systemName: "square.and.pencil")
                         }.padding(.horizontal)
                         
-                        Button {
-                            viewModel.delete(playlist)
+                        Button(role: .destructive) {
+                            showingConfirmation = true
                         } label: {
                             Image(systemName: "trash")
                                 .frame(width: 10, height: 10, alignment: .center)
                                 .foregroundStyle(.red)
+                        }.confirmationDialog(
+                            "Are you sure?",
+                            isPresented: $showingConfirmation,
+                            titleVisibility: .visible
+                        ) {
+                            Button("Delete", role: .destructive) {
+                                viewModel.delete(playlist)
+                            }
+                        } message: {
+                            Text("This action cannot be undone.")
                         }
 
                     }

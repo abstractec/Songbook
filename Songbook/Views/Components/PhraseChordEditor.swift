@@ -12,6 +12,7 @@ struct PhraseChordEditor: View {
     @State var viewModel: EditPhraseViewModel
     @State private var showingSheet = false
     let chordRenderer = PlainTextChordRenderer()
+    @State private var showingConfirmation = false
 
     var body: some View {
         VStack {
@@ -23,11 +24,21 @@ struct PhraseChordEditor: View {
                     Text("\(chordRenderer.renderShortName(chord: chordSequenceStep.chord))")
                     Spacer()
                     Button {
-                        viewModel.delete(chordSequenceStep: chordSequenceStep)
+                        showingConfirmation = true
                     } label: {
                         Image(systemName: "trash")
                             .frame(width: 10, height: 10, alignment: .center)
                             .foregroundStyle(.red)
+                    }.confirmationDialog(
+                        "Are you sure?",
+                        isPresented: $showingConfirmation,
+                        titleVisibility: .visible
+                    ) {
+                        Button("Delete", role: .destructive) {
+                            viewModel.delete(chordSequenceStep: chordSequenceStep)
+                        }
+                    } message: {
+                        Text("This action cannot be undone.")
                     }
 
                 }.padding(.horizontal)
