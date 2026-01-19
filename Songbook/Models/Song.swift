@@ -13,18 +13,19 @@ final class Song: Identifiable, Codable {
     @Attribute(.unique) var id: UUID
     var title: String
     var key: String?
-    var chords: [Chord]
     var artist: String?
     
     @Relationship(deleteRule: .cascade, inverse: \Section.song)
     var sections: [Section]
     
-    init(id: UUID, title: String, sections: [Section], key: String? = nil, chords: [Chord] = [], artist: String? = nil) {
+    @Relationship(deleteRule: .cascade, inverse: \SongPerformance.song)
+    var songPerformances: [SongPerformance] = []
+    
+    init(id: UUID, title: String, sections: [Section], key: String? = nil, artist: String? = nil) {
         self.id = id
         self.title = title
         self.sections = sections
         self.key = key
-        self.chords = chords
         self.artist = artist
     }
     
@@ -60,7 +61,6 @@ final class Song: Identifiable, Codable {
         self.title = try container.decode(String.self, forKey: .title)
         self.sections = try container.decode([Section].self, forKey: .sections)
         self.key = try container.decodeIfPresent(String.self, forKey: .key)
-        self.chords = try container.decode([Chord].self, forKey: .chords)
         self.artist = try container.decodeIfPresent(String.self, forKey: .artist)
 
     }
@@ -72,7 +72,6 @@ final class Song: Identifiable, Codable {
         try container.encode(title, forKey: .title)
         try container.encode(sections, forKey: .sections)
         try container.encode(key, forKey: .key)
-        try container.encode(chords, forKey: .chords)
         try container.encode(artist, forKey: .artist)
     }
 }

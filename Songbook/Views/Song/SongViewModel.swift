@@ -95,7 +95,7 @@ class SongViewModel {
         modelContext?.insert(newSection)
         
         for phrase in newSection.phrases {
-            phrase.sections = [newSection]
+            phrase.section = newSection
             modelContext?.insert(phrase)
         }
         

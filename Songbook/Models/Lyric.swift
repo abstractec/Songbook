@@ -10,7 +10,7 @@ import SwiftData
 
 @Model
 final class Lyric: Identifiable, Codable {
-    @Attribute(.unique) public var id: UUID
+    public var id: UUID
     public var text: String
     
     public init(id: UUID = .init(), text: String) {
@@ -32,7 +32,6 @@ final class Lyric: Identifiable, Codable {
 
         self.id = try container.decode(UUID.self, forKey: .id)
         self.text = try container.decode(String.self, forKey: .text)
-
     }
 
     // Required for encoding (Model -> JSON)

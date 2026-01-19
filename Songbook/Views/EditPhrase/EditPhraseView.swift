@@ -219,7 +219,8 @@ struct SelectChordView: View {
     let chordSequence1 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
 
     let lyric = Lyric(id: UUID(), text: "This should be a line of lyrics, and it will wrap")
-    let phrase = Phrase(lyric: lyric, chordSequence: chordSequence1)
+    let phrase = Phrase(chordSequence: chordSequence1)
+    phrase.lyric = lyric
 
     let viewModel = EditPhraseViewModel(section: Section.emptySection, phrase: phrase)
 
@@ -242,7 +243,8 @@ struct SelectChordView: View {
     let chordSequence1 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
 
     let lyric = Lyric(id: UUID(), text: "This should be a line of lyrics")
-    let phrase = Phrase(lyric: lyric, chordSequence: chordSequence1)
+    let phrase = Phrase(chordSequence: chordSequence1)
+    phrase.lyric = lyric
 
     let viewModel = EditPhraseViewModel(section: Section.emptySection, phrase: phrase)
 

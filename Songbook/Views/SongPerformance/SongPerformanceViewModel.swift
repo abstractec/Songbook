@@ -102,9 +102,12 @@ class SongPerformanceViewModel {
     }
  
     func render(section: Section?) -> String {
-        if let section = section {
-            let renderer = PlainTextSongRenderer()
+        let renderer = PlainTextSongRenderer()
+        if let section = section, let configuration = self.currentSongPerformance?.instrumentConfiguration {
+            return renderer.render(section: section, transposedBy: -(configuration.capoPosition ?? 0))
+        } else if let section = section {
             return renderer.render(section: section)
+
         }
         
         return ""

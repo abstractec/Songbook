@@ -13,11 +13,14 @@ final class ChordSequenceStep: Identifiable, Codable {
     @Attribute(.unique) public var id: UUID
     public var chord: Chord
     public var step: Int
+    var chordSequence: ChordSequence?
+
     
-    init(id: UUID, chord: Chord, step: Int) {
+    init(id: UUID, chord: Chord, step: Int, chordSequence: ChordSequence? = nil) {
         self.id = id
         self.chord = chord
         self.step = step
+        self.chordSequence = chordSequence
     }
     
     enum CodingKeys: String, CodingKey {

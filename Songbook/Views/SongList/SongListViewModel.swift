@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import CoreData
 
 @Observable
 class SongListViewModel {
@@ -38,10 +39,11 @@ class SongListViewModel {
     }
     
     func delete(song: Song) {
+        
         modelContext?.delete(song)
     }
     
-    func importSongs(from url: URL) {
+    func importSong(from url: URL) {
         isImporting = true
         
         guard url.startAccessingSecurityScopedResource() else {
@@ -54,16 +56,91 @@ class SongListViewModel {
             do {
                 let data = try Data(contentsOf: url)
                 let decoder = JSONDecoder()
-//                let decodedSong = try decoder.decode(Song.self, from: data)
-//                
-//                // check if we have any of these chords
-//                
-//                modelContext?.insert(decodedSong)
-            } catch {
+                let decodedSong = try decoder.decode(Song.self, from: data)
+                
+                let newSong = Song(id: decodedSong.id, title: decodedSong.title, sections: [], key: decodedSong.key, artist: decodedSong.artist)
+                modelContext?.insert(newSong)
+                
+                for section in decodedSong.sections {
+                    let newSection = Section(id: section.id, name: section.name, phrases: [], position: section.position)
+                    newSong.sections.append(newSection)
+                    newSection.song = newSong
+                    
+
+                    for phrase in section.phrases {
+                        let newPhrase = Phrase(id: phrase.id, chordSequence: nil, position: phrase.position, repeats: phrase.repeats)
+
+                        if let oldLyric = phrase.lyric {
+                            let newLyric = Lyric(id: oldLyric.id, text: oldLyric.text)
+                                                        
+                            newPhrase.lyric = newLyric
+                            
+                            newSection.phrases.append(newPhrase)
+                            newPhrase.section = newSection
+                        }
+
+                        if let newSequence = try handleSequence(phrase.chordSequence) {
+                            newPhrase.chordSequence = newSequence
+                        }
+                    }
+                }
+                
+                print("we got one!")
+            } catch let error as NSError {
                 print("Decoding error: \(error.localizedDescription)")
+                
+                if let detailedErrors = error.userInfo[NSDetailedErrorsKey] as? [NSError] {
+                    for subError in detailedErrors {
+                        print("Validation Error: \(subError.localizedDescription)")
+                        print("Failed Key: \(subError.userInfo[NSValidationKeyErrorKey] ?? "Unknown")")
+                    }
+                }
             }
     }
     
+    private func handleSequence(_ originalSequence: ChordSequence) throws -> ChordSequence? {
+        var steps: [ChordSequenceStep] = []
+
+        for sequence in originalSequence.sequence {
+            let importChord = sequence.chord
+            let chords = try modelContext?.fetch(FetchDescriptor<Chord>());
+
+            if let chords = chords {
+                
+                var found = false
+                var foundChord = importChord
+
+                for dbChord in chords {
+                    
+                    if (dbChord == foundChord) {
+                        found = true
+                        foundChord = dbChord
+                    }
+                }
+                
+                if !found {
+                    modelContext?.insert(importChord)
+                    foundChord = importChord
+                    
+                    try modelContext?.save()
+                }
+
+                let newStep = ChordSequenceStep(id: sequence.id, chord: foundChord, step: sequence.step)
+                steps.append(newStep)
+            }
+            
+        }
+        
+        let newSequence = ChordSequence(id: originalSequence.id, sequence: [])
+        modelContext?.insert(newSequence)
+
+        for step in steps {
+            newSequence.sequence.append(step)
+            step.chordSequence = newSequence
+        }
+
+        return newSequence
+    }       
 }
 
 enum SingListSort: Hashable {

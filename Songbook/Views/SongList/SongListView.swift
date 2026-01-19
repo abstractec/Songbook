@@ -36,7 +36,7 @@ struct SongListView: View {
                         switch result {
                         case .success(let urls):
                             guard let url = urls.first else { return }
-                            viewModel.importSongs(from: url)
+                            viewModel.importSong(from: url)
                         case .failure(let error):
                             print("Import failed: \(error.localizedDescription)")
                         }

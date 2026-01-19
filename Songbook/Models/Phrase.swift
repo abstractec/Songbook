@@ -11,26 +11,19 @@ import SwiftData
 @Model
 final class Phrase: Identifiable, Codable {
     @Attribute(.unique) public var id: UUID
-    var sections: [Section]
-    var lyric: Lyric = Lyric(id: UUID(), text: "")
+    var section: Section?
+    var lyric: Lyric?
     var chordSequence: ChordSequence = ChordSequence(id: UUID(), sequence: [])
     var position: Int = 0
     var repeats: Int = 1
     
     public init(
         id: UUID = .init(),
-        sections: [Section] = [],
-        lyric: Lyric? = nil,
         chordSequence: ChordSequence? = nil,
         position: Int = 0,
         repeats: Int = 1
     ) {
         self.id = id
-        self.sections = sections
-        
-        if let lyric = lyric {
-            self.lyric = lyric
-        }
         
         if let chordSequence = chordSequence {
             self.chordSequence = chordSequence
@@ -45,7 +38,7 @@ final class Phrase: Identifiable, Codable {
     }
     
     func copy() -> Phrase {
-        return Phrase(id: UUID(), sections: sections , lyric: self.lyric.copy(), chordSequence: self.chordSequence.copy(), position: self.position, repeats: self.repeats)
+        return Phrase(id: UUID(), chordSequence: self.chordSequence.copy(), position: self.position, repeats: self.repeats)
     }
     
     enum CodingKeys: String, CodingKey {
@@ -61,8 +54,6 @@ final class Phrase: Identifiable, Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         self.id = try container.decode(UUID.self, forKey: .id)
-        self.sections = []
-//        self.sections = try container.decode([Section].self, forKey: .sections)
         self.lyric = try container.decode(Lyric.self, forKey: .lyric)
         self.chordSequence = try container.decode(ChordSequence.self, forKey: .chordSequence)
         self.position = try container.decode(Int.self, forKey: .position)
@@ -75,7 +66,6 @@ final class Phrase: Identifiable, Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encode(lyric, forKey: .lyric)
-//        try container.encode(sections, forKey: .sections)
         try container.encode(chordSequence, forKey: .chordSequence)
         try container.encode(position, forKey: .position)
         try container.encode(repeats, forKey: .repeats)

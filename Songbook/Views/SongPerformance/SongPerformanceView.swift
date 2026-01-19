@@ -186,7 +186,10 @@ struct FinishedView: View {
     let chordSequence1 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
 
     let lyric = Lyric(id: UUID(), text: "This should be a line of lyrics")
-    let phrase = Phrase(lyric: lyric, chordSequence: chordSequence1, repeats: 2)
+    let phrase = Phrase(repeats: 2)
+    phrase.lyric = lyric
+    phrase.chordSequence = chordSequence1
+    
     let song = Song(id: UUID(), title: "Song 1", sections: [])
     let section = Section(id: UUID(), name: "Verse 1", song: song, phrases: [phrase])
     song.sections.append(section)
@@ -222,7 +225,10 @@ struct FinishedView: View {
     let chordSequence1 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
 
     let lyric = Lyric(id: UUID(), text: "This should be a line of lyrics")
-    let phrase = Phrase(lyric: lyric, chordSequence: chordSequence1, repeats: 2)
+    let phrase = Phrase(repeats: 2)
+    phrase.lyric = lyric
+    phrase.chordSequence = chordSequence1
+    
     let song = Song(id: UUID(), title: "Song 1", sections: [])
     let section = Section(id: UUID(), name: "Verse 1", song: song, phrases: [phrase], position: 0)
     let section2 = Section(id: UUID(), name: "Verse 1", song: song, phrases: [phrase], position: 1)

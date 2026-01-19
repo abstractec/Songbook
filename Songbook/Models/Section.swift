@@ -15,7 +15,7 @@ final class Section: Identifiable, Hashable, Codable {
     var song: Song?
     var position: Int = 0
 
-    @Relationship(deleteRule: .cascade, inverse: \Phrase.sections)
+    @Relationship(deleteRule: .cascade, inverse: \Phrase.section)
     var phrases: [Phrase]
 
     init(id: UUID, name: String, song: Song? = nil, phrases: [Phrase], position: Int = 0) {

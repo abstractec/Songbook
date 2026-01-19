@@ -10,7 +10,9 @@ import SwiftData
 
 @Model
 final class ChordSequence: Identifiable, Codable {
-    @Attribute(.unique) public var id: UUID
+    public var id: UUID
+    
+    @Relationship(deleteRule: .cascade, inverse: \ChordSequenceStep.chordSequence)
     public var sequence: [ChordSequenceStep]
     
     init(id: UUID, sequence: [ChordSequenceStep]) {
