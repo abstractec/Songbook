@@ -10,7 +10,7 @@ import SwiftData
 
 struct SongListView: View {
     @Query(sort: \Song.title) private var songs: [Song]
-    var viewModel: SongListViewModel
+    @State var viewModel: SongListViewModel
     
     var body: some View {
         VStack {
@@ -20,8 +20,33 @@ struct SongListView: View {
                 }
                 .id(songs.count)
             }
-            NavigationLink(value: DetailDestination.newSong) {
-                Text("Add New Song")
+            HStack {
+                HStack {
+                    Button {
+                        viewModel.isImporting = true
+                    } label: {
+                        Image(systemName: "square.and.arrow.up")
+                        Text("Import Song")
+                    }.padding(.trailing, 2)
+                        .fileImporter(
+                            isPresented: $viewModel.isImporting,
+                            allowedContentTypes: [.json],
+                            allowsMultipleSelection: false
+                        ) { result in
+                        switch result {
+                        case .success(let urls):
+                            guard let url = urls.first else { return }
+                            viewModel.importSong(from: url)
+                        case .failure(let error):
+                            print("Import failed: \(error.localizedDescription)")
+                        }
+                    }
+                    
+                    NavigationLink(value: DetailDestination.newSong) {
+                        Text("Add New Song")
+                    }
+
+                }
             }
         }
     }

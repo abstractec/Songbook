@@ -96,7 +96,8 @@ struct LyricChordEditor: View {
     let chordSequenceStep2 = ChordSequenceStep(id: UUID(), chord: cMajor, step: 17)
     let chordSequence = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
     let lyric = Lyric(id: UUID(), text: "This is a line of lyrics and I will wrap")
-    let phrase = Phrase(lyric: lyric, chordSequence: chordSequence)
+    let phrase = Phrase(chordSequence: chordSequence)
+    phrase.lyric = lyric
     
     let section = Section.emptySection
     section.phrases = [phrase]

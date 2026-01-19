@@ -39,8 +39,6 @@ class EditSongViewModel {
             return
         }
 
-//        init(id: UUID, title: String, sections: [Section], key: String? = nil, capo: Int? = nil, chords: [Chord] = []) {
-
         let song = Song(id: UUID(), title: name, sections: [Section]())
         song.artist = self.artist
        

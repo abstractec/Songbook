@@ -38,9 +38,9 @@ class EditPhraseViewModel {
         let chordRenderer = PlainTextChordRenderer()
         
         // our max length is 31 (ish) on an ipad
-        if let lyric = self.phrase?.lyric.text {
-            self.lyric = lyric
-            self.lyrics = self.updateDisplayLyrics(lyric)
+        if let lyric = self.phrase?.lyric {
+            self.lyric = lyric.text
+            self.lyrics = self.updateDisplayLyrics(lyric.text)
         }
 
         for step in phrase?.chordSequence.sequence ?? [] {
@@ -62,7 +62,7 @@ class EditPhraseViewModel {
                
         self.lyrics = self.updateDisplayLyrics(lyric)
 
-        self.phrase?.lyric.text = self.lyric
+        self.phrase?.lyric?.text = self.lyric
 
         updateChordSequence()
     }
@@ -154,22 +154,19 @@ class EditPhraseViewModel {
     func savePhrase() {
         // save or update
         if let phrase = self.phrase {
-            if phrase.sections.count == 0 {
-                phrase.sections = [self.section]
-                phrase.position = self.section.phrases.count - 1
+            phrase.section = section
+            phrase.position = self.section.phrases.count - 1
+            section.phrases.append(phrase)
                 
-                modelContext?.insert(phrase)
-                
-                if let modelContext = self.modelContext {
-                    do {
-                        try modelContext.save()
-                    } catch {
-                        print("we failed to save the phrase")
-                    }
+            if let modelContext = self.modelContext {
+                do {
+                    try modelContext.save()
+                } catch {
+                    print("we failed to save the phrase")
                 }
             }
             
-            phrase.lyric.text = lyric
+            phrase.lyric?.text = lyric
             
         }
     }

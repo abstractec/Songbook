@@ -19,7 +19,18 @@ class PlaylistsViewModel {
     }
     
     func delete(_ playlist: Playlist) {
+        for songPerformance in playlist.songPerformances {
+            modelContext?.delete(songPerformance)
+        }
+        
+        modelContext?.delete(playlist)
         // TODO: confirmation message
+        
+        do {
+            try modelContext?.save()
+        } catch {
+            // TODO: error message
+        }
     }
     
     func addPlaylist(with name: String) {

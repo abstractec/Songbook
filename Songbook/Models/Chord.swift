@@ -219,7 +219,7 @@ final class Chord: Identifiable, Codable, Comparable {
 
     static func == (lhs: Chord, rhs: Chord) -> Bool {
         let sameRoot = lhs.rootNote == rhs.rootNote
-
+        
         if (!sameRoot) {
             return sameRoot
         }

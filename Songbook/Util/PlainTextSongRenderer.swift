@@ -42,7 +42,7 @@ class PlainTextSongRenderer: SongRenderer {
         renderedSection.append(section.name)
         renderedSection.append("\n\n")
         
-        for phrase in section.phrases {
+        for phrase in section.phrases.sorted(by: { $0.position < $1.position }) {
             renderedSection.append(contentsOf: render(phrase: phrase, transposedBy: semitones))
             renderedSection.append("\n")
         }
@@ -58,7 +58,12 @@ class PlainTextSongRenderer: SongRenderer {
         let basicTransposer = BasicTransposer()
         
         let workingPhrase = basicTransposer.transpose(phrase: phrase, by: semitones)
-        let workingLyrics = phrase.lyric.text
+        
+        var workingLyrics = ""
+                
+        if let lyrics = phrase.lyric {
+            workingLyrics = lyrics.text
+        }
         
         let sequence = workingPhrase.chordSequence.sequence.sorted(by: { $0.step < $1.step})
         
@@ -130,9 +135,11 @@ class PlainTextSongRenderer: SongRenderer {
                 }
                 
                 if (i < workingLyrics.count) {
-                    let index = phrase.lyric.text.index(phrase.lyric.text.startIndex, offsetBy: i)
-                    
-                    lyricLine.append(phrase.lyric.text[index])
+                    if let lyric = phrase.lyric {
+                        let index = lyric.text.index(lyric.text.startIndex, offsetBy: i)
+                        
+                        lyricLine.append(lyric.text[index])
+                    }
                 }
                 
                 if (sequenceOffset > 0) {

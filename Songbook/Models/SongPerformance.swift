@@ -13,6 +13,8 @@ public final class SongPerformance: Identifiable {
     @Attribute(.unique) public var id: UUID
     var instrument: Instrument? = nil
     var instrumentConfiguration: InstrumentConfiguration? = nil
+    
+    
     var song: Song
     var position: Int
 

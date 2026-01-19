@@ -15,6 +15,7 @@ class SongViewModel {
     let key: String
     var instrument: Instrument? = nil
     var instrumentAndConfig: InstrumentAndConfig? = nil
+    var isExporting = false
 
     // leave these two here for when we pass an instrument in for this view model
     let showCapo: Bool = false
@@ -24,7 +25,9 @@ class SongViewModel {
     var modelContext: ModelContext?
     
     var transposedBy: Int = 0
-    
+
+    var document: JSONDocument?
+
     init(song: Song, modelContext: ModelContext?, instrument: Instrument? = nil) {
         self.song = song
         
@@ -39,6 +42,13 @@ class SongViewModel {
         self.modelContext = modelContext
         self.instrument = instrument
     }
+    
+    var exportFilename: String {
+        let name = "\(song.title) \(song.artist ?? "")"
+        
+        return name.snakeCased() ?? name
+    }
+
     
     func render(phrase: Phrase) -> String {
         let songRenderer = PlainTextSongRenderer()
@@ -79,11 +89,25 @@ class SongViewModel {
 
     func duplicate(section: Section) {
         let newSection = section.copy()
+
         newSection.position = song.sections.count
-        song.sections.append(newSection)
+
+        modelContext?.insert(newSection)
         
-        // re-index our items
-        reIndexSections()
+        for phrase in newSection.phrases {
+            phrase.section = newSection
+            modelContext?.insert(phrase)
+        }
+        
+        do {
+            try modelContext?.save()
+            song.sections.append(newSection)
+
+            // re-index our items
+            reIndexSections()
+        } catch {
+            // TODO: error me
+        }
     }
     
     func delete(section: Section) {
@@ -149,6 +173,18 @@ class SongViewModel {
         }
        
         return returnMap
+    }
+    
+    func exportSong() {
+        let encoder = JSONEncoder()
+        
+        encoder.outputFormatting = .prettyPrinted
+        
+        if let encodedData = try? encoder.encode(song) {
+            self.document = JSONDocument(data: encodedData)
+            self.isExporting = true
+        }
+
     }
 
 }

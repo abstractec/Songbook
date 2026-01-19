@@ -123,8 +123,12 @@ struct ContentView: View {
                             let viewModel = SongViewModel(song: song, modelContext: modelContext)
                             SongView(viewModel: viewModel)
                         case .editSection(let section):
-                            let viewModel = SectionViewModel(song: section.song, section: section, modelContext: modelContext)
-                            EditSectionView(viewModel: viewModel)
+                            
+                            if let song = section.song {
+                                let viewModel = SectionViewModel(song: song, section: section, modelContext: modelContext)
+                                EditSectionView(viewModel: viewModel)
+
+                            }
                         case .chordManager:
                             let viewModel = ChordManagerViewModel(modelContext: modelContext)
                             ChordManagerView(viewModel: viewModel)

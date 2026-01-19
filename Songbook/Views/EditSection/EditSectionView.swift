@@ -123,15 +123,17 @@ struct EditSectionView: View {
     let chordSequence1 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
     let chordSequence2 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep3, chordSequenceStep4])
 
-    section.phrases.append(Phrase(id: UUID(),
-                                  sections: [],
-                                  lyric: Lyric(id: UUID(), text: "I am a lyric"),
-                                  chordSequence: chordSequence1))
+    let lyric1 = Lyric(id: UUID(), text: "I am a lyric")
+    let lyric2 = Lyric(id: UUID(), text: "I am the second line")
     
-    section.phrases.append(Phrase(id: UUID(),
-                                  sections: [],
-                                  lyric: Lyric(id: UUID(), text: "I am the second line"),
-                                  chordSequence: chordSequence2))
+    let phrase1 = Phrase(id: UUID(), chordSequence: chordSequence1)
+    phrase1.lyric = lyric1
+    
+    let phrase2 = Phrase(id: UUID(), chordSequence: chordSequence2)
+    phrase2.lyric = lyric2
+
+    section.phrases.append(phrase1)
+    section.phrases.append(phrase2)
     
     let viewModel = SectionViewModel(song: song, section: section)
 

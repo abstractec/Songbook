@@ -128,6 +128,25 @@ struct SongView: View {
                     }
                 }
                 
+                Button {
+                    viewModel.exportSong()
+                } label: {
+                    Image(systemName: "square.and.arrow.down")
+                    Text("Export Song")
+                }.padding(.leading, 2)
+                    .fileExporter(
+                        isPresented: $viewModel.isExporting,
+                        document: viewModel.document,
+                        contentType: .json,
+                        defaultFilename: viewModel.exportFilename
+                    ) { result in
+                        switch result {
+                        case .success(let url):
+                            print("Saved to: \(url)")
+                        case .failure(let error):
+                            print("Export failed: \(error.localizedDescription)")
+                        }
+                    }
                 Button("Edit Song") {
                     viewModel.toggleEditMode()
                 }
@@ -170,25 +189,25 @@ struct SongView: View {
     let chordSequence1 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
     let chordSequence2 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep3, chordSequenceStep4])
 
-    section.phrases.append(Phrase(id: UUID(),
-                                  sections: [],
-                                  lyric: Lyric(id: UUID(), text: "I am a lyric"),
-                                  chordSequence: chordSequence1))
+    let lyric1 = Lyric(id: UUID(), text: "I am a lyric")
+    let lyric2 = Lyric(id: UUID(), text: "I am the second line")
     
-    section.phrases.append(Phrase(id: UUID(),
-                                  sections: [],
-                                  lyric: Lyric(id: UUID(), text: "I am the second line"),
-                                  chordSequence: chordSequence2))
+    let phrase1 = Phrase(id: UUID(), chordSequence: chordSequence1)
+    phrase1.lyric = lyric1
     
-    section2.phrases.append(Phrase(id: UUID(),
-                                  sections: [],
-                                  lyric: Lyric(id: UUID(), text: "I am a lyric"),
-                                  chordSequence: chordSequence1))
+    let phrase2 = Phrase(id: UUID(), chordSequence: chordSequence2)
+    phrase2.lyric = lyric2
+
+    let phrase3 = Phrase(id: UUID(), chordSequence: chordSequence1)
+    phrase1.lyric = lyric1
     
-    section2.phrases.append(Phrase(id: UUID(),
-                                  sections: [],
-                                  lyric: Lyric(id: UUID(), text: "I am the second line"),
-                                  chordSequence: chordSequence2))
+    let phrase4 = Phrase(id: UUID(), chordSequence: chordSequence2)
+    phrase2.lyric = lyric2
+
+    section.phrases.append(phrase1)
+    section.phrases.append(phrase2)
+    section.phrases.append(phrase3)
+    section.phrases.append(phrase4)
 
     song.sections.append(section)
     song.sections.append(section2)
