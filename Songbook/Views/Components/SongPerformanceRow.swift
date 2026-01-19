@@ -11,7 +11,8 @@ struct SongPerformanceRow: View {
     var songPerformance: SongPerformance
     var viewModel: SongPerformanceRowViewModel
     var canDelete: Bool? = true
-    
+    @State private var showingConfirmation = false
+
     var body: some View {
         HStack {
             Text(songPerformance.song.title)
@@ -33,12 +34,21 @@ struct SongPerformanceRow: View {
             
             if (canDelete ?? true) {
                 Button {
-                    viewModel.delete(songPerformance, from: viewModel.playlist)
+                    showingConfirmation = true
                 } label: {
                     Image(systemName: "trash")
                         .frame(width: 10, height: 10, alignment: .center)
                         .foregroundStyle(.red)
-                    
+                }.confirmationDialog(
+                    "Are you sure?",
+                    isPresented: $showingConfirmation,
+                    titleVisibility: .visible
+                ) {
+                    Button("Delete", role: .destructive) {
+                        viewModel.delete(songPerformance, from: viewModel.playlist)
+                    }
+                } message: {
+                    Text("This action cannot be undone.")
                 }.padding(.horizontal, 4)
             }
         }

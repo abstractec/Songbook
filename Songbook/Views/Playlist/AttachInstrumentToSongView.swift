@@ -47,7 +47,8 @@ struct AttachInstrumentToSongView: View {
                 }
             }
             Button {
-                
+                viewModel.skipAttachInstrument(for: song)
+                showingAddSongSheet.toggle()
             } label: {
                 Text("Skip")
             }

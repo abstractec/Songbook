@@ -38,6 +38,20 @@ class ManagePlaylistViewModel: SongPerformanceManager {
         
     }
     
+    func skipAttachInstrument(for song: Song) {
+        let songPerformance = SongPerformance(id: UUID(), song: song, position: playlist.songPerformances.count)
+        
+        modelContext?.insert(songPerformance)
+        
+        playlist.songPerformances.append(songPerformance)
+        
+        do {
+            try modelContext?.save()
+        } catch {
+            // TODO: error message
+        }
+    }
+    
     var title: String {
         playlist.name
     }
