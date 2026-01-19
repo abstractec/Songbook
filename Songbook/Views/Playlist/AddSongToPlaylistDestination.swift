@@ -8,6 +8,6 @@
 import Foundation
 
 enum AddSongToPlaylistDestination: Hashable {
-    case addInstrument(song: Song)
+    case addInstrument(song: Song, position: Int?)
     case saved
 }

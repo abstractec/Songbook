@@ -40,6 +40,10 @@ struct PlaylistsView: View {
                             }
                             Spacer()
                         }
+                        NavigationLink(value: DetailDestination.performPlaylist(playlist: playlist)) {
+                            Image(systemName: "play")
+                        }
+
                         NavigationLink(value: DetailDestination.editPlaylist(playlist: playlist)) {
                             Image(systemName: "square.and.pencil")
                         }.padding(.horizontal)
@@ -75,6 +79,7 @@ struct PlaylistsView: View {
                         Spacer()
                         Button {
                             viewModel.addPlaylist(with: viewModel.playlistName)
+                            showingAddPlaylist.toggle()
                         } label: {
                             Text("Add")
                         }

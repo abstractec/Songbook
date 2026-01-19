@@ -18,16 +18,23 @@ class ManagePlaylistViewModel: SongPerformanceManager {
         super.init(modelContext: modelContext)
     }
     
-    func delete(_ playlist: Playlist) {
-        // TODO: confirmation message
-    }
-    
-    func attach(_ instrument: Instrument, with configuration: InstrumentConfiguration? = nil, to song: Song) {
+    func attach(_ instrument: Instrument, with configuration: InstrumentConfiguration? = nil, to song: Song, at position: Int? = nil) {
         let songPerformance = SongPerformance(id: UUID(), song: song, instrument: instrument, instrumentConfiguration: configuration, position: playlist.songPerformances.count)
         
         modelContext?.insert(songPerformance)
         
-        playlist.songPerformances.append(songPerformance)
+        if let position = position {
+            for performance in playlist.songPerformances.filter({ $0.position >= position }) {
+                performance.position += 1
+            }
+            
+            songPerformance.position = position
+            
+            playlist.songPerformances.append(songPerformance)
+
+        } else {
+            playlist.songPerformances.append(songPerformance)
+        }
         
         do {
             try modelContext?.save()

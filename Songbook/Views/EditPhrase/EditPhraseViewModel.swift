@@ -35,6 +35,10 @@ class EditPhraseViewModel {
         self.modelContext = modelContext
         self.phrase = phrase
         
+        if self.phrase?.lyric == nil {
+            self.phrase?.lyric = Lyric.init(text: "")
+        }
+        
         let chordRenderer = PlainTextChordRenderer()
         
         // our max length is 31 (ish) on an ipad

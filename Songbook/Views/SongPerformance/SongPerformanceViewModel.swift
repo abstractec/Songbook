@@ -135,10 +135,15 @@ class SongPerformanceViewModel {
         }
     }
     
+    func previousSong() {
+        if currentSongPerformance?.position ?? 0 > 0 {
+            currentSongPerformance = self.playlist.songPerformances.filter({$0.position == (currentSongPerformance?.position ?? 0) - 1}).first
+        }
+    }
+    
     func nextSong() {
         // end of the song, next song?
-    
-        if let currentPerformance = self.currentSongPerformance, let nextPerformance = self.playlist.songPerformances.filter({$0.position == currentPerformance.position + 1}).first {
+            if let currentPerformance = self.currentSongPerformance, let nextPerformance = self.playlist.songPerformances.filter({$0.position == currentPerformance.position + 1}).first {
             self.currentSongPerformance = nextPerformance
             self.currentSection = self.currentSongPerformance?.song.sections.sorted(by: {$0.position < $1.position}).first
             
@@ -163,6 +168,23 @@ class SongPerformanceViewModel {
         }
         
         return false
+    }
+    
+    func addAndPerform() {
+        
+    }
+    
+    func managePlaylistViewModel() -> ManagePlaylistViewModel {
+        let managePlaylistViewModel = ManagePlaylistViewModel(playlist: self.playlist)
+        return managePlaylistViewModel
+    }
+    
+    func reloadSongs() {
+        if let currentPerformance = self.currentSongPerformance, let nextPerformance = self.playlist.songPerformances.filter({$0.position == currentPerformance.position - 1}).first {
+            print("switching to performance \(nextPerformance.position)")
+            self.currentSongPerformance = nextPerformance
+        }
+
     }
 }
 

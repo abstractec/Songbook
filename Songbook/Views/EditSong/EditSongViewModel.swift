@@ -40,16 +40,12 @@ class EditSongViewModel {
         }
 
         let song = Song(id: UUID(), title: name, sections: [Section]())
-        song.artist = self.artist
-       
+        song.artist = self.artist      
         
         if key.count > 0 {
             song.key = key
         }
-        
-        print("inserting?? \(song.title)")
-
-        
+                
         context.insert(song)
         let fetchDescriptor = FetchDescriptor<Song>()
 
@@ -57,7 +53,6 @@ class EditSongViewModel {
             try context.save()
             
             let songs = try context.fetch(fetchDescriptor)
-            print(songs)
         } catch {
             print("fetch failed: \(error)")
         }

@@ -47,55 +47,47 @@ class SongListViewModel {
         isImporting = true
         
         guard url.startAccessingSecurityScopedResource() else {
-                print("Permission denied")
-                return
-            }
+            print("Permission denied")
+            return
+        }
 
-            defer { url.stopAccessingSecurityScopedResource() }
+        defer { url.stopAccessingSecurityScopedResource() }
 
-            do {
-                let data = try Data(contentsOf: url)
-                let decoder = JSONDecoder()
-                let decodedSong = try decoder.decode(Song.self, from: data)
+        do {
+            let data = try Data(contentsOf: url)
+            let decoder = JSONDecoder()
+            let decodedSong = try decoder.decode(Song.self, from: data)
+            
+            let newSong = Song(id: decodedSong.id, title: decodedSong.title, sections: [], key: decodedSong.key, artist: decodedSong.artist)
+            modelContext?.insert(newSong)
+            
+            for section in decodedSong.sections {
+                let newSection = Section(id: section.id, name: section.name, phrases: [], position: section.position)
+                newSong.sections.append(newSection)
+                newSection.song = newSong
                 
-                let newSong = Song(id: decodedSong.id, title: decodedSong.title, sections: [], key: decodedSong.key, artist: decodedSong.artist)
-                modelContext?.insert(newSong)
-                
-                for section in decodedSong.sections {
-                    let newSection = Section(id: section.id, name: section.name, phrases: [], position: section.position)
-                    newSong.sections.append(newSection)
-                    newSection.song = newSong
-                    
 
-                    for phrase in section.phrases {
-                        let newPhrase = Phrase(id: phrase.id, chordSequence: nil, position: phrase.position, repeats: phrase.repeats)
+                for phrase in section.phrases {
+                    let newPhrase = Phrase(id: phrase.id, chordSequence: nil, position: phrase.position, repeats: phrase.repeats)
 
-                        if let oldLyric = phrase.lyric {
-                            let newLyric = Lyric(id: oldLyric.id, text: oldLyric.text)
-                                                        
-                            newPhrase.lyric = newLyric
-                            
-                            newSection.phrases.append(newPhrase)
-                            newPhrase.section = newSection
-                        }
-
-                        if let newSequence = try handleSequence(phrase.chordSequence) {
-                            newPhrase.chordSequence = newSequence
-                        }
+                    if let oldLyric = phrase.lyric {
+                        let newLyric = Lyric(id: oldLyric.id, text: oldLyric.text)
+                                                    
+                        newPhrase.lyric = newLyric
+                        
+                        newSection.phrases.append(newPhrase)
+                        newPhrase.section = newSection
                     }
-                }
-                
-                print("we got one!")
-            } catch let error as NSError {
-                print("Decoding error: \(error.localizedDescription)")
-                
-                if let detailedErrors = error.userInfo[NSDetailedErrorsKey] as? [NSError] {
-                    for subError in detailedErrors {
-                        print("Validation Error: \(subError.localizedDescription)")
-                        print("Failed Key: \(subError.userInfo[NSValidationKeyErrorKey] ?? "Unknown")")
+
+                    if let newSequence = try handleSequence(phrase.chordSequence) {
+                        newPhrase.chordSequence = newSequence
                     }
                 }
             }
+            
+        } catch let error as NSError {
+            print("Decoding error: \(error.localizedDescription)")
+        }
     }
     
     private func handleSequence(_ originalSequence: ChordSequence) throws -> ChordSequence? {

@@ -23,14 +23,13 @@ struct BasicTransposerTests {
         ])
 
         let lyric1 = Lyric(id: UUID(), text: "I want to make this work")
-        let phrase1 = Phrase(id: UUID(), sections: [], lyric: lyric1, chordSequence: introSequence)
+        let phrase1 = Phrase(id: UUID(), chordSequence: introSequence)
+        phrase1.lyric = lyric1
         
         let newPhrase = transposer.transpose(phrase: phrase1, by: 2) // A should go to B in this instance
         let chordRenderer = PlainTextChordRenderer()
         
         // what we're expecting here is a B Major 7 suspended 2nd and a B minor
-        print("newPhrase: ")
-        
         for step in newPhrase.chordSequence.sequence {
             print("\t \(chordRenderer.renderShortName(chord: step.chord))")
         }

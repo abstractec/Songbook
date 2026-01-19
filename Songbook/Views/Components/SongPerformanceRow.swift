@@ -15,7 +15,15 @@ struct SongPerformanceRow: View {
 
     var body: some View {
         HStack {
-            Text(songPerformance.song.title)
+            VStack(alignment: .leading) {
+                Text(songPerformance.song.title)
+                
+                HStack {
+                    Text(songPerformance.instrument?.name ?? "")
+                    Text(songPerformance.instrumentConfiguration?.name ?? "")
+                }
+                
+            }
             Spacer()
             Button {
                 viewModel.moveUp(songPerformance, in: viewModel.playlist)
@@ -56,5 +64,23 @@ struct SongPerformanceRow: View {
 }
 
 #Preview {
-//    SongPerformanceRow()
+    let dataHelper = DataHelper()
+    let modelContainer = dataHelper.mockModelContainer()
+    
+    let guitar2 = Instrument(id: UUID(), name: "Guitar", strings: [])
+    
+    let instrumentConfiguration1 = InstrumentConfiguration(id: UUID(), name: "Capo at 3rd Fret", capoPosition: 3)
+    let instrumentConfiguration2 = InstrumentConfiguration(id: UUID(), name: "Capo at 7th Fret", capoPosition: 7)
+    
+    guitar2.configurations = [instrumentConfiguration1, instrumentConfiguration2]
+
+    let song = Song(id: UUID(), title: "Song One", sections: [], artist: "Artist One",)
+    let performance1 = SongPerformance(id: UUID(), song: song, instrument: guitar2, instrumentConfiguration: instrumentConfiguration1, position: 0)
+    
+    let playlist = Playlist(id: UUID(), name: "First Playlist", songPerformances: [performance1])
+    let viewModel = SongPerformanceRowViewModel(songPerformance: performance1, playlist: playlist, modelContext: modelContainer.mainContext)
+    
+    modelContainer.mainContext.insert(song)
+
+    return SongPerformanceRow(songPerformance: performance1, viewModel: viewModel).modelContainer(modelContainer)
 }

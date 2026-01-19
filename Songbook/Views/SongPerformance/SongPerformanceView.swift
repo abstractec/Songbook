@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SongPerformanceView: View {
     @State var viewModel: SongPerformanceViewModel
-    
+
     var body: some View {
         VStack {
             switch viewModel.performanceStage {
@@ -26,9 +26,12 @@ struct SongPerformanceView: View {
 
 struct StartSongView: View {
     @State var viewModel: SongPerformanceViewModel
+    @State private var showingAddSongSheet = false
+    @State private var detailPath = NavigationPath()
 
     var body: some View {
         VStack {
+            Spacer()
             Text("Get ready to play \(viewModel.currentSongTitle)").font(.headline)
             Text("Original Artist: \(viewModel.currentSongArtist)")
             Text("Instrument: \(viewModel.currentSongPerformance?.instrument?.name ?? "")")
@@ -54,6 +57,74 @@ struct StartSongView: View {
             .border(Color.green, width: 4)
             .cornerRadius(8)
             .padding()
+            Spacer()
+
+            HStack {
+                Button {
+                    viewModel.previousSong()
+                } label: {
+                    Spacer()
+                    Text("Previous").font(.headline)
+                        .foregroundStyle(Color.black)
+                    Spacer()
+                }
+                
+                .frame(minHeight: 50)
+                .background(Color.yellow)
+                .border(Color.yellow, width: 4)
+                .cornerRadius(8)
+                .padding()
+
+                Button {
+                    showingAddSongSheet.toggle()
+                } label: {
+                    Spacer()
+                    Text("Select a different song").font(.headline)
+                        .foregroundStyle(Color.black)
+                    Spacer()
+                }
+                .frame(minHeight: 50)
+                .background(Color.cyan)
+                .border(Color.cyan, width: 4)
+                .cornerRadius(8)
+                .padding()
+                
+                Button {
+                    viewModel.nextSong()
+                } label: {
+                    Spacer()
+                    Text("Skip").font(.headline)
+                        .foregroundStyle(Color.white)
+                    Spacer()
+                }                
+                .frame(minHeight: 50)
+                .background(Color.blue)
+                .border(Color.blue, width: 4)
+                .cornerRadius(8)
+                .padding()
+            }
+        }
+        .sheet(isPresented: $showingAddSongSheet) {
+            NavigationStack(path: $detailPath) {
+                AddSongToPlaylistView(viewModel: viewModel.managePlaylistViewModel(), position: viewModel.currentSongPerformance?.position ?? nil)
+                    .navigationDestination(for: AddSongToPlaylistDestination.self) { destination in
+                        switch destination {
+                        case .addInstrument(let song, let position):
+                            AttachInstrumentToSongView(song: song, position: position, viewModel: viewModel.managePlaylistViewModel(), showingAddSongSheet: $showingAddSongSheet)
+                            
+                        default:
+                            Text("shouldn't be here")
+                        }
+                    }
+            }
+            
+            Button(action: {
+                showingAddSongSheet.toggle()
+            }) {
+                Text("Cancel")
+            }.padding(.vertical)
+        }.onChange(of: showingAddSongSheet) { oldValue, newValue in
+            viewModel.reloadSongs()
         }
     }
 }

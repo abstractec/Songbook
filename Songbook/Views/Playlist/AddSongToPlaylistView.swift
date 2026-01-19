@@ -11,13 +11,14 @@ import SwiftData
 struct AddSongToPlaylistView: View {
     @State var viewModel: ManagePlaylistViewModel
     @Query(sort: \Song.title) var songs: [Song]
+    var position: Int? = nil
 
     var body: some View {
         VStack {
             Text("Select Song").font(.headline)
             ScrollView {
                 ForEach(songs) { song in
-                    NavigationLink(value: AddSongToPlaylistDestination.addInstrument(song: song)) {
+                    NavigationLink(value: AddSongToPlaylistDestination.addInstrument(song: song, position: position)) {
                         HStack {
                             Text(song.title)
                             Spacer()

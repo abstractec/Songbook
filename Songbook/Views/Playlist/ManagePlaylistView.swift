@@ -40,8 +40,8 @@ struct ManagePlaylistView: View {
                 AddSongToPlaylistView(viewModel: viewModel)
                     .navigationDestination(for: AddSongToPlaylistDestination.self) { destination in
                         switch destination {
-                        case .addInstrument(let song):
-                            AttachInstrumentToSongView(song: song, viewModel: viewModel, showingAddSongSheet: $showingAddSongSheet)
+                        case .addInstrument(let song, let position):
+                            AttachInstrumentToSongView(song: song, position: position, viewModel: viewModel, showingAddSongSheet: $showingAddSongSheet)
                             
                         default:
                             Text("shouldn't be here")

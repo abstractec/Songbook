@@ -114,6 +114,7 @@ struct ContentView: View {
                             EditSectionView(viewModel: viewModel)
                         case .newPhrase(let section):
                             let phrase = Phrase.emptyPhrase
+                            
                             let viewModel = EditPhraseViewModel(section: section, phrase: phrase, modelContext: modelContext)
                             EditPhraseView(viewModel: viewModel)
                         case .editPhrase(let section, let phrase):

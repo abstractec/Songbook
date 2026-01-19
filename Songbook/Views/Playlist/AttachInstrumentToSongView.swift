@@ -10,6 +10,7 @@ import SwiftData
 
 struct AttachInstrumentToSongView: View {
     var song: Song
+    var position: Int?
 
     @State var viewModel: ManagePlaylistViewModel    
     @Query(sort: \Instrument.name) var instruments: [Instrument]
@@ -23,7 +24,7 @@ struct AttachInstrumentToSongView: View {
                 ForEach(instruments) { instrument in
                     HStack {
                         Button {
-                            viewModel.attach(instrument, to: song)
+                            viewModel.attach(instrument, to: song, at: position)
                             showingAddSongSheet.toggle()
                         } label: {
                             Text(viewModel.render(instrument: instrument))
@@ -35,7 +36,7 @@ struct AttachInstrumentToSongView: View {
                     ForEach(instrument.configurations) { configuration in
                         HStack {
                             Button {
-                                viewModel.attach(instrument, with: configuration, to: song)
+                                viewModel.attach(instrument, with: configuration, to: song, at: position)
                                 showingAddSongSheet.toggle()
                             } label: {
                                 Text(viewModel.render(instrument: instrument, configuration: configuration))

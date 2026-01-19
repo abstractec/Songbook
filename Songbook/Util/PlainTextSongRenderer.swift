@@ -60,7 +60,7 @@ class PlainTextSongRenderer: SongRenderer {
         let workingPhrase = basicTransposer.transpose(phrase: phrase, by: semitones)
         
         var workingLyrics = ""
-                
+                        
         if let lyrics = phrase.lyric {
             workingLyrics = lyrics.text
         }
