@@ -59,10 +59,14 @@ class EditPhraseViewModel {
     
     func updateLyric(_ lyric: String) {
         self.lyric = lyric
-               
-        self.lyrics = self.updateDisplayLyrics(lyric)
 
-        self.phrase?.lyric?.text = self.lyric
+        if let lyric = self.phrase?.lyric {
+            lyric.text = self.lyric
+        } else {
+            self.phrase?.lyric = Lyric(text: lyric)
+        }
+        
+        self.lyrics = self.updateDisplayLyrics(lyric)
 
         updateChordSequence()
     }
@@ -78,20 +82,55 @@ class EditPhraseViewModel {
     
     private func updateDisplayLyrics(_ lyric: String) -> [String] {
         var lyrics: [String]  = []
-        
-        
-        if let position = findLastWhitespace(before: phraseLength, in: lyric) {
-            lyrics = lyric.split(by: phraseLength)
+                
+//        if let position = findLastWhitespace(before: phraseLength, in: lyric) {
+//            lyrics = [
+//                String(lyric[..<position]),
+//                String(lyric[position...])
+//            ]
+//        
+//            // TODO: iterate over the last lyric until everything is within the parameters
+//            
+//            if lyrics[1].lengthOfBytes(using: .utf8) > phraseLength {
+//                if let position = findLastWhitespace(before: phraseLength, in: lyrics[1]) {
+//                    let newLyrics = [
+//                        lyrics[0],
+//                        String(lyrics[1][..<position]),
+//                        String(lyrics[1][position...])
+//                    ]
+//                    
+//                    lyrics = newLyrics
+//                }
+//            }
+//        } else {
+//            lyrics = [lyric]
 //        }
-//        if lyric.count > phraseLength {
-//            lyrics = lyric.split(by: phraseLength)
-        } else {
-            lyrics = [lyric]
-        }
         
         updateChordSequence()
         
-        return lyrics
+        return splitLyric(lyric)
+    }
+    
+    private func splitLyric(_ lyric: String) -> [String] {
+        if (lyric.count > phraseLength) {
+            if let position = findLastWhitespace(before: phraseLength, in: lyric) {
+                var lyrics: [String] = []
+                let first = String(lyric[..<position])
+                let second = String(lyric[position...])
+                
+                lyrics.append(first)
+                
+                if second.count > phraseLength {
+                    lyrics.append(contentsOf: splitLyric(second))
+                } else {
+                    lyrics.append(second)
+                }
+                
+                return lyrics
+            }
+        }
+            
+        return [lyric]
     }
     
     func setChord(_ chord: Chord, atPosition position: Int?) {
@@ -142,6 +181,7 @@ class EditPhraseViewModel {
     
     func updateChordSequence() {
         if let mainPhrase = self.phrase {
+            print(mainPhrase.lyric)
             let renderer = PlainTextSongRenderer()
             self.renderedPhrase = renderer.render(phrase: mainPhrase)
         }

@@ -156,7 +156,8 @@ class ChordBuilderViewModel {
     private func toChord() -> Chord? {        
         if hasBassNote {
             let chord = Chord(id: UUID(),
-                              rootNote: rootNote,
+                              rootNote: self.rootNote,
+                              rootNoteAlteration: self.rootNoteAlteration,
                               chordType: self.chordType,
                               seventhType: self.seventhType,
                               extendedType: self.extendedType,
@@ -168,7 +169,8 @@ class ChordBuilderViewModel {
             return chord
         } else {
             let chord = Chord(id: UUID(),
-                              rootNote: rootNote,
+                              rootNote: self.rootNote,
+                              rootNoteAlteration: self.rootNoteAlteration,
                               chordType: self.chordType,
                               seventhType: self.seventhType,
                               extendedType: self.extendedType,

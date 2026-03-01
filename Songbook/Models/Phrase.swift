@@ -38,7 +38,10 @@ final class Phrase: Identifiable, Codable {
     }
     
     func copy() -> Phrase {
-        return Phrase(id: UUID(), chordSequence: self.chordSequence.copy(), position: self.position, repeats: self.repeats)
+        let newPhrase = Phrase(id: UUID(), chordSequence: self.chordSequence.copy(), position: self.position, repeats: self.repeats)
+        newPhrase.lyric = self.lyric?.copy()
+        
+        return newPhrase
     }
     
     enum CodingKeys: String, CodingKey {
