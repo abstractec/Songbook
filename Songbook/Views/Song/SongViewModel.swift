@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import SwiftUI
 
 @Observable
 class SongViewModel {
@@ -186,6 +187,60 @@ class SongViewModel {
         }
 
     }
+    
+    @MainActor
+    func exportPDF() -> URL {
+        
+        if let url = self.exportA4MultiPagePDF(view: SongPDFView(song: self.song), filename: "\(song.title).pdf") {
+            return url
+        } else {
+            return URL(string: "")!
+        }
+    }
+
+    @MainActor
+    func exportA4MultiPagePDF(view: some View, filename: String) -> URL? {
+        let a4Width: CGFloat = 595.2
+        let a4Height: CGFloat = 841.8
+        var pageRect = CGRect(x: 0, y: 0, width: a4Width, height: a4Height)
+        
+        // 1. Get the actual total height of your view first
+        let renderer = ImageRenderer(content: view)
+        renderer.proposedSize = ProposedViewSize(width: a4Width, height: nil)
+        guard let totalSize = renderer.uiImage?.size else { return nil }
+        
+        let url = URL.documentsDirectory.appending(path: filename)
+        guard let context = CGContext(url as CFURL, mediaBox: &pageRect, nil) else { return nil }
+        
+        let numberOfPages = Int(ceil(totalSize.height / a4Height))
+        
+        for i in 0..<numberOfPages {
+            context.beginPDFPage(nil)
+            
+            // 2. Calculate the 'Top' of the content for this specific page
+            // We need to move the origin so the top of the view's current "slice"
+            // aligns with the top of the PDF page (a4Height).
+            let currentSliceTop = totalSize.height - (CGFloat(i) * a4Height)
+            
+            renderer.render { size, renderContext in
+                context.saveGState()
+                
+                // 3. Move the drawing origin
+                // We translate the context so the view's Y-coordinate matches
+                // the PDF's top-down expectation.
+                context.translateBy(x: 0, y: a4Height - currentSliceTop)
+                
+                renderContext(context)
+                context.restoreGState()
+            }
+            
+            context.endPDFPage()
+        }
+        
+        context.closePDF()
+        return url
+    }
+
 
 }
 

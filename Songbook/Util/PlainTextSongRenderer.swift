@@ -8,7 +8,7 @@
 import Foundation
 
 class PlainTextSongRenderer: SongRenderer {
-    func render(song: Song, transposedBy: Int? = 0) -> String {
+    func render(song: Song, transposedBy semitones: Int = 0) -> String {
         var renderedSong = ""
         renderedSong.append(contentsOf: song.title)
         renderedSong.append("\n")
@@ -30,7 +30,7 @@ class PlainTextSongRenderer: SongRenderer {
         }
 
         for section in song.sections {
-            renderedSong.append(contentsOf: render(section: section))
+            renderedSong.append(contentsOf: render(section: section, transposedBy: semitones))
         }
         
         return renderedSong
@@ -84,22 +84,7 @@ class PlainTextSongRenderer: SongRenderer {
                 if let nextStep = sequence.filter({$0.step == i}).first {
                     let chord = nextStep.chord.copy()
                     remainingChords -= 1
-                    
-//                    if (semitones != 0) {
-//                        if let transposed = basicTransposer.noteTransposer(chord.rootNote, alteration: chord.rootNoteAlteration, by: semitones) {
-//                            
-//                            chord.rootNote = transposed.0
-//                            chord.rootNoteAlteration = transposed.1
-//                            
-//                            if let bassNote = chord.bassNote {
-//                                if let bassTransposed = basicTransposer.noteTransposer(bassNote, alteration: chord.bassNoteAlteration ?? .natural, by: semitones) {
-//                                    chord.bassNote = bassTransposed.0
-//                                    chord.bassNoteAlteration = bassTransposed.1
-//                                }
-//                            }
-//                        }
-//                    }
-                    
+
                     let shortName = chordRenderer.renderShortName(chord: chord)
                     chordLine.append(shortName)
                     

@@ -57,9 +57,9 @@ struct SongView: View {
                             HStack(spacing:0) {
                                 VStack{
                                     HStack {
-                                        Text(section.name)
+                                        Text("[\(section.name)]")
                                         Spacer()
-                                    }
+                                    }.padding(.bottom, 8)
                                     
                                     ForEach(section.phrases.sorted{ $0.position < $1.position }) { phrase in
                                         HStack() {
@@ -127,26 +127,20 @@ struct SongView: View {
                         Text("Add Section")
                     }
                 }
-                
-                Button {
-                    viewModel.exportSong()
-                } label: {
-                    Image(systemName: "square.and.arrow.down")
-                    Text("Export Song")
-                }.padding(.leading, 2)
-                    .fileExporter(
-                        isPresented: $viewModel.isExporting,
-                        document: viewModel.document,
-                        contentType: .json,
-                        defaultFilename: viewModel.exportFilename
-                    ) { result in
-                        switch result {
-                        case .success(let url):
-                            print("Saved to: \(url)")
-                        case .failure(let error):
-                            print("Export failed: \(error.localizedDescription)")
-                        }
+                Menu {
+                    Button {
+                        viewModel.exportSong()
+                    } label: {
+                        Label("Songbook Format (JSON)", systemImage: "curlybraces")
                     }
+                    
+                    ShareLink("Export as PDF", item: viewModel.exportPDF())
+                
+                } label: {
+                    // This is the "Button" the user taps
+                    Label("Export Song", systemImage: "square.and.arrow.down")
+                }
+                
                 Button("Edit Song") {
                     viewModel.toggleEditMode()
                 }

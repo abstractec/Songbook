@@ -1,0 +1,441 @@
+//
+//  PlainTextSongRenderer.swift
+//  Songbook
+//
+//  Created by John Haselden on 13/12/2025.
+//
+
+import SwiftUI
+
+class SwiftUISongRenderer {
+    
+    @ViewBuilder
+    func render(song: Song, transposedBy: Int? = 0) -> some View {
+        VStack {
+            HStack {
+                Text(song.title)
+                Spacer()
+            }
+            
+            HStack {
+                ForEach(song.title.map { String($0) }, id: \.self) { _ in Text("-") }
+                Spacer()
+            }
+
+            if let key = song.key {
+                HStack {
+                    Text("Key: \(key)").padding(.bottom, 8)
+                    Spacer()
+                }
+            }
+
+            HStack {
+                ForEach(song.sections) { section in
+                    self.render(section: section)
+                    Spacer()
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    public func render(section: Section, transposedBy semitones: Int = 0) -> some View {
+        VStack {
+            HStack {
+                Text(section.name)
+                Spacer()
+            }
+            
+            ForEach(section.phrases, id: \.id) { phrase in
+                self.render(phrase: phrase, transposedBy: semitones)
+            }
+        }
+
+    }
+    
+    @ViewBuilder
+    func render(phrase: Phrase, transposedBy semitones: Int = 0) -> some View {
+        VStack {
+            let chordRenderer = PlainTextChordRenderer()
+            let basicTransposer = BasicTransposer()
+            let workingPhrase = basicTransposer.transpose(phrase: phrase, by: semitones)
+            let workingLyrics = phrase.lyric?.text ?? ""
+            let sequence = workingPhrase.chordSequence.sequence.sorted(by: { $0.step < $1.step})
+            
+            if workingLyrics.count == 0 {
+                HStack {
+                    ForEach (sequence) { step in
+                        Text(chordRenderer.renderShortName(chord: step.chord)).padding(.trailing, 8).font(.footnote.monospaced())
+                    }
+                    
+                    if phrase.repeats > 1 {
+                        Text("x\(phrase.repeats)").font(.footnote.monospaced())
+                    }
+                    Spacer()
+                }
+
+            } else {
+                HStack {
+                    Text(self.chordLine(for: phrase, transposedBy: semitones)).font(.footnote.monospaced())
+                    Spacer()
+                }
+                HStack {
+                    Text(self.lyricLine(for: phrase)).font(.footnote.monospaced())
+                    Spacer()
+                }
+            }
+
+        }
+    }
+    
+    
+    func chordLine(for phrase: Phrase, transposedBy semitones: Int = 0) -> String {
+        var chordLine = ""
+        var lyricLine = ""
+        
+        let chordRenderer = PlainTextChordRenderer()
+        let basicTransposer = BasicTransposer()
+        
+        let workingPhrase = basicTransposer.transpose(phrase: phrase, by: semitones)
+        
+        var workingLyrics = ""
+                
+        if let lyrics = phrase.lyric {
+            workingLyrics = lyrics.text
+        }
+        
+        let sequence = workingPhrase.chordSequence.sequence.sorted(by: { $0.step < $1.step})
+        
+        var chordOffset = 0
+        var sequenceOffset = 0
+        
+        if workingLyrics.count == 0 {
+            // just print out the chords
+            for step in sequence {
+                chordLine.append(contentsOf: chordRenderer.renderShortName(chord: step.chord))
+                chordLine.append(" ")
+            }
+        } else {
+            var remainingChords = sequence.map { $0.chord }.count
+            
+            for (i) in 0..<workingLyrics.count {
+                // do I have a sequence at this step?
+                if let nextStep = sequence.filter({$0.step == i}).first {
+                    let chord = nextStep.chord.copy()
+                    remainingChords -= 1
+
+                    let shortName = chordRenderer.renderShortName(chord: chord)
+                    chordLine.append(shortName)
+                    
+                    // now, the checks
+                    
+                    // if we've got a single character shortname, then we should be all gravy
+                    
+                    // if our chord is greater than one character in length, we need to check if we have to re-align our lyrics to match what we're doing
+                    
+                    // if our next chord step is not going to be rendered correctly because of this chord, then do the offset stuff
+                    
+                    if let nextStepAfter = sequence.filter({$0.step > i}).first {
+                        if (nextStepAfter.step < i + shortName.count) {
+                            if (shortName.count > 1) {
+                                sequenceOffset = shortName.count
+                            } else {
+                                sequenceOffset = 1 - shortName.count
+                            }
+                        } else {
+                            if (shortName.count > 1) {
+                                chordOffset = shortName.count - 1
+                            }
+                        }
+                    }
+                } else {
+                    if chordOffset == 0 {
+                        chordLine.append(" ")
+                    } else if (chordOffset < 0) {
+                        chordOffset += 1
+                    } else if (chordOffset > 0) {
+                        chordOffset -= 1
+                    }
+                }
+                
+                if (i < workingLyrics.count) {
+                    if let lyric = phrase.lyric {
+                        let index = lyric.text.index(lyric.text.startIndex, offsetBy: i)
+                        
+                        lyricLine.append(lyric.text[index])
+                    }
+                }
+                
+                if (sequenceOffset > 0) {
+                    for (_) in 0..<sequenceOffset-1 {
+                        lyricLine.append(" ")
+                    }
+                    
+                    sequenceOffset = 0
+                }
+                
+            }
+            
+            if remainingChords > 0 {
+                for (i) in remainingChords..<sequence.count {
+                    let step = sequence[i]
+                    chordLine.append("\(chordRenderer.renderShortName(chord: step.chord)) ")
+                }
+            }
+            
+        }
+
+        if phrase.repeats > 1 {
+            var output = ""
+            
+            var paddedString = chordLine.padding(toLength: lyricLine.count, withPad: " ", startingAt: 0)
+
+            if (paddedString == "") {
+                paddedString = "\(chordLine) x\(phrase.repeats)"
+            } else {
+                paddedString += " x\(phrase.repeats)"
+            }
+
+            output.append(paddedString)
+            
+            return output
+        } else {
+            return chordLine
+        }
+    }
+
+    func lyricLine(for phrase: Phrase) -> String {
+        //        var chordLine = ""
+        var lyricLine = ""
+        
+        let chordRenderer = PlainTextChordRenderer()
+        let basicTransposer = BasicTransposer()
+        
+        let workingPhrase = basicTransposer.transpose(phrase: phrase, by: 0)
+        
+        var workingLyrics = ""
+        
+        if let lyrics = phrase.lyric {
+            workingLyrics = lyrics.text
+        }
+        
+        let sequence = workingPhrase.chordSequence.sequence.sorted(by: { $0.step < $1.step})
+        
+        var sequenceOffset = 0
+        
+        var remainingChords = sequence.map { $0.chord }.count
+        
+        for (i) in 0..<workingLyrics.count {
+            // do I have a sequence at this step?
+            if let nextStep = sequence.filter({$0.step == i}).first {
+                let chord = nextStep.chord.copy()
+                remainingChords -= 1
+                
+                let shortName = chordRenderer.renderShortName(chord: chord)
+                
+                // now, the checks
+                
+                // if we've got a single character shortname, then we should be all gravy
+                
+                // if our chord is greater than one character in length, we need to check if we have to re-align our lyrics to match what we're doing
+                
+                // if our next chord step is not going to be rendered correctly because of this chord, then do the offset stuff
+                
+                if let nextStepAfter = sequence.filter({$0.step > i}).first {
+                    if (nextStepAfter.step < i + shortName.count) {
+                        if (shortName.count > 1) {
+                            sequenceOffset = shortName.count
+                        } else {
+                            sequenceOffset = 1 - shortName.count
+                        }
+                    }
+                }
+            }
+            
+            if (i < workingLyrics.count) {
+                if let lyric = phrase.lyric {
+                    let index = lyric.text.index(lyric.text.startIndex, offsetBy: i)
+                    
+                    lyricLine.append(lyric.text[index])
+                }
+            }
+            
+            if (sequenceOffset > 0) {
+                for (_) in 0..<sequenceOffset-1 {
+                    lyricLine.append(" ")
+                }
+                
+                sequenceOffset = 0
+            }
+        }
+        
+        return lyricLine
+    }
+
+    func oldRender (phrase: Phrase, transposedBy semitones: Int = 0) -> String {
+        var chordLine = ""
+        var lyricLine = ""
+        
+        let chordRenderer = PlainTextChordRenderer()
+        let basicTransposer = BasicTransposer()
+        
+        let workingPhrase = basicTransposer.transpose(phrase: phrase, by: semitones)
+        
+        var workingLyrics = ""
+                
+        if let lyrics = phrase.lyric {
+            workingLyrics = lyrics.text
+        }
+        
+        let sequence = workingPhrase.chordSequence.sequence.sorted(by: { $0.step < $1.step})
+        
+        var chordOffset = 0
+        var sequenceOffset = 0
+        
+        if workingLyrics.count == 0 {
+            // just print out the chords
+            for step in sequence {
+                chordLine.append(contentsOf: chordRenderer.renderShortName(chord: step.chord))
+                chordLine.append(" ")
+            }
+        } else {
+            var remainingChords = sequence.map { $0.chord }.count
+            
+            for (i) in 0..<workingLyrics.count {
+                // do I have a sequence at this step?
+                if let nextStep = sequence.filter({$0.step == i}).first {
+                    let chord = nextStep.chord.copy()
+                    remainingChords -= 1
+                   
+                    let shortName = chordRenderer.renderShortName(chord: chord)
+                    chordLine.append(shortName)
+                    
+                    // now, the checks
+                    
+                    // if we've got a single character shortname, then we should be all gravy
+                    
+                    // if our chord is greater than one character in length, we need to check if we have to re-align our lyrics to match what we're doing
+                    
+                    // if our next chord step is not going to be rendered correctly because of this chord, then do the offset stuff
+                    
+                    if let nextStepAfter = sequence.filter({$0.step > i}).first {
+                        if (nextStepAfter.step < i + shortName.count) {
+                            if (shortName.count > 1) {
+                                sequenceOffset = shortName.count
+                            } else {
+                                sequenceOffset = 1 - shortName.count
+                            }
+                        } else {
+                            if (shortName.count > 1) {
+                                chordOffset = shortName.count - 1
+                            }
+                        }
+                    }
+                } else {
+                    if chordOffset == 0 {
+                        chordLine.append(" ")
+                    } else if (chordOffset < 0) {
+                        chordOffset += 1
+                    } else if (chordOffset > 0) {
+                        chordOffset -= 1
+                    }
+                }
+                
+                if (i < workingLyrics.count) {
+                    if let lyric = phrase.lyric {
+                        let index = lyric.text.index(lyric.text.startIndex, offsetBy: i)
+                        
+                        lyricLine.append(lyric.text[index])
+                    }
+                }
+                
+                if (sequenceOffset > 0) {
+                    for (_) in 0..<sequenceOffset-1 {
+                        lyricLine.append(" ")
+                    }
+                    
+                    sequenceOffset = 0
+                }
+                
+            }
+            
+            if remainingChords > 0 {
+                for (i) in remainingChords..<sequence.count {
+                    let step = sequence[i]
+                    chordLine.append("\(chordRenderer.renderShortName(chord: step.chord)) ")
+                }
+            }
+            
+        }
+
+        if phrase.repeats > 1 {
+            var output = ""
+            
+            var paddedString = chordLine.padding(toLength: lyricLine.count, withPad: " ", startingAt: 0)
+
+            if (paddedString == "") {
+                paddedString = "\(chordLine) x\(phrase.repeats)"
+            } else {
+                paddedString += " x\(phrase.repeats)"
+            }
+
+            output.append("\(paddedString)\n\(lyricLine)")
+            
+            return output
+        } else {
+            return "\(chordLine)\n\(lyricLine)"
+        }
+    }
+    
+    private func render(chordSequence: ChordSequence) -> String {
+        var renderedChordSequence = ""
+        let chordRenderer = PlainTextChordRenderer()
+
+        var max = 0
+        
+        for sequence in chordSequence.sequence {
+            if sequence.step > max {
+                max = sequence.step
+            }
+        }
+                
+        max += 1
+        var i = 0
+        
+        for(_) in 0..<max {
+            let originalI = i
+            let steps = chordSequence.sequence.filter({ $0.step == i})
+            
+            if (steps.isEmpty) {
+                renderedChordSequence.append(" ")
+            }
+            
+            for step in steps {
+                let shortName = chordRenderer.renderShortName(chord: step.chord)
+                // should only be one, but to be safe
+                let chordSize = shortName.count
+                renderedChordSequence.append(shortName)
+                i += chordSize - 1
+            }
+            
+            i += 1
+
+            // here's where we need to check if we've skipped a chord
+            for (j) in originalI+1..<i {
+                let skippedStep = chordSequence.sequence.filter({ $0.step == j})
+                if !skippedStep.isEmpty {
+                    print("we missed something \(skippedStep)")
+                }
+            }
+            
+        }
+                
+        return renderedChordSequence
+    }
+    
+    func formatOrdinal(number: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .ordinal
+        return formatter.string(from: NSNumber(value: number)) ?? "\(number)th" // Fallback
+    }
+}
