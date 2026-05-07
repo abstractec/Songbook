@@ -25,7 +25,8 @@ This should be a line of lyrics
         let chordSequence1 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
 
         let lyric = Lyric(id: UUID(), text: "This should be a line of lyrics")
-        let phrase = Phrase(lyric: lyric, chordSequence: chordSequence1)
+        let phrase = Phrase(id: UUID(), chordSequence: chordSequence1, position: 0, repeats: 1)
+        phrase.lyric = lyric
 
         let songRenderer = PlainTextSongRenderer()
         let rendered = songRenderer.render(phrase: phrase)
@@ -47,7 +48,8 @@ This should be a line of lyrics
         let chordSequence1 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
 
         let lyric = Lyric(id: UUID(), text: "This should be a line of lyrics")
-        let phrase = Phrase(lyric: lyric, chordSequence: chordSequence1, repeats: 2)
+        let phrase = Phrase(id: UUID(), chordSequence: chordSequence1, position: 0, repeats: 2)
+        phrase.lyric = lyric
 
         let songRenderer = PlainTextSongRenderer()
         let rendered = songRenderer.render(phrase: phrase)
@@ -72,7 +74,8 @@ This should be a line of lyrics
         let chordSequence1 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
 
         let lyric = Lyric(id: UUID(), text: "This should be a line of lyrics")
-        let phrase = Phrase(lyric: lyric, chordSequence: chordSequence1)
+        let phrase = Phrase(id: UUID(), chordSequence: chordSequence1, position: 0, repeats: 1)
+        phrase.lyric = lyric
         let song = Song(id: UUID(), title: "Song 1", sections: [])
         let section = Section(id: UUID(), name: "Verse 1", song: song, phrases: [phrase])
         song.sections.append(section)
@@ -100,7 +103,8 @@ This should be a line of lyrics
         let chordSequence1 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
 
         let lyric = Lyric(id: UUID(), text: "This should be a line of lyrics")
-        let phrase = Phrase(lyric: lyric, chordSequence: chordSequence1, repeats: 2)
+        let phrase = Phrase(id: UUID(), chordSequence: chordSequence1, position: 0, repeats: 2)
+        phrase.lyric = lyric
         let song = Song(id: UUID(), title: "Song 1", sections: [])
         let section = Section(id: UUID(), name: "Verse 1", song: song, phrases: [phrase])
         song.sections.append(section)
@@ -130,7 +134,8 @@ This should be a line of lyrics
         let chordSequence1 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
 
         let lyric = Lyric(id: UUID(), text: "This should be a line of lyrics")
-        let phrase = Phrase(lyric: lyric, chordSequence: chordSequence1)
+        let phrase = Phrase(id: UUID(), chordSequence: chordSequence1, position: 0, repeats: 1)
+        phrase.lyric = lyric
         let song = Song(id: UUID(), title: "Song 1", sections: [])
         let section = Section(id: UUID(), name: "Verse 1", song: song, phrases: [phrase])
         song.sections.append(section)
@@ -160,7 +165,8 @@ This should be a line of lyrics
         let chordSequence1 = ChordSequence(id: UUID(), sequence: [chordSequenceStep1, chordSequenceStep2])
 
         let lyric = Lyric(id: UUID(), text: "This should be a line of lyrics")
-        let phrase = Phrase(lyric: lyric, chordSequence: chordSequence1, repeats: 2)
+        let phrase = Phrase(id: UUID(), chordSequence: chordSequence1, position: 0, repeats: 2)
+        phrase.lyric = lyric
         let song = Song(id: UUID(), title: "Song 1", sections: [])
         let section = Section(id: UUID(), name: "Verse 1", song: song, phrases: [phrase])
         song.sections.append(section)

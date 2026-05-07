@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["id", "title", "sections"],
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "title": { "type": "string", "minLength": 1 },
+    "key": { "type": ["string", "null"] },
+    "artist": { "type": ["string", "null"] },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "position", "phrases"],
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "name": { "type": "string", "minLength": 1 },
+          "position": { "type": "integer", "minimum": 0 },
+          "phrases": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "lyric", "chordSequence", "position", "repeats"],
+              "properties": {
+                "id": { "type": "string", "format": "uuid" },
+                "position": { "type": "integer", "minimum": 0 },
+                "repeats": { "type": "integer", "minimum": 1 },
+                "lyric": {
+                  "type": "object",
+                  "required": ["id", "text"],
+                  "properties": {
+                    "id": { "type": "string", "format": "uuid" },
+                    "text": { "type": "string" }
+                  },
+                  "additionalProperties": true
+                },
+                "chordSequence": {
+                  "type": "object",
+                  "required": ["id", "sequence"],
+                  "properties": {
+                    "id": { "type": "string", "format": "uuid" },
+                    "sequence": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": ["id", "chord", "step"],
+                        "properties": {
+                          "id": { "type": "string", "format": "uuid" },
+                          "step": { "type": "integer", "minimum": 0 },
+                          "chord": {
+                            "type": "object",
+                            "required": [
+                              "id",
+                              "root_note",
+                              "root_note_alteration",
+                              "chord_type",
+                              "added_alteration"
+                            ],
+                            "properties": {
+                              "id": { "type": "string", "format": "uuid" },
+                              "root_note": { "type": "string", "enum": ["A", "B", "C", "D", "E", "F", "G"] },
+                              "root_note_alteration": { "type": "string", "enum": ["natural", "flat", "sharp"] },
+                              "chord_type": { "type": "string", "enum": ["major", "minor", "seventh", "diminished", "augmented", "power"] },
+                              "seventh_type": { "type": ["string", "null"], "enum": ["major", "minor", "dominant", "halfDimished", null] },
+                              "extended_type": { "type": ["string", "null"], "enum": ["ninth", "eleventh", "thirteenth", null] },
+                              "suspended_type": { "type": ["string", "null"], "enum": ["second", "fourth", null] },
+                              "added_type": { "type": ["string", "null"], "enum": ["second", "ninth", null] },
+                              "added_alteration": { "type": "string", "enum": ["natural", "flat", "sharp"] },
+                              "bass_note": { "type": ["string", "null"], "enum": ["A", "B", "C", "D", "E", "F", "G", null] },
+                              "bass_note_alteration": { "type": ["string", "null"], "enum": ["natural", "flat", "sharp", null] },
+                              "image_path": { "type": ["string", "null"] }
+                            },
+                            "additionalProperties": true
+                          }
+                        },
+                        "additionalProperties": true
+                      }
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

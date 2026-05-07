@@ -23,11 +23,12 @@ struct SongImportExportTests {
 
         ])
 
-        let introSequencePhrase = Phrase(id: UUID(), sections: [], lyric: nil, chordSequence: introSequence)
+        let introSequencePhrase = Phrase(id: UUID(), chordSequence: introSequence, position: 0, repeats: 1)
         
 
         let lyric1 = Lyric(id: UUID(), text: "This is a test lyric")
-        let phrase1 = Phrase(id: UUID(), sections: [], lyric: lyric1, chordSequence: introSequence)
+        let phrase1 = Phrase(id: UUID(), chordSequence: introSequence, position: 0, repeats: 1)
+        phrase1.lyric = lyric1
         
         let chordSequence2 = ChordSequence(id: UUID(), sequence: [
             ChordSequenceStep(id: UUID(), chord: cMinor, step: 0),
@@ -37,7 +38,8 @@ struct SongImportExportTests {
         ])
 
         let lyric2 = Lyric(id: UUID(), text: "This is the second line of a test lyric")
-        let phrase2 = Phrase(id: UUID(), sections: [], lyric: lyric2, chordSequence: chordSequence2)
+        let phrase2 = Phrase(id: UUID(), chordSequence: chordSequence2, position: 0, repeats: 1)
+        phrase2.lyric = lyric2
 
         let song = Song(id: UUID(), title: "Test Song", sections: [], key: "C Major")
         let section = Section(id: UUID(), name: "Verse 1", song: song, phrases: [introSequencePhrase, phrase1, phrase2])

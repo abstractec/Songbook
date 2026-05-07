@@ -1,0 +1,46 @@
+You are extracting structured song data for an iPad app.
+
+Source URL:
+{source_url}
+
+Cleaned page text:
+{cleaned_text}
+
+Return ONLY valid JSON (no markdown) with this structure:
+- id (uuid)
+- title (string)
+- key (string|null)
+- artist (string|null)
+- sections: array of:
+  - id (uuid)
+  - name (string)
+  - position (int, 0-based sequential)
+  - phrases: array of:
+    - id (uuid)
+    - position (int, 0-based sequential)
+    - repeats (int >= 1)
+    - lyric: object with id (uuid), text (string, can be empty)
+    - chordSequence:
+      - id (uuid)
+      - sequence: array of:
+        - id (uuid)
+        - step (int >= 0)
+        - chord object with keys:
+          id (uuid), root_note (A-G), root_note_alteration (natural|flat|sharp),
+          chord_type (major|minor|seventh|diminished|augmented|power),
+          seventh_type (major|minor|dominant|halfDimished|null),
+          extended_type (ninth|eleventh|thirteenth|null),
+          suspended_type (second|fourth|null),
+          added_type (second|ninth|null),
+          added_alteration (natural|flat|sharp),
+          bass_note (A-G|null),
+          bass_note_alteration (natural|flat|sharp|null),
+          image_path (string|null)
+
+Critical rules:
+1) Preserve section boundaries (Verse, Chorus, Bridge, Intro, Outro, etc.).
+2) Chord placement fidelity is critical:
+   - Derive `step` from chord column alignment relative to the lyric line.
+   - Keep chords in left-to-right order.
+3) If a phrase has chords but no lyric text, set lyric.text to empty string.
+4) Do not invent extra commentary or metadata.

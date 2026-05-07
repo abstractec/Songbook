@@ -23,7 +23,8 @@ struct BasicTransposerTests {
         ])
 
         let lyric1 = Lyric(id: UUID(), text: "I want to make this work")
-        let phrase1 = Phrase(id: UUID(), sections: [], lyric: lyric1, chordSequence: introSequence)
+        let phrase1 = Phrase(id: UUID(), chordSequence: introSequence, position: 0, repeats: 1)
+        phrase1.lyric = lyric1
         
         let newPhrase = transposer.transpose(phrase: phrase1, by: 2) // A should go to B in this instance
         let chordRenderer = PlainTextChordRenderer()

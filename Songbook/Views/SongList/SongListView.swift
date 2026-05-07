@@ -42,12 +42,47 @@ struct SongListView: View {
                         }
                     }
                     
+                    Button {
+                        viewModel.isImportingFromURL = true
+                    } label: {
+                        Image(systemName: "link")
+                        Text("Import From URL")
+                    }
+                    
                     NavigationLink(value: DetailDestination.newSong) {
                         Text("Add New Song")
                     }
 
                 }
             }
+        }
+        .sheet(isPresented: $viewModel.isImportingFromURL) {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Import Song From Ultimate Guitar URL")
+                    .font(.headline)
+                TextField("https://tabs.ultimate-guitar.com/tab/...", text: $viewModel.importURL)
+                    .textFieldStyle(.roundedBorder)
+                
+                HStack {
+                    Button("Cancel") {
+                        viewModel.isImportingFromURL = false
+                    }
+                    Spacer()
+                    Button("Import") {
+                        Task {
+                            await viewModel.importSongFromURL()
+                        }
+                    }
+                    .disabled(viewModel.importURL.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                }
+            }
+            .padding()
+            .frame(minWidth: 500)
+        }
+        .alert("Import Failed", isPresented: $viewModel.isShowingImportError) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(viewModel.importErrorMessage ?? "Unknown import error.")
         }
     }
 }

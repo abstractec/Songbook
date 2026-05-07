@@ -207,7 +207,11 @@ class SongViewModel {
         // 1. Get the actual total height of your view first
         let renderer = ImageRenderer(content: view)
         renderer.proposedSize = ProposedViewSize(width: a4Width, height: nil)
+        #if os(iOS)
         guard let totalSize = renderer.uiImage?.size else { return nil }
+        #else
+        guard let totalSize = renderer.nsImage?.size else { return nil }
+        #endif
         
         let url = URL.documentsDirectory.appending(path: filename)
         guard let context = CGContext(url as CFURL, mediaBox: &pageRect, nil) else { return nil }

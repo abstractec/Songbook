@@ -13,6 +13,10 @@ import CoreData
 class SongListViewModel {
     private var modelContext: ModelContext?
     var isImporting: Bool = false
+    var isImportingFromURL: Bool = false
+    var importURL: String = ""
+    var importErrorMessage: String?
+    var isShowingImportError: Bool = false
 
     init(modelContext: ModelContext? = nil) {
         self.modelContext = modelContext
@@ -57,33 +61,7 @@ class SongListViewModel {
                 let data = try Data(contentsOf: url)
                 let decoder = JSONDecoder()
                 let decodedSong = try decoder.decode(Song.self, from: data)
-                
-                let newSong = Song(id: decodedSong.id, title: decodedSong.title, sections: [], key: decodedSong.key, artist: decodedSong.artist)
-                modelContext?.insert(newSong)
-                
-                for section in decodedSong.sections {
-                    let newSection = Section(id: section.id, name: section.name, phrases: [], position: section.position)
-                    newSong.sections.append(newSection)
-                    newSection.song = newSong
-                    
-
-                    for phrase in section.phrases {
-                        let newPhrase = Phrase(id: phrase.id, chordSequence: nil, position: phrase.position, repeats: phrase.repeats)
-
-                        if let oldLyric = phrase.lyric {
-                            let newLyric = Lyric(id: oldLyric.id, text: oldLyric.text)
-                                                        
-                            newPhrase.lyric = newLyric
-                            
-                            newSection.phrases.append(newPhrase)
-                            newPhrase.section = newSection
-                        }
-
-                        if let newSequence = try handleSequence(phrase.chordSequence) {
-                            newPhrase.chordSequence = newSequence
-                        }
-                    }
-                }
+                try persistDecodedSong(decodedSong)
                 
                 print("we got one!")
             } catch let error as NSError {
@@ -96,6 +74,46 @@ class SongListViewModel {
                     }
                 }
             }
+    }
+    
+    @MainActor
+    func importSongFromURL() async {
+        do {
+            let decodedSong = try await UltimateGuitarImporter.importSong(from: importURL)
+            try persistDecodedSong(decodedSong)
+            importURL = ""
+            isImportingFromURL = false
+        } catch {
+            importErrorMessage = error.localizedDescription
+            isShowingImportError = true
+        }
+    }
+    
+    private func persistDecodedSong(_ decodedSong: Song) throws {
+        let newSong = Song(id: decodedSong.id, title: decodedSong.title, sections: [], key: decodedSong.key, artist: decodedSong.artist)
+        modelContext?.insert(newSong)
+        
+        for section in decodedSong.sections {
+            let newSection = Section(id: section.id, name: section.name, phrases: [], position: section.position)
+            newSong.sections.append(newSection)
+            newSection.song = newSong
+            
+            for phrase in section.phrases {
+                let newPhrase = Phrase(id: phrase.id, chordSequence: nil, position: phrase.position, repeats: phrase.repeats)
+                
+                if let oldLyric = phrase.lyric {
+                    let newLyric = Lyric(id: oldLyric.id, text: oldLyric.text)
+                    newPhrase.lyric = newLyric
+                }
+                
+                if let newSequence = try handleSequence(phrase.chordSequence) {
+                    newPhrase.chordSequence = newSequence
+                }
+                
+                newSection.phrases.append(newPhrase)
+                newPhrase.section = newSection
+            }
+        }
     }
     
     private func handleSequence(_ originalSequence: ChordSequence) throws -> ChordSequence? {

@@ -1,0 +1,2483 @@
+{
+  "id": "79b73903-e337-49ae-a318-d1a81cce4fbc",
+  "title": "Weather With You",
+  "key": null,
+  "artist": "Crowded House",
+  "sections": [
+    {
+      "id": "d8979bbc-0e23-4770-a470-9c5f207c9467",
+      "name": "Intro",
+      "position": 0,
+      "phrases": [
+        {
+          "id": "e714c0ab-3680-4b9b-b20f-f327e5138270",
+          "position": 0,
+          "repeats": 1,
+          "lyric": {
+            "id": "6a12f8db-a011-4ea4-9648-6505f0f1a345",
+            "text": ""
+          },
+          "chordSequence": {
+            "id": "37e0acc7-5930-4215-8c17-ced36d746ef0",
+            "sequence": [
+              {
+                "id": "5e773053-2d81-4175-8435-819b219ca53d",
+                "step": 1,
+                "chord": {
+                  "id": "c0d4117c-b03b-480a-8792-1fd09704c597",
+                  "root_note": "E",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "minor",
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "4862d7ce-0a26-482b-a6e3-f88c6d75b9ea",
+                "step": 9,
+                "chord": {
+                  "id": "f90b25c3-f046-4534-b6b0-177eaeb86d5b",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "296b540a-c7eb-402e-aa12-205f0bb4332c",
+                "step": 11,
+                "chord": {
+                  "id": "224010e3-58cc-4b4f-9b46-58b6e2c0035f",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "f956fdec-adc8-421c-9c51-6a5f2b8b2886",
+                "step": 18,
+                "chord": {
+                  "id": "49161a7c-50db-4e1a-8439-e667d81e4f5e",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "870bfe0a-5bec-4ea0-8d34-d056ffd1146b",
+                "step": 20,
+                "chord": {
+                  "id": "926d043c-2525-4002-914d-782cd96ba695",
+                  "root_note": "E",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "minor",
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "2fa2b57b-0604-4f1a-8d43-8be66e654f54",
+                "step": 28,
+                "chord": {
+                  "id": "7bc41758-5e7d-4239-b916-f09cb2097feb",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "7fc7379e-452d-47c4-b45b-716dfca6aa85",
+                "step": 34,
+                "chord": {
+                  "id": "5bd4a35e-2622-4155-b9ef-3527c8f56561",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "3f605133-100e-4f73-9cf9-a32238bf06ef",
+                "step": 37,
+                "chord": {
+                  "id": "13a7bb8c-6a14-4d4f-b76b-1099e5f49da3",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "a7c162c2-cc4c-43bf-8efa-d9dbee97f9b0",
+                "step": 39,
+                "chord": {
+                  "id": "7f81b0f8-41ad-4521-8d5a-a24c0df21997",
+                  "root_note": "E",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "minor",
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "4f0d28c0-6990-40a3-ac83-62d3d133de77",
+                "step": 47,
+                "chord": {
+                  "id": "6546fc7d-b387-4494-8ea0-ac9c3be7527e",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "b87e49db-c343-4f24-b5a3-ad5eecaad7ab",
+                "step": 49,
+                "chord": {
+                  "id": "c5d22f55-4ec7-4150-b100-d7abf0dc1fb5",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "1c640a39-e779-4503-a86f-26010dc556cb",
+                "step": 56,
+                "chord": {
+                  "id": "e780ead1-d27f-4c0f-bb0f-46c06895252e",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "84f01cf6-f304-4754-a30a-7073656be75a",
+                "step": 58,
+                "chord": {
+                  "id": "a37863a3-8961-491a-91c9-ce204da6a46d",
+                  "root_note": "E",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "minor",
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ad187537-4f68-4e03-ab3b-048443d1e619",
+      "name": "Verse",
+      "position": 1,
+      "phrases": [
+        {
+          "id": "07983b6a-e5fe-46e6-b8ae-322bcb756057",
+          "position": 0,
+          "repeats": 1,
+          "lyric": {
+            "id": "cd3a1ffd-7078-489b-b173-83ee115ed37d",
+            "text": "Walking 'round the room  singing stormy weather,"
+          },
+          "chordSequence": {
+            "id": "64033450-6024-44f0-809a-a6d67292fb1f",
+            "sequence": [
+              {
+                "id": "8a301c34-6ada-42a7-880a-12fa89b090cc",
+                "step": 0,
+                "chord": {
+                  "id": "cc764d06-4960-40fa-94c1-db33a33a2bea",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "8b71ec0f-a192-4879-be66-bfe5a6a70877",
+                "step": 2,
+                "chord": {
+                  "id": "d61b401e-201c-41a7-a8b5-1fb22a0e06de",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "8d6e7a58-31cf-42b4-8b21-09fcd05dbd6a",
+                "step": 14,
+                "chord": {
+                  "id": "853bd02e-036f-42d6-a04e-528a049c0087",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "0229e82f-353d-4d42-86da-d538542d2c23",
+                "step": 24,
+                "chord": {
+                  "id": "576e527f-b8fd-40b2-8148-9ff07832e7a9",
+                  "root_note": "E",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "minor",
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "def32f59-139c-46ec-8297-563b8725bf47",
+                "step": 45,
+                "chord": {
+                  "id": "8d71eba6-edc2-4958-b22b-c6dae8e90e49",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "625f9d49-d872-46b7-9b9e-c71e24a3f976",
+                "step": 47,
+                "chord": {
+                  "id": "1792177c-4022-4e97-884e-773e2ca92b5a",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "3793fc48-8496-410e-a0cf-e78b0e20097f",
+          "position": 1,
+          "repeats": 1,
+          "lyric": {
+            "id": "77fd7753-4545-41c4-a5ef-c506a2da97bd",
+            "text": "at Fifty-Seven Mount Pleasant Street."
+          },
+          "chordSequence": {
+            "id": "63b8a3dc-da2e-4dd3-8068-d44d6fb42e92",
+            "sequence": [
+              {
+                "id": "83a9ba34-cba3-4ce4-b0f1-4e371d1d850a",
+                "step": 0,
+                "chord": {
+                  "id": "a48b3d46-1204-4919-a0dc-918feaa8c0b4",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "d6fc67d5-3234-4a34-9e29-48a1e779b09d",
+                "step": 6,
+                "chord": {
+                  "id": "6dd60cc6-bff1-40f1-872e-e4fa15077eda",
+                  "root_note": "E",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "minor",
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "0cbda5f7-6e8f-4fa9-9733-b61f0322095d",
+                "step": 27,
+                "chord": {
+                  "id": "944a68a7-96b7-48fb-b089-dd4a37046a57",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "b1aeab06-edf0-452f-b1ad-ef419d0a02a3",
+                "step": 29,
+                "chord": {
+                  "id": "26845a8c-9d56-4e9b-a06a-f121c0b2311f",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "8562a538-154d-4f9c-b88f-75c0aec416e7",
+          "position": 2,
+          "repeats": 1,
+          "lyric": {
+            "id": "053048aa-ae6a-43ff-9582-a1289b8039a3",
+            "text": "Well, it's the same room  but everything's different,"
+          },
+          "chordSequence": {
+            "id": "0b7d7f01-0595-45fe-9f04-4c13124ca1a6",
+            "sequence": [
+              {
+                "id": "f4ccbad3-6869-4240-8362-89a7a1804e67",
+                "step": 0,
+                "chord": {
+                  "id": "1fcf7f31-b443-43b3-b396-8235af418411",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "2f0adbbf-c28f-4cd4-93d3-062826082af1",
+                "step": 9,
+                "chord": {
+                  "id": "86420024-f5d0-45b4-bd10-45381e998623",
+                  "root_note": "E",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "minor",
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "69e27d91-6262-4a5a-aedf-4be8fa7df62e",
+                "step": 37,
+                "chord": {
+                  "id": "3af6e2bb-0273-4139-b0ce-c70dd7303aaa",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "196463c5-ee26-4f7f-8acb-d76e187256d7",
+                "step": 39,
+                "chord": {
+                  "id": "ae744661-ae92-43a6-89b9-e1ba87c962ac",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "401889fd-15c7-4a06-bc14-0b49aa8e23b3",
+          "position": 3,
+          "repeats": 1,
+          "lyric": {
+            "id": "a01c3fb3-4c26-47aa-89ad-b6164ce025c4",
+            "text": "you can fight the sleep  but not the dream."
+          },
+          "chordSequence": {
+            "id": "b3d3dc26-32e3-41ef-9fb4-7a46fb5a66f0",
+            "sequence": [
+              {
+                "id": "a006745f-64d5-441e-8d38-8823074f29d9",
+                "step": 0,
+                "chord": {
+                  "id": "67a3e7ca-84f6-4cf4-b321-1dae24206cca",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "62442aeb-368c-4c4d-8515-af8acc9b3ba8",
+                "step": 10,
+                "chord": {
+                  "id": "fe04c9bd-a934-4e2f-9144-2fc8c0358bb1",
+                  "root_note": "E",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "minor",
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "a67811f7-8ce2-48ce-8778-d89e2d2fdb89",
+                "step": 29,
+                "chord": {
+                  "id": "41398746-fecf-4a48-b0bf-5b2b0b9ba6ed",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "eeb3cf3d-b6a0-42cb-a09a-aa68851904ee",
+                "step": 31,
+                "chord": {
+                  "id": "b21b929f-7d6c-4bb2-a754-f43b127462a3",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "8eaca825-3afc-4500-9e5d-95b765c24f07",
+      "name": "Bridge",
+      "position": 2,
+      "phrases": [
+        {
+          "id": "d3caa826-d23d-4544-907e-eaeeb8728c3c",
+          "position": 0,
+          "repeats": 1,
+          "lyric": {
+            "id": "54554600-8321-419e-a7e2-ea4719e8a94a",
+            "text": "Things ain't cookin'  in my kitchen,  strange aff-liction wash over me."
+          },
+          "chordSequence": {
+            "id": "cfd3f49c-0a5f-4b77-8805-c69ac0d45b33",
+            "sequence": [
+              {
+                "id": "d2200447-8379-40c1-95bf-175408aa6b0f",
+                "step": 0,
+                "chord": {
+                  "id": "271475fc-5a9a-4c67-aa06-d8d0692da8a8",
+                  "root_note": "D",
+                  "root_note_alteration": "natural",
+                  "chord_type": "minor",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "8f9a8f77-10db-4993-927e-66ae783b1c47",
+                "step": 15,
+                "chord": {
+                  "id": "c5c5f269-189d-4281-b029-5f050d6da056",
+                  "root_note": "C",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "49976726-3cbf-4fce-be9b-720d7254df9a",
+                "step": 22,
+                "chord": {
+                  "id": "30f6e2e5-e09e-477d-a2e1-99c09b64c378",
+                  "root_note": "D",
+                  "root_note_alteration": "natural",
+                  "chord_type": "minor",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "82107f50-f92a-40a8-805c-d87a3832dab0",
+                "step": 30,
+                "chord": {
+                  "id": "c1fb28eb-8046-4812-abfe-f97cc4baf4f5",
+                  "root_note": "C",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "e310095c-073b-483f-ab35-b511b8fd5958",
+                "step": 38,
+                "chord": {
+                  "id": "ded57b2f-520d-456a-8506-fc2671e1870f",
+                  "root_note": "D",
+                  "root_note_alteration": "natural",
+                  "chord_type": "minor",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "a6630eb2-cbf2-449f-a09d-58a9820222dd",
+                "step": 52,
+                "chord": {
+                  "id": "6a0679fb-c829-47b9-9d61-456e6f80201d",
+                  "root_note": "C",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "c0144fcc-b4d4-467e-a5cb-1d4d3c6d6e2c",
+                "step": 65,
+                "chord": {
+                  "id": "26965d0a-c515-4993-ae48-161ce6db7bf2",
+                  "root_note": "F",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "d9f20939-577f-44f6-a04c-fc37a5d73049",
+          "position": 1,
+          "repeats": 1,
+          "lyric": {
+            "id": "61bf1dcf-4e3f-4703-b08d-6ef8c96f75d5",
+            "text": "Julius Caesar   and the Roman Empire,"
+          },
+          "chordSequence": {
+            "id": "c872c58e-45ad-45d6-ab9c-c23a15baf63f",
+            "sequence": [
+              {
+                "id": "fb89e21f-8293-4ad3-8106-f6d638decadd",
+                "step": 0,
+                "chord": {
+                  "id": "81852eb8-5c73-4440-a875-544ba7d73db8",
+                  "root_note": "D",
+                  "root_note_alteration": "natural",
+                  "chord_type": "minor",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "1efa1eb1-0b7e-4825-950e-5ff878721fdf",
+                "step": 9,
+                "chord": {
+                  "id": "54cd3942-4539-485a-9441-772d116382f5",
+                  "root_note": "C",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "d4d9cac9-a9a2-41f5-bf3d-a0c9c1847b83",
+                "step": 16,
+                "chord": {
+                  "id": "e1dca0db-9c9e-43fd-b270-70ab5318b605",
+                  "root_note": "D",
+                  "root_note_alteration": "natural",
+                  "chord_type": "minor",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "374bb15a-8ca4-4a59-a06c-b494e8a0bfc3",
+                "step": 32,
+                "chord": {
+                  "id": "7490ed4e-569f-42d2-afe2-93641fb2f3da",
+                  "root_note": "C",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "ea707e4d-1fb2-4f6f-808c-b4db142d20e5",
+          "position": 2,
+          "repeats": 1,
+          "lyric": {
+            "id": "a5dd744c-de60-4d13-adba-4e5f94511248",
+            "text": "couldn't conquer the blue sk -       y."
+          },
+          "chordSequence": {
+            "id": "3a67825a-6bc6-4313-9946-c293e8217244",
+            "sequence": [
+              {
+                "id": "6355f95a-f730-41ef-985a-261642dd2645",
+                "step": 0,
+                "chord": {
+                  "id": "7b6fc4ce-7f7c-445f-aae6-045196c2919f",
+                  "root_note": "D",
+                  "root_note_alteration": "natural",
+                  "chord_type": "minor",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "d1d5b3e8-9db0-40d7-a4c4-036f5b7ab7a8",
+                "step": 11,
+                "chord": {
+                  "id": "cecb375a-057f-4dab-9c61-52f249abd101",
+                  "root_note": "C",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "bcf9cdb9-7669-4f18-8b23-0364537ba450",
+                "step": 23,
+                "chord": {
+                  "id": "fb4b8f75-460f-45d8-8bee-37347cae1605",
+                  "root_note": "F",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "bd450bf2-b890-49a6-8cd6-50f10f4ec5a0",
+                "step": 32,
+                "chord": {
+                  "id": "823fd604-fda4-442f-abcf-ebe72adcfb80",
+                  "root_note": "G",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "e762c2cd-e6b9-4c41-b1d0-b392f659f32f",
+                "step": 38,
+                "chord": {
+                  "id": "b2f81479-8f75-4004-a635-a11564a3e2d1",
+                  "root_note": "E",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "minor",
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "fa1e4370-1ffb-4216-818c-67e18c14674c",
+                "step": 46,
+                "chord": {
+                  "id": "b5c2a1ab-a74e-4afe-ac88-7c02a36b580f",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "36b28d54-f989-4692-9bf8-98c1ab40c999",
+                "step": 52,
+                "chord": {
+                  "id": "82515995-a2ed-456c-b5d9-3f19a324f2ca",
+                  "root_note": "E",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "minor",
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "2988bd59-1cc2-4a4b-adf6-7df23001e902",
+                "step": 60,
+                "chord": {
+                  "id": "87adcdff-2e66-47b2-b357-bd38db23b5ed",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "2f8f18bc-5cae-4686-9b13-c3137ff8dcad",
+      "name": "Verse",
+      "position": 3,
+      "phrases": [
+        {
+          "id": "7070de9a-9142-4394-9fc7-ceb2212b610c",
+          "position": 0,
+          "repeats": 1,
+          "lyric": {
+            "id": "b3bc6d40-e2ed-47b1-8856-4464553bdbb6",
+            "text": "Well, there's a small boat  made of china,"
+          },
+          "chordSequence": {
+            "id": "5064caa8-f832-4a4d-ac24-34e152331b5f",
+            "sequence": [
+              {
+                "id": "b91c24bb-9f8a-44a0-b204-b648a9d1f10d",
+                "step": 1,
+                "chord": {
+                  "id": "4d02f2bc-0287-4b54-8b9b-06d943400939",
+                  "root_note": "E",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "minor",
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "66e1aab6-6eb7-4a9a-a876-8ccccd84df0f",
+                "step": 21,
+                "chord": {
+                  "id": "0e4708fa-0606-4382-a50b-dd4bf8d84c54",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "216fdc8d-c5dc-4b4d-b52a-43c1922338cf",
+                "step": 23,
+                "chord": {
+                  "id": "3bf627ed-2e7a-47af-9d06-b89372402849",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "ae566333-c59d-4cd2-a96a-e0acbc567ca1",
+          "position": 1,
+          "repeats": 1,
+          "lyric": {
+            "id": "8f61ba63-14cf-476f-976e-f2ab9f992a21",
+            "text": "it\u2019s going nowhere  on the mantle-piece."
+          },
+          "chordSequence": {
+            "id": "3d70f05f-c889-44c7-8af2-7dd38bd98421",
+            "sequence": [
+              {
+                "id": "863a97b6-6dd4-4bed-83f7-eb95ef267858",
+                "step": 0,
+                "chord": {
+                  "id": "2c10f314-0603-4bd1-89ca-1a8996de581c",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "7623c384-7bc4-4dfe-afda-95270a4a1b5b",
+                "step": 6,
+                "chord": {
+                  "id": "bb2735fe-af76-4402-afff-e118f94901ae",
+                  "root_note": "E",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "minor",
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "7269c16c-d0e7-4dc7-af77-3e4b334d6b25",
+                "step": 29,
+                "chord": {
+                  "id": "98e0f748-b7f3-41f0-ba44-61112b15a6d7",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "9ee556c6-4bf1-49da-beea-873f9ae3688b",
+                "step": 31,
+                "chord": {
+                  "id": "3a339c68-4028-4c08-8a0f-b0553ffbe92c",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "65ece815-96cd-4778-b8d5-78d6b0fafe44",
+          "position": 2,
+          "repeats": 1,
+          "lyric": {
+            "id": "699592c9-a9b8-47da-a541-6eba94c983fb",
+            "text": "Well, do I lie  like a loungeroom lizard,"
+          },
+          "chordSequence": {
+            "id": "ddfe7791-8c02-472d-8f78-1b3bc666d3ae",
+            "sequence": [
+              {
+                "id": "71b95a67-6f1a-41c6-a8ee-06234313b0e8",
+                "step": 0,
+                "chord": {
+                  "id": "0fb745b1-90ee-443c-b3b1-f0874222d271",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "20106d47-8236-4886-b88e-23353c5cb6b7",
+                "step": 5,
+                "chord": {
+                  "id": "b776583b-8049-41cf-84cd-3921ae3655e4",
+                  "root_note": "E",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "minor",
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "03263a05-8f5d-416a-93cb-ee81e45c8292",
+                "step": 28,
+                "chord": {
+                  "id": "22620122-963d-43aa-8443-b2a09cba6f6f",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "3f314ddd-9c75-4284-aae2-7901f29aa6aa",
+                "step": 30,
+                "chord": {
+                  "id": "9ebb5b49-c736-48d3-9e9e-1893233419f0",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "402d1133-4fea-4438-9ad1-a5aa75549a34",
+          "position": 3,
+          "repeats": 1,
+          "lyric": {
+            "id": "ef1fda15-7661-43dc-8381-c624e46a3979",
+            "text": "or do I sing  like a bird re-leased."
+          },
+          "chordSequence": {
+            "id": "e38e8c50-07ed-48a6-b92f-dd4c226ea6bc",
+            "sequence": [
+              {
+                "id": "6bc80087-d7cc-46b0-b223-ec4dd4eeff08",
+                "step": 0,
+                "chord": {
+                  "id": "e39a055c-fcf5-463d-b7af-06757034fa33",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "fd24e0d9-2941-43bc-94db-73ef7a522c5a",
+                "step": 5,
+                "chord": {
+                  "id": "3baeb498-a03a-41df-a071-9515967c0ecc",
+                  "root_note": "E",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "minor",
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "65e76b4c-e2ef-45b2-a47c-eb8889e4db2f",
+                "step": 26,
+                "chord": {
+                  "id": "c41effb9-49ef-4d3b-80d6-34b0700026de",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "896184be-6250-4c28-87de-84b406007801",
+                "step": 28,
+                "chord": {
+                  "id": "36d05d39-ad9d-4a71-a5d9-35fa97735055",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "67ff3e67-3691-4bbc-b4e0-e926b0cca321",
+      "name": "Chorus",
+      "position": 4,
+      "phrases": [
+        {
+          "id": "a1acd6bb-fa16-44ee-8520-cfdc7882456a",
+          "position": 0,
+          "repeats": 1,
+          "lyric": {
+            "id": "de3fe93e-cf55-4de3-b2f5-9864c5161840",
+            "text": "Everywhere you go,   always take the weather with you,"
+          },
+          "chordSequence": {
+            "id": "a32197b8-2a79-4b9b-9806-4d4c700306cc",
+            "sequence": [
+              {
+                "id": "bb01c801-c3c5-4fa1-b7f7-24e537aa221c",
+                "step": 1,
+                "chord": {
+                  "id": "b1333fea-b681-47d6-ad36-328ac76a3c98",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "dominant",
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "c7a2aa0e-3e8c-4151-a19e-cfe1b1954b53",
+                "step": 23,
+                "chord": {
+                  "id": "99370ec8-f224-46b4-ab4d-b5cca6d2bf63",
+                  "root_note": "D",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "4e93fb63-648b-4ec8-8810-5cf815e1e2a4",
+          "position": 1,
+          "repeats": 1,
+          "lyric": {
+            "id": "78c6acf0-1935-4fea-8a69-6288f55f747a",
+            "text": "everywhere you go,   always take the weather."
+          },
+          "chordSequence": {
+            "id": "665fdb91-a3b5-48a3-90a9-bc9d48396921",
+            "sequence": [
+              {
+                "id": "b9c37fdf-e388-4f68-ada8-8291dd73c6ba",
+                "step": 1,
+                "chord": {
+                  "id": "737f7018-75bf-4683-a422-f694b2935224",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "dominant",
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "fcf5aadd-88f5-47ae-9768-e3946728bd29",
+                "step": 23,
+                "chord": {
+                  "id": "bfbbd330-7004-46f4-a39a-4c5659fd695b",
+                  "root_note": "D",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "9a86289d-ec12-4d8a-9a56-986a61e552e5",
+          "position": 2,
+          "repeats": 1,
+          "lyric": {
+            "id": "2ce0f6f3-a275-4288-87b3-95b3c2d52f84",
+            "text": "Everywhere you go,   always take the weather with you,"
+          },
+          "chordSequence": {
+            "id": "0361d2d7-78c7-4edd-ac09-d59af8e6907b",
+            "sequence": [
+              {
+                "id": "b5c943f8-b31a-4cbe-89ea-60cbeceb04e6",
+                "step": 1,
+                "chord": {
+                  "id": "1d65d6f6-02b6-4655-86b9-b0cfe5cf847f",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "dominant",
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "d4270374-f82d-4907-a564-e38bc4b2f710",
+                "step": 23,
+                "chord": {
+                  "id": "9bc17b1f-2313-452f-9452-2e2ddbb94ecc",
+                  "root_note": "G",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "49376321-a7c7-4049-aba0-3f5d93cce899",
+          "position": 3,
+          "repeats": 1,
+          "lyric": {
+            "id": "dea2bb95-77e4-434a-8580-75b0fe2373cb",
+            "text": "everywhere you go,   always take the weather,"
+          },
+          "chordSequence": {
+            "id": "3777edbb-2381-49b3-8b9b-be557571a21d",
+            "sequence": [
+              {
+                "id": "498061b8-efbf-47f8-b89f-7a25daf7e709",
+                "step": 1,
+                "chord": {
+                  "id": "2d90d73d-d1c4-425c-bdc7-54298a2d8e9e",
+                  "root_note": "D",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": "F",
+                  "bass_note_alteration": "sharp",
+                  "image_path": null
+                }
+              },
+              {
+                "id": "c8374535-0615-46de-9721-57cb95cf0e02",
+                "step": 23,
+                "chord": {
+                  "id": "61226e78-70ee-4290-a215-b7558d7b669e",
+                  "root_note": "G",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "b74c2498-ef73-4e37-b08c-5f187c6bd09c",
+          "position": 4,
+          "repeats": 1,
+          "lyric": {
+            "id": "f2759fa4-78fc-43b1-bb6a-0f66e1f24eb2",
+            "text": "the weather with you."
+          },
+          "chordSequence": {
+            "id": "69ab4ddf-e351-4fc4-b83f-ae40d3a67f15",
+            "sequence": [
+              {
+                "id": "26ae7b40-cc62-4959-8db4-c2a9fed1d3e5",
+                "step": 0,
+                "chord": {
+                  "id": "d9bc3333-19bf-464b-a60f-cd4102cba52c",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "22937723-9077-42c4-8e9c-cbe507a7800b",
+                "step": 13,
+                "chord": {
+                  "id": "d6fc2d08-283c-42f5-9de8-7c0e94fc5da1",
+                  "root_note": "E",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "minor",
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "b31c12a1-8379-4dba-abb9-b3a51ea7f74d",
+                "step": 21,
+                "chord": {
+                  "id": "892b8856-b355-4016-8725-7c533a68e7d6",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "f2de8b36-9fde-4b82-9d0e-0e2c41de9ac3",
+                "step": 27,
+                "chord": {
+                  "id": "79f5001d-aa10-4fa7-83da-22009a316e19",
+                  "root_note": "E",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "minor",
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "2a5563d1-bf7f-4636-92fb-c4691e6e73ab",
+                "step": 35,
+                "chord": {
+                  "id": "d0fedc4b-b90e-4c80-a652-3e50541ab47f",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "054dea2f-9a76-42bd-93b0-34c0693c9656",
+                "step": 41,
+                "chord": {
+                  "id": "b127ed22-52a7-4145-b4b2-0336b0acda8e",
+                  "root_note": "E",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "minor",
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "69638c52-243b-453f-aa87-b9ee55491899",
+                "step": 49,
+                "chord": {
+                  "id": "d2ba1234-9b3a-4429-92fa-bbe22584da60",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "47c3c77d-f1aa-4dbc-85d3-92f0266f35bc",
+                "step": 55,
+                "chord": {
+                  "id": "e575b733-004f-40c2-98e6-a6b6c2fb782f",
+                  "root_note": "E",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "minor",
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "ade5ac3a-2595-41c7-854b-3d95442f9051",
+                "step": 63,
+                "chord": {
+                  "id": "92c8df35-b057-416b-bc8a-fc5dbb5c050a",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "564c921d-7d7b-4188-8eb4-aef5d0217d42",
+          "position": 5,
+          "repeats": 1,
+          "lyric": {
+            "id": "80251135-1a20-4842-8165-a49c50fdfc06",
+            "text": "Everywhere you go, you always take the weather with you,"
+          },
+          "chordSequence": {
+            "id": "6c30b74c-27d0-47fa-b905-dec0feddc970",
+            "sequence": [
+              {
+                "id": "4aab03c4-dc91-41a0-9914-974812fcee16",
+                "step": 1,
+                "chord": {
+                  "id": "32d4a9a8-ea98-4c28-b78e-3aa531d1f569",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "dominant",
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "12f3c4ea-8e9d-4f2d-897b-d5d1c41bef88",
+                "step": 25,
+                "chord": {
+                  "id": "12770e22-25b9-4cef-ac1c-6ae000b5b7ec",
+                  "root_note": "D",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "f1274be5-d8c0-4a6d-b3d1-1584a30a1f2b",
+          "position": 6,
+          "repeats": 1,
+          "lyric": {
+            "id": "b93c0f8a-306b-4f2c-a7e0-dafb72971a92",
+            "text": "everywhere you go, you always take the weather."
+          },
+          "chordSequence": {
+            "id": "d2199f37-b4fc-4d29-9720-e74b174a6dd7",
+            "sequence": [
+              {
+                "id": "d567c1e0-5536-4399-b92a-ffe8bee0f64e",
+                "step": 1,
+                "chord": {
+                  "id": "a9d1e933-e9e7-4909-ac70-aade0400551d",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "dominant",
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "b402c869-9aa5-4c52-8b75-9f9ee81a91af",
+                "step": 25,
+                "chord": {
+                  "id": "94ae36b7-36e5-422d-a3c2-243c6b72a6b9",
+                  "root_note": "D",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "be2d40f1-8ca9-47d7-899b-c7e128b87b16",
+          "position": 7,
+          "repeats": 1,
+          "lyric": {
+            "id": "26dfcc04-24e4-4367-b332-53cf17680d9c",
+            "text": "Everywhere you go, always take the weather with you"
+          },
+          "chordSequence": {
+            "id": "47626807-ce23-478d-8caa-f397b22df981",
+            "sequence": [
+              {
+                "id": "e663015b-7c4d-4e16-884e-7b98f50a7b4a",
+                "step": 1,
+                "chord": {
+                  "id": "8aedebad-8f79-4860-bb22-742b2e60fe8d",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "dominant",
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "a1b38aee-1124-47a8-98fc-9cc171ebb13d",
+                "step": 21,
+                "chord": {
+                  "id": "71520658-a9f1-4544-b185-a342f677244c",
+                  "root_note": "G",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "fde8be87-7794-46b7-a82a-188542f85506",
+          "position": 8,
+          "repeats": 1,
+          "lyric": {
+            "id": "c3d22ac1-febe-40d2-8518-2b5dc335c750",
+            "text": "everywhere you go, always take the weather,"
+          },
+          "chordSequence": {
+            "id": "5cfdcc3e-1ffe-4669-ba15-c7cba165946b",
+            "sequence": [
+              {
+                "id": "14da92dd-0d32-4fed-bc65-4c18ff3d82dd",
+                "step": 1,
+                "chord": {
+                  "id": "c119fab1-6fd2-45b1-a6bb-777ea15d54f4",
+                  "root_note": "D",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": "F",
+                  "bass_note_alteration": "sharp",
+                  "image_path": null
+                }
+              },
+              {
+                "id": "e7fe6d85-d9e3-4dac-b651-8958291cc3d2",
+                "step": 21,
+                "chord": {
+                  "id": "15d8a851-2cb4-4b13-8ac5-6c6efc26ea44",
+                  "root_note": "E",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "8e964e04-b59c-41e8-83de-bd216ecb20bf",
+          "position": 9,
+          "repeats": 1,
+          "lyric": {
+            "id": "e6d45e3b-16a5-438d-967b-9f17b0405cf6",
+            "text": "you take the weather, the weather with you."
+          },
+          "chordSequence": {
+            "id": "aca5bccc-e2d7-4c16-94e7-966219c34511",
+            "sequence": [
+              {
+                "id": "d81ff98f-d628-492a-9dae-c9351e6cb30c",
+                "step": 1,
+                "chord": {
+                  "id": "237411bf-51eb-4968-a085-286074a35437",
+                  "root_note": "G",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "5fac7699-2912-4c60-9f02-eb7776230599",
+                "step": 14,
+                "chord": {
+                  "id": "4d6f4a26-0685-4b8b-a27a-9c0cf8a71a55",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "9dc8acda-079e-4720-9c6c-97893f275512",
+                "step": 27,
+                "chord": {
+                  "id": "8b0eff63-1421-44ca-9f19-0c372484420f",
+                  "root_note": "D",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "6236c30c-f636-4f9d-8eb6-080362830da3",
+      "name": "Interlude",
+      "position": 5,
+      "phrases": [
+        {
+          "id": "3969cfdd-13d1-4731-987a-479ee8a22182",
+          "position": 0,
+          "repeats": 1,
+          "lyric": {
+            "id": "0731068f-45b9-4a6c-8d75-d3dfb835f94e",
+            "text": ""
+          },
+          "chordSequence": {
+            "id": "a90ae461-f8eb-42b0-ab39-c62605ddfdab",
+            "sequence": [
+              {
+                "id": "b2029476-26cc-464e-8bf1-997dea8e1ea1",
+                "step": 1,
+                "chord": {
+                  "id": "d07da151-0acb-47c4-a011-0b4ee8b0b18a",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "dominant",
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "9beb6134-c1f1-4eed-be7d-ff41280931d4",
+                "step": 11,
+                "chord": {
+                  "id": "560c4987-62c3-48b5-963f-cccfed578d28",
+                  "root_note": "D",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "d0bc3f23-32fb-47c9-8b27-56c829cfe502",
+                "step": 17,
+                "chord": {
+                  "id": "1e7ae3d8-75a3-4154-8bd9-adf06c2428d4",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "dominant",
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "4e41005f-4e17-43cf-997a-6cb8960564e3",
+                "step": 27,
+                "chord": {
+                  "id": "4e5b2b7d-e222-429b-98b4-8e0b6d1af9bf",
+                  "root_note": "D",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "6732dede-7c67-42d3-bbe6-c8c1825e8314",
+                "step": 33,
+                "chord": {
+                  "id": "5f537421-b9e7-49e4-b081-5708cf3a8419",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "dominant",
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "6bb6d532-41e1-48d4-8a58-ea0e38f8bf4a",
+                "step": 43,
+                "chord": {
+                  "id": "df491076-c275-445b-bd05-062036f7494d",
+                  "root_note": "D",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "f6362aba-e286-4f1f-96ee-244cfd18a9d0",
+                "step": 49,
+                "chord": {
+                  "id": "9953ff2a-fa84-4934-8776-ccf47466a21a",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "dominant",
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "2306d6f4-42ad-4124-bb28-27b4bc8e9e9f",
+                "step": 59,
+                "chord": {
+                  "id": "d9bdf278-547e-4b72-92f7-dd60f0c8b5c6",
+                  "root_note": "D",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "703c919c-019c-4025-a6c5-482f461cda58",
+      "name": "Chorus/Outro",
+      "position": 6,
+      "phrases": [
+        {
+          "id": "fcfc35ef-638e-4275-b6c0-9d290da009a9",
+          "position": 0,
+          "repeats": 1,
+          "lyric": {
+            "id": "ee4d0af6-56d7-4aa9-be41-19f1aa697a06",
+            "text": "Everywhere you go, you always take the weather with you,"
+          },
+          "chordSequence": {
+            "id": "1a27e32d-fdc3-4a99-b4fb-f19812f2b4ca",
+            "sequence": [
+              {
+                "id": "f2551915-947b-4bba-8b9d-96161075056e",
+                "step": 1,
+                "chord": {
+                  "id": "e3e1e881-2bbc-4a10-9113-77a536bd5548",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "dominant",
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "c449b82c-4d8e-4766-9556-4efe836afbe4",
+                "step": 25,
+                "chord": {
+                  "id": "caf48d0c-8055-4965-82bd-639e473fc107",
+                  "root_note": "D",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "9766f39c-24db-462c-9665-e4a7fe8f0980",
+          "position": 1,
+          "repeats": 1,
+          "lyric": {
+            "id": "7d173ca6-1f60-4c33-844d-19c694d87aa1",
+            "text": "everywhere you go, you always take the weather."
+          },
+          "chordSequence": {
+            "id": "1060d744-ccff-4f44-948c-70a51e887671",
+            "sequence": [
+              {
+                "id": "cf888e6b-10b6-42ea-90f2-b7ddebadd052",
+                "step": 1,
+                "chord": {
+                  "id": "2e3cf9d0-348c-4a2c-8d0c-44841b25ec32",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "dominant",
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "fe4920af-37f8-46b5-b06d-d5e62ffc8125",
+                "step": 25,
+                "chord": {
+                  "id": "ed65eaac-16e8-418d-93e3-5361616f77e5",
+                  "root_note": "D",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "510bfbba-331b-4692-b290-6d41159b3405",
+          "position": 2,
+          "repeats": 1,
+          "lyric": {
+            "id": "33e1e7c9-27f7-4664-80e0-26cd1c1c15e1",
+            "text": "Everywhere you go, always take the weather with you,"
+          },
+          "chordSequence": {
+            "id": "153853ad-ac8e-473a-a1c2-69b138446a5c",
+            "sequence": [
+              {
+                "id": "3065b23d-15f2-479b-b8f5-201d3ee8a2a8",
+                "step": 1,
+                "chord": {
+                  "id": "b581757b-98f1-41e9-b0f9-1900ed665715",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "seventh",
+                  "seventh_type": "dominant",
+                  "extended_type": null,
+                  "suspended_type": "fourth",
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "a0ef309a-5383-4425-a549-367887dd775e",
+                "step": 21,
+                "chord": {
+                  "id": "666a3125-2e7f-4456-bcfb-564e1ab0bf4d",
+                  "root_note": "G",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "613a8cbf-154d-4480-b954-54f74f806503",
+          "position": 3,
+          "repeats": 1,
+          "lyric": {
+            "id": "bb36f752-9f8f-4d33-b6c2-986b7d7b0e6f",
+            "text": "everywhere you go, always take the weather,"
+          },
+          "chordSequence": {
+            "id": "eeab1589-1d69-4c94-bfca-e0031675ffd2",
+            "sequence": [
+              {
+                "id": "9eeb3684-e377-4d8c-8267-c88b327c3210",
+                "step": 1,
+                "chord": {
+                  "id": "3a52b74a-625d-4931-a7fc-d4f9d201c8f4",
+                  "root_note": "D",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": "F",
+                  "bass_note_alteration": "sharp",
+                  "image_path": null
+                }
+              },
+              {
+                "id": "f84f6fef-de52-4078-b93b-ef4c965695f5",
+                "step": 21,
+                "chord": {
+                  "id": "27985108-c335-4e1f-a436-acc588cd0ae8",
+                  "root_note": "E",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "c52458b9-5d13-4bf8-8d74-8b7b8a5cb874",
+          "position": 4,
+          "repeats": 1,
+          "lyric": {
+            "id": "97c1bb22-ad77-4ff4-bf43-fa2f8b8a5351",
+            "text": "you take the weather, the weather with you."
+          },
+          "chordSequence": {
+            "id": "9b0ffa5e-862e-4c5c-90fb-c8c7d14aa1c7",
+            "sequence": [
+              {
+                "id": "165ad93c-cc9e-488e-81ad-fababca3d35c",
+                "step": 1,
+                "chord": {
+                  "id": "917d6a83-7dbe-436b-ac9c-ef2ab2cc4a7b",
+                  "root_note": "G",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "8475f3d2-85e6-4574-a045-7499fa5fe892",
+                "step": 14,
+                "chord": {
+                  "id": "314244b2-4429-4657-85c4-f770e5832235",
+                  "root_note": "A",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "8942d1e0-591a-49a4-9131-9258252c9b4b",
+                "step": 27,
+                "chord": {
+                  "id": "09c3cd36-da4a-4451-9984-62ee06d29b18",
+                  "root_note": "D",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              },
+              {
+                "id": "70b3e0e6-5bf0-40b5-a83d-2e66801f4ab6",
+                "step": 47,
+                "chord": {
+                  "id": "f4852ad9-9fb5-4adc-b96b-d74ce75ffa41",
+                  "root_note": "D",
+                  "root_note_alteration": "natural",
+                  "chord_type": "major",
+                  "seventh_type": null,
+                  "extended_type": null,
+                  "suspended_type": null,
+                  "added_type": null,
+                  "added_alteration": "natural",
+                  "bass_note": null,
+                  "bass_note_alteration": null,
+                  "image_path": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
